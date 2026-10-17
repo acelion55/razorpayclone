@@ -1,2 +1,2 @@
 export * from './client.js';
-export * from './youpi-checkout.js';
+export * from './razorpayclone-checkout.js';

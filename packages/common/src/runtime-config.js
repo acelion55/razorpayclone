@@ -100,8 +100,8 @@ export function deriveCloudflareRoutes(config = {}) {
 export function resolveRuntimeUrls(options = {}) {
   let mode = options.envMode;
   if (!mode) {
-    if (process.env.YOUPI_MODE) {
-      mode = process.env.YOUPI_MODE;
+    if (process.env.RAZORPAYCLONE_MODE) {
+      mode = process.env.RAZORPAYCLONE_MODE;
     } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
       mode = 'localhost';
     } else if (process.env.CLOUDFLARE_DOMAIN) {
@@ -116,7 +116,7 @@ export function resolveRuntimeUrls(options = {}) {
 
   if (mode === 'production') {
     if (!domain) {
-      if ((process.env.NODE_ENV === 'test' || process.env.YOUPI_MODE === 'localhost') && options.envMode !== 'production') {
+      if ((process.env.NODE_ENV === 'test' || process.env.RAZORPAYCLONE_MODE === 'localhost') && options.envMode !== 'production') {
         mode = 'localhost';
       } else {
         throw new Error('Production Configuration Incomplete: Cloudflare Domain is required when running in PRODUCTION mode.');
@@ -188,7 +188,7 @@ export function createPairingPayload(options = {}) {
 
   return {
     version: 'v1',
-    type: 'YOUPI_SMS_GATEWAY_PAIR',
+    type: 'RAZORPAYCLONE_SMS_GATEWAY_PAIR',
     serverUrl: serverUrl || 'http://localhost:6100',
     sessionId,
     token,
@@ -203,16 +203,16 @@ export function createPairingPayload(options = {}) {
  */
 export function validatePairingPayload(payload) {
   if (!payload || typeof payload !== 'object') {
-    return { valid: false, error: 'INVALID YOUPI PAIRING QR' };
+    return { valid: false, error: 'INVALID Razorpay Clone PAIRING QR' };
   }
-  if (payload.type !== 'YOUPI_SMS_GATEWAY_PAIR') {
-    return { valid: false, error: 'INVALID YOUPI PAIRING QR' };
+  if (payload.type !== 'RAZORPAYCLONE_SMS_GATEWAY_PAIR') {
+    return { valid: false, error: 'INVALID Razorpay Clone PAIRING QR' };
   }
   if (payload.version !== 'v1') {
-    return { valid: false, error: 'INVALID YOUPI PAIRING QR VERSION' };
+    return { valid: false, error: 'INVALID Razorpay Clone PAIRING QR VERSION' };
   }
   if (!payload.serverUrl || !payload.token || !payload.sessionId) {
-    return { valid: false, error: 'MALFORMED YOUPI PAIRING QR: Missing required fields' };
+    return { valid: false, error: 'MALFORMED Razorpay Clone PAIRING QR: Missing required fields' };
   }
   if (!payload.serverUrl.startsWith('http://') && !payload.serverUrl.startsWith('https://')) {
     return { valid: false, error: 'INVALID SERVER URL PROTOCOL' };

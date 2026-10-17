@@ -68,7 +68,7 @@ async function runTestSuite() {
 
     console.log('=== TEST 1: Check Initiated Session - Sign in to Pay with Single Saved Account ===');
     await evaluate(`
-      localStorage.setItem('youpi.customer.accounts', JSON.stringify([
+      localStorage.setItem('razorpayclone.customer.accounts', JSON.stringify([
         { id: '74879c31-ea68-427a-87a6-a02d08109afd', name: 'Gaurav Mehra', email: 'gauravmehra09876@gmail.com', mobileNumber: '9212339720' }
       ]));
       renderSavedAccountsUI();

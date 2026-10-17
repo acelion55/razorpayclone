@@ -1,7 +1,7 @@
 {
-  "name": "@youpi/common",
+  "name": "@razorpayclone/common",
   "version": "1.0.0",
-  "description": "Shared protocols, types, currency utilities, and cryptographic helpers for YOUPI PG",
+  "description": "Shared protocols, types, currency utilities, and cryptographic helpers for RAZORPAY CLONE",
   "type": "module",
   "main": "./src/index.js",
   "exports": {

@@ -1,7 +1,7 @@
 # Installation & Host Environment Setup Guide
 
 ## 1. Operating Environment
-YOUPI PG is distributed as source code and is engineered to run directly as native host processes on standard Linux (Ubuntu, Debian, RHEL, CentOS) and Windows 10/11 environments.
+RAZORPAY CLONE is distributed as source code and is engineered to run directly as native host processes on standard Linux (Ubuntu, Debian, RHEL, CentOS) and Windows 10/11 environments.
 
 **Zero Docker Requirement:** Docker, Docker Compose, and external container engines are completely optional and not required. Standard `npm install` works out-of-the-box across all workspace packages.
 
@@ -14,12 +14,12 @@ YOUPI PG is distributed as source code and is engineered to run directly as nati
 
 ## 2. Zero-Config Quickstart (All Platforms)
 
-Thanks to **Zero-Config Database Auto-Provisioning**, YOUPI PG automatically creates `data/youpi_pg.sqlite` and executes idempotent schema migrations and default seeds on first launch:
+Thanks to **Zero-Config Database Auto-Provisioning**, RAZORPAY CLONE automatically creates `data/razorpayclone.sqlite` and executes idempotent schema migrations and default seeds on first launch:
 
 ```bash
 # 1. Clone repository
-git clone <your-repository-url> youpi-pg
-cd youpi-pg
+git clone <your-repository-url> razorpayclone
+cd razorpayclone
 
 # 2. Install dependencies (Standard NPM out-of-the-box)
 npm install
@@ -46,8 +46,8 @@ curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
 sudo apt install -y nodejs git
 
 # 3. Clone and enter repository
-git clone <your-repository-url> youpi-pg
-cd youpi-pg
+git clone <your-repository-url> razorpayclone
+cd razorpayclone
 
 # 4. Install dependencies
 npm install

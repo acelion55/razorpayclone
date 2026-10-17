@@ -1,17 +1,17 @@
 import { HttpServer } from '../server.js';
-import { toPaise, toRupeesString, resolveRuntimeUrls, PaymentStatus } from '@youpi/common';
-import { isTerminalStatus, toPublicOutcome } from '@youpi/core';
+import { toPaise, toRupeesString, resolveRuntimeUrls, PaymentStatus } from '@razorpayclone/common';
+import { isTerminalStatus, toPublicOutcome } from '@razorpayclone/core';
 
 /**
  * Registers merchant-facing payment routes.
  * @param {HttpServer} server
  * @param {{
- *   merchantRepo: import('@youpi/db').MerchantRepository,
- *   accountRepo: import('@youpi/db').ReceivingAccountRepository,
- *   sessionRepo: import('@youpi/db').PaymentSessionRepository,
- *   queueEngine: import('@youpi/core').QueueEngine,
- *   timingEngine: import('@youpi/core').TimingEngine,
- *   auditRepo: import('@youpi/db').AuditLogRepository,
+ *   merchantRepo: import('@razorpayclone/db').MerchantRepository,
+ *   accountRepo: import('@razorpayclone/db').ReceivingAccountRepository,
+ *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
+ *   queueEngine: import('@razorpayclone/core').QueueEngine,
+ *   timingEngine: import('@razorpayclone/core').TimingEngine,
+ *   auditRepo: import('@razorpayclone/db').AuditLogRepository,
  *   checkoutBaseUrl: string
  * }} ctx
  */

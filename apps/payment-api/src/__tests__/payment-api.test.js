@@ -1,9 +1,9 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database } from '@youpi/db';
+import { Database } from '@razorpayclone/db';
 import { startServer } from '../index.js';
-import { PaymentStatus, ObserverSource, verifyHmac } from '@youpi/common';
+import { PaymentStatus, ObserverSource, verifyHmac } from '@razorpayclone/common';
 
 describe('Payment API End-to-End HTTP Integration Tests', () => {
   let serverInstance;

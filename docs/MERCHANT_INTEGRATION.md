@@ -1,7 +1,7 @@
 # Merchant Integration & Webhook Guide
 
 ## 1. Overview
-The YOUPI PG public contract is designed to be minimal and robust. Merchant systems do not need to understand queue mechanics, five-minute timers, 30-second verification windows, or multi-channel observation.
+The RAZORPAY CLONE public contract is designed to be minimal and robust. Merchant systems do not need to understand queue mechanics, five-minute timers, 30-second verification windows, or multi-channel observation.
 
 Merchants interact with only **four public outcomes**:
 - `SUCCESS`: Payment observed and verified.
@@ -11,18 +11,18 @@ Merchants interact with only **four public outcomes**:
 
 ---
 
-## 2. Using `@youpi/merchant-sdk`
+## 2. Using `@razorpayclone/merchant-sdk`
 
 ### Installation
 ```bash
-npm install @youpi/merchant-sdk
+npm install @razorpayclone/merchant-sdk
 ```
 
 ### Initialize Client
 ```javascript
-import { YoupiPaymentClient } from '@youpi/merchant-sdk';
+import { RazorpayClonePaymentClient } from '@razorpayclone/merchant-sdk';
 
-const client = new YoupiPaymentClient({
+const client = new RazorpayClonePaymentClient({
   apiUrl: 'https://pay.yourbusiness.com',
   merchantId: 'your-merchant-uuid',
   webhookSecret: 'your-webhook-secret-key'

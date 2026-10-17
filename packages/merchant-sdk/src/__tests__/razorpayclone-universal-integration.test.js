@@ -1,10 +1,10 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { Database } from '@youpi/db';
+import { Database } from '@razorpayclone/db';
 import { startServer as startPaymentApi } from '../../../../apps/payment-api/src/index.js';
-import { YoupiPaymentClient, YoupiCheckout, Youpi } from '../index.js';
+import { RazorpayClonePaymentClient, RazorpayCloneCheckout, RazorpayClone } from '../index.js';
 
-describe('Universal YOUPI PG One-Script Integration Tests', () => {
+describe('Universal RAZORPAY CLONE One-Script Integration Tests', () => {
   let apiInstance;
   let testDb;
 
@@ -18,19 +18,19 @@ describe('Universal YOUPI PG One-Script Integration Tests', () => {
     testDb.close();
   });
 
-  test('SDK exports both YoupiCheckout and Youpi aliases', () => {
-    assert.ok(YoupiCheckout);
-    assert.ok(Youpi);
-    assert.equal(YoupiCheckout, Youpi);
-    assert.equal(typeof Youpi.pay, 'function');
-    assert.equal(typeof Youpi.open, 'function');
-    assert.equal(typeof Youpi.handleButtonClick, 'function');
+  test('SDK exports both RazorpayCloneCheckout and RazorpayClone aliases', () => {
+    assert.ok(RazorpayCloneCheckout);
+    assert.ok(RazorpayClone);
+    assert.equal(RazorpayCloneCheckout, RazorpayClone);
+    assert.equal(typeof RazorpayClone.pay, 'function');
+    assert.equal(typeof RazorpayClone.open, 'function');
+    assert.equal(typeof RazorpayClone.handleButtonClick, 'function');
   });
 
-  test('Youpi.pay creates payment session and resolves checkoutUrl on backend', async () => {
+  test('RazorpayClone.pay creates payment session and resolves checkoutUrl on backend', async () => {
     // Mock fetch for headless Node environment
     const orderId = `PAY-TEST-${Date.now()}`;
-    const instance = new YoupiCheckout({
+    const instance = new RazorpayCloneCheckout({
       apiUrl: `http://localhost:${apiInstance.port}`,
       orderId,
       amount: '499.00',
@@ -45,7 +45,7 @@ describe('Universal YOUPI PG One-Script Integration Tests', () => {
   test('Button attribute extractor correctly parses customer and metadata attributes', () => {
     // Mock DOM button element
     const mockAttrs = {
-      'data-youpi-pay': '',
+      'data-razorpayclone-pay': '',
       'data-order-id': 'ORD-BTN-101',
       'data-amount': '750',
       'data-currency': 'INR',

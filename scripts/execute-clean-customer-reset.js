@@ -9,7 +9,7 @@ async function executeCleanReset() {
   console.log('============================================================');
 
   // --- 1. PRODUCTION RESET ---
-  const prodPath = path.resolve('data/youpi_pg.sqlite');
+  const prodPath = path.resolve('data/razorpayclone.sqlite');
   console.log('\n[1] Processing Production Database:', prodPath);
 
   const prodBackupDir = path.resolve('data/backups');
@@ -50,7 +50,7 @@ async function executeCleanReset() {
   prodDb.close();
 
   // --- 2. DEVELOPMENT RESET ---
-  const devPath = process.env.DEV_DB_PATH || path.resolve(process.cwd(), 'data/youpi_pg_dev.sqlite');
+  const devPath = process.env.DEV_DB_PATH || path.resolve(process.cwd(), 'data/razorpayclone_dev.sqlite');
   console.log('\n[2] Processing Development Database:', devPath);
 
   if (fs.existsSync(devPath)) {

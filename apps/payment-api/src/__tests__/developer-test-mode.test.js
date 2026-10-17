@@ -1,9 +1,9 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database, CustomerRepository, PaymentSessionRepository, MerchantRepository } from '@youpi/db';
+import { Database, CustomerRepository, PaymentSessionRepository, MerchantRepository } from '@razorpayclone/db';
 import { startServer as startPaymentApi } from '../index.js';
-import { PaymentStatus, PaymentMethod } from '@youpi/common';
+import { PaymentStatus, PaymentMethod } from '@razorpayclone/common';
 
 describe('Section 12: Developer Test Mode Acceptance Tests (All 29 Points)', () => {
   let apiInstance;
@@ -356,7 +356,7 @@ describe('Section 12: Developer Test Mode Acceptance Tests (All 29 Points)', () 
   test('21 & 22. Inject suspicious message: verify fraud detection occurs and automatic banning is executed immediately', async () => {
     const customer = customerRepo.create({
       name: 'Safe Developer Tester',
-      email: 'safe_tester@youpi.local',
+      email: 'safe_tester@razorpayclone.local',
       mobileNumber: '9988776655',
       status: 'ACTIVE'
     });

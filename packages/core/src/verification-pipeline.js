@@ -6,7 +6,7 @@ import {
   toPaise,
   normalizeEmail,
   normalizeMobile
-} from '@youpi/common';
+} from '@razorpayclone/common';
 import { extractIntelligentAmount } from './bank-sms-parser.js';
 import { ObservationNormalizer } from './normalizer.js';
 
@@ -81,13 +81,13 @@ const FRAUD_PATTERNS = [
 export class PaymentVerificationPipeline {
   /**
    * @param {{
-   *   db: import('@youpi/db').Database,
-   *   sessionRepo: import('@youpi/db').PaymentSessionRepository,
-   *   obsRepo: import('@youpi/db').ObservationRepository,
-   *   customerRepo?: import('@youpi/db').CustomerRepository,
+   *   db: import('@razorpayclone/db').Database,
+   *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
+   *   obsRepo: import('@razorpayclone/db').ObservationRepository,
+   *   customerRepo?: import('@razorpayclone/db').CustomerRepository,
    *   attributionEngine: import('./attribution-engine.js').AttributionEngine,
-   *   auditRepo?: import('@youpi/db').AuditLogRepository,
-   *   merchantRepo?: import('@youpi/db').MerchantRepository
+   *   auditRepo?: import('@razorpayclone/db').AuditLogRepository,
+   *   merchantRepo?: import('@razorpayclone/db').MerchantRepository
    * }} options
    */
   constructor(options) {
@@ -362,7 +362,7 @@ export class PaymentVerificationPipeline {
       // Universal Bank Identifier: Email domain ends with .bank.in (e.g. alerts@hdfc.bank.in, example@example.bank.in)
       const isBankDomain = emailDomain.endsWith('.bank.in') || emailDomain === 'bank.in';
       // In automated test suite or local dev, allow TEST sender and legacy test fixture domains
-      const isValidDomain = isBankDomain || sender === 'TEST' || cleanEmail === 'TEST' || sender === 'gmail-browser-automator' || emailDomain.endsWith('.youpi.local') || emailDomain === 'hdfcbank.net';
+      const isValidDomain = isBankDomain || sender === 'TEST' || cleanEmail === 'TEST' || sender === 'gmail-browser-automator' || emailDomain.endsWith('.razorpayclone.local') || emailDomain === 'hdfcbank.net';
 
       if (!isValidDomain) {
         if (!isAttributableToCustomer) {

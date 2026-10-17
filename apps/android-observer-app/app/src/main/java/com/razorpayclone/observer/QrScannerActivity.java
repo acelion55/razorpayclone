@@ -1,4 +1,4 @@
-package com.youpi.observer;
+package com.razorpayclone.observer;
 
 import android.app.Activity;
 import android.content.Context;

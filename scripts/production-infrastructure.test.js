@@ -9,10 +9,10 @@ import {
   validatePairingPayload,
   PaymentStatus,
   PaymentMethod
-} from '@youpi/common';
-import { Database, runMigrations, MerchantRepository, DeviceRepository } from '@youpi/db';
+} from '@razorpayclone/common';
+import { Database, runMigrations, MerchantRepository, DeviceRepository } from '@razorpayclone/db';
 
-describe('YOUPI PG V2 — Production Infrastructure Finalization (Part L Acceptance Tests)', () => {
+describe('RAZORPAY CLONE V2 — Production Infrastructure Finalization (Part L Acceptance Tests)', () => {
   // ============================================================
   // GROUP 1: CLOUDFLARE TUNNEL CONFIGURATION (Acceptance 1 - 12)
   // ============================================================
@@ -175,7 +175,7 @@ describe('YOUPI PG V2 — Production Infrastructure Finalization (Part L Accepta
       });
 
       assert.equal(payload.version, 'v1');
-      assert.equal(payload.type, 'YOUPI_SMS_GATEWAY_PAIR');
+      assert.equal(payload.type, 'RAZORPAYCLONE_SMS_GATEWAY_PAIR');
       assert.equal(payload.serverUrl, 'https://pay-api.example.com');
       assert.equal(payload.sessionId, 'sess_12345');
       assert.equal(payload.token, 'enroll_secret_abc');
@@ -235,7 +235,7 @@ describe('YOUPI PG V2 — Production Infrastructure Finalization (Part L Accepta
       const badVersion = { ...validPayload, version: 'v999' };
       const checkBadVersion = validatePairingPayload(badVersion);
       assert.equal(checkBadVersion.valid, false);
-      assert.equal(checkBadVersion.error, 'INVALID YOUPI PAIRING QR VERSION');
+      assert.equal(checkBadVersion.error, 'INVALID Razorpay Clone PAIRING QR VERSION');
 
       // Malformed URL
       const badUrl = { ...validPayload, serverUrl: 'not_a_valid_url' };

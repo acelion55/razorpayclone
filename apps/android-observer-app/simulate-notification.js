@@ -3,7 +3,7 @@ import { AndroidObserverDriver } from './driver.js';
 /**
  * Android Notification Push Simulator CLI.
  * Simulates real status bar notifications being captured on an Android device
- * and dispatched to the self-hosted YOUPI Payment Gateway.
+ * and dispatched to the self-hosted Razorpay Clone Payment Gateway.
  */
 
 const API_BASE = process.env.BASE_PAYMENT_API_URL || 'http://localhost:6100';
@@ -11,7 +11,7 @@ const ENROLLMENT_SECRET = process.env.ANDROID_ENROLLMENT_SECRET || 'android_pair
 
 async function main() {
   console.log('========================================================');
-  console.log('📱 YOUPI Android Payment Observer Notification Simulator');
+  console.log('📱 Razorpay Clone Android Payment Observer Notification Simulator');
   console.log('========================================================');
 
   const driver = new AndroidObserverDriver({

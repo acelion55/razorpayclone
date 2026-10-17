@@ -1,4 +1,4 @@
-package com.youpi.observer
+package com.razorpayclone.observer
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -9,7 +9,7 @@ import android.util.Log
 /**
  * BroadcastReceiver listening for incoming SMS on the Android device.
  * Automatically extracts the bank SMS body, sender, and timestamp,
- * and securely forwards it to the paired YouPI PG Merchant Gateway.
+ * and securely forwards it to the paired Razorpay Clone Merchant Gateway.
  */
 class SmsReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -32,7 +32,7 @@ class SmsReceiver : BroadcastReceiver() {
 
                 Thread {
                     val success = apiClient.sendSms(sender, body, timestamp)
-                    Log.d("SmsReceiver", "Dispatched SMS to YouPI Gateway: success=$success")
+                    Log.d("SmsReceiver", "Dispatched SMS to Razorpay Clone Gateway: success=$success")
                 }.start()
             }
         }

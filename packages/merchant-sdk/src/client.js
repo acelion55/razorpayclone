@@ -1,6 +1,6 @@
-import { verifyHmac } from '@youpi/common';
+import { verifyHmac } from '@razorpayclone/common';
 
-export class YoupiPaymentClient {
+export class RazorpayClonePaymentClient {
   /**
    * @param {{
    *   apiUrl?: string,

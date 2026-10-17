@@ -1,11 +1,11 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database } from '@youpi/db';
+import { Database } from '@razorpayclone/db';
 import { startServer as startPaymentApi } from '../../../payment-api/src/index.js';
 import { startSmsObserver } from '../index.js';
 import { BankSmsParser } from '../sms-parser.js';
-import { PaymentStatus } from '@youpi/common';
+import { PaymentStatus } from '@razorpayclone/common';
 
 describe('Google Messages / SMS Payment Observer Integration Tests', () => {
   let apiInstance;

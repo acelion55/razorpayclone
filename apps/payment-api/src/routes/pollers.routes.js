@@ -3,8 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { HttpServer } from '../server.js';
-import { ObservationNormalizer, BankSmsParser, BankEmailParser, generateQrSvg } from '@youpi/core';
-import { toRupeesString, toPaise, verifyHmac, resolveRuntimeUrls } from '@youpi/common';
+import { ObservationNormalizer, BankSmsParser, BankEmailParser, generateQrSvg } from '@razorpayclone/core';
+import { toRupeesString, toPaise, verifyHmac, resolveRuntimeUrls } from '@razorpayclone/common';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,12 +14,12 @@ const __dirname = path.dirname(__filename);
  * and Automated Observers (Gmail Direct API / Web Observers).
  * @param {HttpServer} server
  * @param {{
- *   attributionEngine: import('@youpi/core').AttributionEngine,
- *   db: import('@youpi/db').Database,
- *   auditRepo: import('@youpi/db').AuditLogRepository,
- *   sessionRepo?: import('@youpi/db').PaymentSessionRepository,
- *   accountRepo?: import('@youpi/db').ReceivingAccountRepository,
- *   merchantRepo?: import('@youpi/db').MerchantRepository
+ *   attributionEngine: import('@razorpayclone/core').AttributionEngine,
+ *   db: import('@razorpayclone/db').Database,
+ *   auditRepo: import('@razorpayclone/db').AuditLogRepository,
+ *   sessionRepo?: import('@razorpayclone/db').PaymentSessionRepository,
+ *   accountRepo?: import('@razorpayclone/db').ReceivingAccountRepository,
+ *   merchantRepo?: import('@razorpayclone/db').MerchantRepository
  * }} ctx
  */
 export function registerPollerRoutes(server, ctx) {
@@ -151,7 +151,7 @@ export function registerPollerRoutes(server, ctx) {
     const deviceModel = body.deviceModel || 'Android Device';
 
     // Verify enrollment token against system secret or merchant token
-    if (!token || (token !== enrollmentSecret && token !== `pair_${merchantId.slice(0, 8)}` && token !== 'youpi_sms_pair_token_secure')) {
+    if (!token || (token !== enrollmentSecret && token !== `pair_${merchantId.slice(0, 8)}` && token !== 'razorpayclone_sms_pair_token_secure')) {
       HttpServer.json(res, 401, { error: 'Invalid or expired device pairing enrollment token.' });
       return;
     }
@@ -162,7 +162,7 @@ export function registerPollerRoutes(server, ctx) {
     }
 
     if (body.version && body.version !== 'v1') {
-      HttpServer.json(res, 400, { error: 'INVALID YOUPI PAIRING QR' });
+      HttpServer.json(res, 400, { error: 'INVALID Razorpay Clone PAIRING QR' });
       return;
     }
 
@@ -403,7 +403,7 @@ export function registerPollerRoutes(server, ctx) {
 
     const pairingPayloadObj = {
       version: 'v1',
-      type: 'YOUPI_SMS_GATEWAY_PAIR',
+      type: 'RAZORPAYCLONE_SMS_GATEWAY_PAIR',
       serverUrl: baseUrl,
       gatewayUrl: baseUrl,
       apiBaseUrl: baseUrl,
@@ -500,13 +500,13 @@ export function registerPollerRoutes(server, ctx) {
     HttpServer.json(res, 200, { success: true, message: 'Device unlinked.' });
   });
 
-  // GET /api/v1/admin/sms-gateway/download-apk & GET /youpi-sms-gateway.apk
+  // GET /api/v1/admin/sms-gateway/download-apk & GET /razorpayclone-sms-gateway.apk
   const serveApk = async (req, res) => {
     const apkLocations = [
-      path.resolve(__dirname, '../../public/youpi-sms-gateway.apk'),
-      path.resolve(__dirname, '../../../merchant-admin/public/youpi-sms-gateway.apk'),
-      path.resolve(__dirname, '../../../android-observer-app/app/build/outputs/apk/release/youpi-sms-gateway.apk'),
-      path.resolve(__dirname, '../../../android-observer-app/youpi-sms-gateway.apk')
+      path.resolve(__dirname, '../../public/razorpayclone-sms-gateway.apk'),
+      path.resolve(__dirname, '../../../merchant-admin/public/razorpayclone-sms-gateway.apk'),
+      path.resolve(__dirname, '../../../android-observer-app/app/build/outputs/apk/release/razorpayclone-sms-gateway.apk'),
+      path.resolve(__dirname, '../../../android-observer-app/razorpayclone-sms-gateway.apk')
     ];
 
     let foundPath = null;
@@ -521,16 +521,16 @@ export function registerPollerRoutes(server, ctx) {
       // Create a fallback stub APK binary file if build hasn't outputted yet
       const fallbackDir = path.resolve(__dirname, '../../public');
       if (!fs.existsSync(fallbackDir)) fs.mkdirSync(fallbackDir, { recursive: true });
-      foundPath = path.join(fallbackDir, 'youpi-sms-gateway.apk');
+      foundPath = path.join(fallbackDir, 'razorpayclone-sms-gateway.apk');
       if (!fs.existsSync(foundPath)) {
-        fs.writeFileSync(foundPath, Buffer.from('PK\x03\x04YOUPI_SMS_GATEWAY_STANDALONE_APK_PACKAGE'));
+        fs.writeFileSync(foundPath, Buffer.from('PK\x03\x04RAZORPAYCLONE_SMS_GATEWAY_STANDALONE_APK_PACKAGE'));
       }
     }
 
     const stat = fs.statSync(foundPath);
     res.writeHead(200, {
       'Content-Type': 'application/vnd.android.package-archive',
-      'Content-Disposition': 'attachment; filename="youpi-sms-gateway.apk"',
+      'Content-Disposition': 'attachment; filename="razorpayclone-sms-gateway.apk"',
       'Content-Length': stat.size,
       'Access-Control-Allow-Origin': '*'
     });
@@ -538,5 +538,5 @@ export function registerPollerRoutes(server, ctx) {
   };
 
   server.get('/api/v1/admin/sms-gateway/download-apk', serveApk);
-  server.get('/youpi-sms-gateway.apk', serveApk);
+  server.get('/razorpayclone-sms-gateway.apk', serveApk);
 }

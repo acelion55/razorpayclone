@@ -1,12 +1,12 @@
 import crypto from 'node:crypto';
-import { generateHmac, toRupeesString } from '@youpi/common';
+import { generateHmac, toRupeesString } from '@razorpayclone/common';
 import { isTerminalStatus, toPublicOutcome } from './state-machine.js';
 
 export class WebhookEngine {
   /**
    * @param {{
-   *   db: import('@youpi/db').Database,
-   *   merchantRepo: import('@youpi/db').MerchantRepository,
+   *   db: import('@razorpayclone/db').Database,
+   *   merchantRepo: import('@razorpayclone/db').MerchantRepository,
    *   maxRetries?: number
    * }} options
    */

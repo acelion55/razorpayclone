@@ -9,7 +9,7 @@ const testFiles = [
   'packages/core/src/__tests__/queue-timing.test.js',
   'packages/core/src/__tests__/webhook-engine.test.js',
   'packages/merchant-sdk/src/__tests__/merchant-sdk.test.js',
-  'packages/merchant-sdk/src/__tests__/youpi-universal-integration.test.js',
+  'packages/merchant-sdk/src/__tests__/razorpayclone-universal-integration.test.js',
   'apps/checkout-portal/src/__tests__/checkout-portal.test.js',
   'apps/coin-wallet-store/src/__tests__/coin-wallet-store.test.js',
   'apps/merchant-admin/src/__tests__/merchant-admin.test.js',
@@ -35,7 +35,7 @@ const testFiles = [
 ];
 
 console.log('============================================================');
-console.log('🧪 YOUPI PG V2 — FULL REGRESSION TEST RUNNER');
+console.log('🧪 RAZORPAY CLONE V2 — FULL REGRESSION TEST RUNNER');
 console.log(`Running ${testFiles.length} curated test suites...`);
 console.log('============================================================\n');
 
@@ -50,7 +50,7 @@ for (let i = 0; i < testFiles.length; i++) {
     stdio: 'pipe',
     env: {
       ...process.env,
-      YOUPI_MODE: 'localhost',
+      RAZORPAYCLONE_MODE: 'localhost',
       NODE_ENV: 'test'
     },
     encoding: 'utf8'

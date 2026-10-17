@@ -1,14 +1,14 @@
 {
-  "name": "@youpi/core",
+  "name": "@razorpayclone/core",
   "version": "1.0.0",
-  "description": "Payment core state machine, observation normalizer, and attribution engine for YOUPI PG",
+  "description": "Payment core state machine, observation normalizer, and attribution engine for RAZORPAY CLONE",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@youpi/common": "*",
-    "@youpi/db": "*"
+    "@razorpayclone/common": "*",
+    "@razorpayclone/db": "*"
   }
 }

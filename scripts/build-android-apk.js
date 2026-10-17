@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPO_ROOT = path.resolve(__dirname, '..');
 
-console.log('🚀 Starting certified Android APK compilation for YouPI SMS Gateway...');
+console.log('🚀 Starting certified Android APK compilation for Razorpay Clone SMS Gateway...');
 
 // Resolve Toolchain Paths
 const JDK_DIR = 'C:\\Program Files\\Microsoft\\jdk-17.0.20.101-hotspot\\bin';
@@ -24,7 +24,7 @@ const ANDROID_JAR = 'C:\\Users\\gaura\\scoop\\apps\\android-clt\\current\\platfo
 const APP_DIR = path.resolve(REPO_ROOT, 'apps/android-observer-app/app');
 const MANIFEST = path.resolve(APP_DIR, 'src/main/AndroidManifest.xml');
 const RES_DIR = path.resolve(APP_DIR, 'src/main/res');
-const JAVA_DIR = path.resolve(APP_DIR, 'src/main/java/com/youpi/observer');
+const JAVA_DIR = path.resolve(APP_DIR, 'src/main/java/com/razorpayclone/observer');
 
 const WORK_DIR = path.resolve(REPO_ROOT, '.tmp_apk_build');
 if (fs.existsSync(WORK_DIR)) {
@@ -106,10 +106,10 @@ try {
   // 5. Generate Keystore & Sign APK with apksigner (v1, v2, and v3 signatures)
   console.log('🔏 [5/6] Signing APK with Android v2 + v3 cryptographic certificate...');
   const keystorePath = path.join(WORK_DIR, 'release.keystore');
-  const ksPass = 'youpipg123';
-  const alias = 'youpi_gateway';
+  const ksPass = 'razorpayclone123';
+  const alias = 'razorpayclone_gateway';
 
-  execSync(`"${KEYTOOL}" -genkeypair -v -keystore "${keystorePath}" -alias "${alias}" -keyalg RSA -keysize 2048 -validity 10000 -storepass "${ksPass}" -keypass "${ksPass}" -dname "CN=YouPI SMS Gateway, OU=Merchant Payments, O=YouPI PG, L=Mumbai, ST=MH, C=IN"`, {
+  execSync(`"${KEYTOOL}" -genkeypair -v -keystore "${keystorePath}" -alias "${alias}" -keyalg RSA -keysize 2048 -validity 10000 -storepass "${ksPass}" -keypass "${ksPass}" -dname "CN=Razorpay Clone SMS Gateway, OU=Merchant Payments, O=Razorpay Clone, L=Mumbai, ST=MH, C=IN"`, {
     stdio: 'pipe'
   });
 
@@ -128,9 +128,9 @@ try {
   console.log('🚚 [6/6] Distributing final APK to app portals...');
   const apkBuffer = fs.readFileSync(signedApk);
   const targets = [
-    path.resolve(REPO_ROOT, 'apps/android-observer-app/youpi-sms-gateway.apk'),
-    path.resolve(REPO_ROOT, 'apps/payment-api/public/youpi-sms-gateway.apk'),
-    path.resolve(REPO_ROOT, 'apps/merchant-admin/public/youpi-sms-gateway.apk')
+    path.resolve(REPO_ROOT, 'apps/android-observer-app/razorpayclone-sms-gateway.apk'),
+    path.resolve(REPO_ROOT, 'apps/payment-api/public/razorpayclone-sms-gateway.apk'),
+    path.resolve(REPO_ROOT, 'apps/merchant-admin/public/razorpayclone-sms-gateway.apk')
   ];
 
   for (const t of targets) {

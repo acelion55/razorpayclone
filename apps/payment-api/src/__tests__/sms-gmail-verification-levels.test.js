@@ -1,8 +1,8 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
-import { Database } from '@youpi/db';
-import { PaymentStatus, PaymentMethod } from '@youpi/common';
+import { Database } from '@razorpayclone/db';
+import { PaymentStatus, PaymentMethod } from '@razorpayclone/common';
 import { startServer } from '../index.js';
 
 describe('2-Level Verification (SMS Gateway + Gmail) & Queue Management Tests', () => {

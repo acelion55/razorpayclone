@@ -1,13 +1,13 @@
 {
-  "name": "@youpi/db",
+  "name": "@razorpayclone/db",
   "version": "1.0.0",
-  "description": "Database layer, migrations, and repository abstractions for YOUPI PG",
+  "description": "Database layer, migrations, and repository abstractions for RAZORPAY CLONE",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@youpi/common": "*"
+    "@razorpayclone/common": "*"
   }
 }

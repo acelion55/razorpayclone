@@ -3,12 +3,12 @@ const fs = require('node:fs');
 
 async function main() {
   console.log('============================================================');
-  console.log('📦 YOUPI PG — DATABASE INITIALIZATION / SETUP');
+  console.log('📦 RAZORPAY CLONE — DATABASE INITIALIZATION / SETUP');
   console.log('============================================================');
 
   const rootDir = path.resolve(__dirname, '..');
   const dbDir = path.join(rootDir, 'data');
-  const dbPath = process.env.SQLITE_DB_PATH || path.join(dbDir, 'youpi_pg.sqlite');
+  const dbPath = process.env.SQLITE_DB_PATH || path.join(dbDir, 'razorpayclone.sqlite');
 
   console.log(`[+] Database target path: ${dbPath}`);
 
@@ -17,18 +17,18 @@ async function main() {
     console.log(`[+] Created database directory: ${path.dirname(dbPath)}`);
   }
 
-  // Ensure workspace packages in node_modules/@youpi are linked
-  const youpiScopeDir = path.join(rootDir, 'node_modules', '@youpi');
+  // Ensure workspace packages in node_modules/@razorpayclone are linked
+  const razorpaycloneScopeDir = path.join(rootDir, 'node_modules', '@razorpayclone');
   const packagesDir = path.join(rootDir, 'packages');
   if (fs.existsSync(packagesDir)) {
-    if (!fs.existsSync(youpiScopeDir)) {
-      fs.mkdirSync(youpiScopeDir, { recursive: true });
+    if (!fs.existsSync(razorpaycloneScopeDir)) {
+      fs.mkdirSync(razorpaycloneScopeDir, { recursive: true });
     }
     const pkgs = fs.readdirSync(packagesDir, { withFileTypes: true });
     for (const pkg of pkgs) {
       if (pkg.isDirectory()) {
         const targetPkg = path.join(packagesDir, pkg.name);
-        const linkPath = path.join(youpiScopeDir, pkg.name);
+        const linkPath = path.join(razorpaycloneScopeDir, pkg.name);
         if (!fs.existsSync(linkPath)) {
           try {
             fs.symlinkSync(targetPkg, linkPath, 'junction');

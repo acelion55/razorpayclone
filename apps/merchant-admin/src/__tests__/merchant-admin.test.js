@@ -1,7 +1,7 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database } from '@youpi/db';
+import { Database } from '@razorpayclone/db';
 import { startAdminServer } from '../index.js';
 
 describe('Merchant Admin Integration Tests', () => {

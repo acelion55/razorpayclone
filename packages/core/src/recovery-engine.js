@@ -1,14 +1,14 @@
-import { PaymentStatus } from '@youpi/common';
+import { PaymentStatus } from '@razorpayclone/common';
 
 export class RecoveryEngine {
   /**
    * @param {{
-   *   db: import('@youpi/db').Database,
-   *   sessionRepo: import('@youpi/db').PaymentSessionRepository,
-   *   accountRepo: import('@youpi/db').ReceivingAccountRepository,
+   *   db: import('@razorpayclone/db').Database,
+   *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
+   *   accountRepo: import('@razorpayclone/db').ReceivingAccountRepository,
    *   queueEngine: import('./queue-engine.js').QueueEngine,
    *   timingEngine: import('./timing-engine.js').TimingEngine,
-   *   auditRepo?: import('@youpi/db').AuditLogRepository
+   *   auditRepo?: import('@razorpayclone/db').AuditLogRepository
    * }} options
    */
   constructor(options) {

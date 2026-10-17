@@ -6,15 +6,15 @@ import {
   PaymentSessionRepository,
   ReceivingAccountRepository,
   AuditLogRepository
-} from '@youpi/db';
+} from '@razorpayclone/db';
 import {
   QueueEngine,
   TimingEngine,
   RecoveryEngine
 } from '../index.js';
-import { PaymentStatus } from '@youpi/common';
+import { PaymentStatus } from '@razorpayclone/common';
 
-describe('@youpi/core Queue & Timing Engine Tests', () => {
+describe('@razorpayclone/core Queue & Timing Engine Tests', () => {
   let db;
   let sessionRepo;
   let accountRepo;

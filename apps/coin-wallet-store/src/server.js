@@ -2,7 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { YoupiPaymentClient } from '@youpi/merchant-sdk';
+import { RazorpayClonePaymentClient } from '@razorpayclone/merchant-sdk';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,7 +31,7 @@ export class CoinWalletStoreServer {
     this.merchantId = options.merchantId || '00000000-0000-0000-0000-000000000001';
     this.webhookSecret = options.webhookSecret || 'merchant_webhook_secret_for_wallet_store';
 
-    this.paymentClient = new YoupiPaymentClient({
+    this.paymentClient = new RazorpayClonePaymentClient({
       apiUrl: this.gatewayApiUrl,
       merchantId: this.merchantId,
       webhookSecret: this.webhookSecret
@@ -102,9 +102,9 @@ export class CoinWalletStoreServer {
         return;
       }
 
-      // GET /youpi.js or /sdk/youpi-checkout.js (Universal Frontend Integration Script)
-      if (pathname === '/youpi.js' || pathname === '/sdk/youpi-checkout.js' || pathname === '/sdk/youpi.js') {
-        const sdkPath = path.resolve(__dirname, '../../checkout-portal/src/sdk/youpi.js');
+      // GET /razorpayclone.js or /sdk/razorpayclone-checkout.js (Universal Frontend Integration Script)
+      if (pathname === '/razorpayclone.js' || pathname === '/sdk/razorpayclone-checkout.js' || pathname === '/sdk/razorpayclone.js') {
+        const sdkPath = path.resolve(__dirname, '../../checkout-portal/src/sdk/razorpayclone.js');
         if (fs.existsSync(sdkPath)) {
           res.writeHead(200, {
             'Content-Type': 'application/javascript; charset=utf-8',
@@ -345,7 +345,7 @@ export class CoinWalletStoreServer {
             const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost:5000';
             const returnUrl = `${proto}://${host}/wallet?orderId=${orderId}`;
 
-            // Call YOUPI Payment Gateway via SDK
+            // Call Razorpay Clone Payment Gateway via SDK
             const payment = await this.paymentClient.createPayment({
               orderId,
               amount: amountStr,
@@ -443,7 +443,7 @@ export class CoinWalletStoreServer {
         return;
       }
 
-      // POST /api/webhook or /webhook (Signed webhook listener from YOUPI PG)
+      // POST /api/webhook or /webhook (Signed webhook listener from RAZORPAY CLONE)
       if ((pathname === '/api/webhook' || pathname === '/webhook') && method === 'POST') {
         let rawBody = '';
         req.on('data', chunk => { rawBody += chunk; });

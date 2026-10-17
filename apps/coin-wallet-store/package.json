@@ -1,7 +1,7 @@
 {
   "name": "coin-wallet-store",
   "version": "1.0.0",
-  "description": "YOUPI Store — Official Gateway Showcase & E-Commerce Demo Store integrated with YOUPI PG",
+  "description": "Razorpay Clone Store — Official Gateway Showcase & E-Commerce Demo Store integrated with RAZORPAY CLONE",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@youpi/common": "*",
-    "@youpi/merchant-sdk": "*"
+    "@razorpayclone/common": "*",
+    "@razorpayclone/merchant-sdk": "*"
   }
 }

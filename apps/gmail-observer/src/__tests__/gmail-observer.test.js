@@ -1,11 +1,11 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database } from '@youpi/db';
+import { Database } from '@razorpayclone/db';
 import { startServer as startPaymentApi } from '../../../payment-api/src/index.js';
 import { startGmailObserver } from '../index.js';
 import { BankEmailParser } from '../parser.js';
-import { PaymentStatus } from '@youpi/common';
+import { PaymentStatus } from '@razorpayclone/common';
 
 describe('Gmail Payment Observer Integration Tests', () => {
   let apiInstance;

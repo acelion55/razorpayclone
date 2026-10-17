@@ -74,7 +74,7 @@
       overflow: hidden;
     }
 
-    /* --- YOUPI PG CARD / DRAWER CONTAINER --- */
+    /* --- RAZORPAY CLONE CARD / DRAWER CONTAINER --- */
     .ypg-wrapper {
       width: 100%;
       max-width: 440px;
@@ -130,7 +130,7 @@
       }
     }
 
-    /* --- 1. INITIAL LOADING SPLASH SCREEN (YOUPI PG EMBLEM) --- */
+    /* --- 1. INITIAL LOADING SPLASH SCREEN (RAZORPAY CLONE EMBLEM) --- */
     .ypg-splash-screen {
       position: absolute;
       top: 0;
@@ -223,7 +223,7 @@
       color: #64748b;
     }
 
-    /* --- 2. AUTHENTIC YOUPI PG HEADER --- */
+    /* --- 2. AUTHENTIC RAZORPAY CLONE HEADER --- */
     .ypg-header {
       background: var(--ypg-header-gradient);
       color: #ffffff;
@@ -311,7 +311,7 @@
       line-height: 1.25;
     }
 
-    /* YouPI PG Verified Business Badge */
+    /* Razorpay Clone Verified Business Badge */
     .ypg-trusted-badge {
       display: flex;
       align-items: center;
@@ -3049,16 +3049,16 @@
   <!-- TOAST NOTIFICATION -->
   <div id="ypgToast" class="ypg-toast"><img src="/icons/upi.svg" alt="UPI" style="height:12px; vertical-align:middle; filter:brightness(0) invert(1); margin-right:4px;" /> Direct UPI QR is active for instant banking verification</div>
 
-  <!-- YOUPI PG CHECKOUT CARD / DRAWER WRAPPER -->
+  <!-- RAZORPAY CLONE CHECKOUT CARD / DRAWER WRAPPER -->
   <div class="ypg-wrapper">
 
-    <!-- 1. INITIAL YOUPI PG LOADING SPLASH -->
+    <!-- 1. INITIAL RAZORPAY CLONE LOADING SPLASH -->
     <div id="ypgSplashScreen" class="ypg-splash-screen">
       <div class="ypg-splash-center">
         <div class="ypg-shield-orbit-box">
           <img id="splashBrandLogo" alt="Logo"
             style="display:none; max-width:82px; max-height:82px; border-radius:16px; object-fit:contain; box-shadow:0 8px 24px rgba(0,0,0,0.12);" />
-          <!-- Authentic YouPI PG Shield with 'Y' Monogram -->
+          <!-- Authentic Razorpay Clone Shield with 'Y' Monogram -->
           <svg class="ypg-shield-icon-svg" id="splashDefaultShield" viewBox="0 0 100 120" fill="none">
             <defs>
               <linearGradient id="ypgShieldGrad" x1="0" y1="0" x2="1" y2="1">
@@ -3072,9 +3072,11 @@
           <div class="ypg-orbit-dot"></div>
         </div>
       </div>
-      <div class="ypg-splash-footer" id="splashFooterWrap" style="display:none;">
-        <span>Secured By</span>
-        <strong id="splashSecuredByText" style="color:var(--ypg-blue); font-size:15px; letter-spacing:-0.2px;"></strong>
+      <div class="ypg-splash-footer" id="splashFooterWrap">
+        <span>Powered by</span>
+        <strong id="splashSecuredByText" style="color:var(--ypg-blue); font-size:15px; letter-spacing:-0.2px;">Razorpay Clone</strong>
+        <span style="color:#64748b; font-size:13px;">&bull;</span>
+        <span style="color:#10b981; font-size:13px; font-weight:700;">0% Commission</span>
       </div>
     </div>
 
@@ -3181,7 +3183,7 @@
         </div>
       </div>
 
-      <!-- 2. AUTHENTIC YOUPI PG HEADER -->
+      <!-- 2. AUTHENTIC RAZORPAY CLONE HEADER -->
       <header class="ypg-header">
         <!-- Mobile Top Drag Handle -->
         <div class="ypg-drag-handle-bar"></div>
@@ -3203,7 +3205,7 @@
               <img id="merchantAvatarImg" alt="Logo" style="display:none;" />
             </div>
 
-            <!-- Merchant Name & YouPI PG Verified Business Badge -->
+            <!-- Merchant Name & Razorpay Clone Verified Business Badge -->
             <div class="ypg-merchant-text-group">
               <div class="ypg-merchant-name" id="headerMerchantName">{{MERCHANT_NAME}}</div>
               <div class="ypg-trusted-badge" id="headerTrustBadge">
@@ -4144,9 +4146,9 @@
     let activeCustomer = null;
     let activeToken = null;
 
-    const STORAGE_KEY_IDENTITY = 'youpi.customer.identity';
-    const STORAGE_KEY_ACCOUNTS = 'youpi.customer.accounts';
-    const STORAGE_KEY_ACTIVE = 'youpi.customer.activeId';
+    const STORAGE_KEY_IDENTITY = 'razorpayclone.customer.identity';
+    const STORAGE_KEY_ACCOUNTS = 'razorpayclone.customer.accounts';
+    const STORAGE_KEY_ACTIVE = 'razorpayclone.customer.activeId';
     const MAX_IDENTITY_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days (maximum 1 week)
 
     function getPreservedIdentity() {
@@ -4220,7 +4222,7 @@
     if (window.parent !== window || location.search.includes('embedded=1')) {
       document.body.classList.add('is-embedded');
       try {
-        window.parent.postMessage({ event: 'youpi.modal_ready', paymentId: PAYMENT_ID }, '*');
+        window.parent.postMessage({ event: 'razorpayclone.modal_ready', paymentId: PAYMENT_ID }, '*');
       } catch (e) { }
     }
 
@@ -4333,7 +4335,7 @@
       if (isEmbedded) {
         try {
           window.parent.postMessage({
-            event: 'youpi.payment_failed',
+            event: 'razorpayclone.payment_failed',
             data: {
               orderId,
               reason,
@@ -4352,7 +4354,7 @@
         // Fallback postMessage in case parent container only listens for modal_close
         try {
           window.parent.postMessage({
-            event: 'youpi.modal_close',
+            event: 'razorpayclone.modal_close',
             action: 'payment_failed',
             redirectUrl: failRedirectUrl
           }, '*');
@@ -4367,7 +4369,7 @@
     function emitTriggerHook(action, details = {}) {
       try {
         window.parent.postMessage({
-          type: 'YOUPI_PAYMENT_HOOK',
+          type: 'RAZORPAYCLONE_PAYMENT_HOOK',
           action,
           paymentId: PAYMENT_ID,
           orderId: state?.orderId,
@@ -5310,7 +5312,7 @@
 
     // --- DEVICE IDENTITY & HARDWARE CONTEXT BINDING LAYER ---
     const DeviceIdentity = {
-      dbName: 'youpi_device_keystore_v1',
+      dbName: 'razorpayclone_device_keystore_v1',
       storeName: 'keys',
       currentDeviceId: null,
       currentDeviceToken: null,
@@ -5372,7 +5374,7 @@
           const ctx = canvas.getContext('2d');
           ctx.textBaseline = 'top';
           ctx.font = "14px 'Arial'";
-          ctx.fillText('YouPI-PG-Device-Binding-2026', 2, 2);
+          ctx.fillText('RazorpayClone-Device-Binding-2026', 2, 2);
           canvasSig = canvas.toDataURL().slice(-32);
         } catch {}
 
@@ -5448,7 +5450,7 @@
           publicKeyBase64 = btoa(`fallback-device-key-${Math.random()}-${Date.now()}`);
         }
 
-        // 4. Register with YouPI backend
+        // 4. Register with Razorpay Clone backend
         const signals = this.collectSignals();
         try {
           const resp = await fetch(`${API_BASE}/api/v1/devices/register`, {
@@ -5806,8 +5808,8 @@
         if (splashDefaultShield) splashDefaultShield.style.display = 'none';
       }
       const splashFooterWrap = document.getElementById('splashFooterWrap');
-      if (splashFooterWrap) splashFooterWrap.style.display = 'none';
-      if (splashSecuredText) splashSecuredText.textContent = '';
+      if (splashFooterWrap) splashFooterWrap.style.display = 'flex';
+      if (splashSecuredText) splashSecuredText.textContent = 'Razorpay Clone';
 
       // 12. Legal Disclaimer Strip
       const legalDisclaimerEl = document.getElementById('footerLegalDisclaimer');
@@ -5877,10 +5879,10 @@
               const isEmbedded = (window.parent && window.parent !== window) || location.search.includes('embedded=1');
               if (isEmbedded) {
                 try {
-                  window.parent.postMessage({ event: 'youpi.modal_close', redirectUrl: storeUrl }, '*');
-                  window.parent.postMessage({ event: 'youpi.close', redirectUrl: storeUrl }, '*');
-                  window.parent.postMessage({ event: 'youpi.cancel', redirectUrl: storeUrl }, '*');
-                  window.parent.postMessage({ event: 'youpi.payment_cancelled', redirectUrl: storeUrl }, '*');
+                  window.parent.postMessage({ event: 'razorpayclone.modal_close', redirectUrl: storeUrl }, '*');
+                  window.parent.postMessage({ event: 'razorpayclone.close', redirectUrl: storeUrl }, '*');
+                  window.parent.postMessage({ event: 'razorpayclone.cancel', redirectUrl: storeUrl }, '*');
+                  window.parent.postMessage({ event: 'razorpayclone.payment_cancelled', redirectUrl: storeUrl }, '*');
                 } catch (e) {}
               } else if (storeUrl && storeUrl !== '#' && !storeUrl.startsWith('javascript:')) {
                 window.location.href = storeUrl;
@@ -5959,7 +5961,7 @@
 
           try {
             window.parent.postMessage({
-              event: 'youpi.payment_success',
+              event: 'razorpayclone.payment_success',
               data: data
             }, '*');
           } catch (e) { }
@@ -6377,10 +6379,10 @@
 
         if (isEmbedded) {
           try {
-            window.parent.postMessage({ event: 'youpi.modal_close', redirectUrl: storeUrl }, '*');
-            window.parent.postMessage({ event: 'youpi.close', redirectUrl: storeUrl }, '*');
-            window.parent.postMessage({ event: 'youpi.cancel', redirectUrl: storeUrl }, '*');
-            window.parent.postMessage({ event: 'youpi.payment_cancelled', redirectUrl: storeUrl }, '*');
+            window.parent.postMessage({ event: 'razorpayclone.modal_close', redirectUrl: storeUrl }, '*');
+            window.parent.postMessage({ event: 'razorpayclone.close', redirectUrl: storeUrl }, '*');
+            window.parent.postMessage({ event: 'razorpayclone.cancel', redirectUrl: storeUrl }, '*');
+            window.parent.postMessage({ event: 'razorpayclone.payment_cancelled', redirectUrl: storeUrl }, '*');
           } catch (e) { }
         }
 
@@ -6395,7 +6397,7 @@
 
     // Listen for cancel requests from parent iframe cross button
     window.addEventListener('message', (e) => {
-      if (e.data && e.data.event === 'youpi.request_cancel') {
+      if (e.data && e.data.event === 'razorpayclone.request_cancel') {
         openCancelPaymentModal();
       }
     });
@@ -6526,7 +6528,7 @@
 
       try {
         window.parent.postMessage({
-          event: 'youpi.payment_blocked',
+          event: 'razorpayclone.payment_blocked',
           data: {
             status: 'BLOCKED',
             isBanned: true,
@@ -6542,7 +6544,7 @@
       if (window.parent && window.parent !== window) {
         try {
           window.parent.postMessage({
-            event: 'youpi.payment_blocked_exit',
+            event: 'razorpayclone.payment_blocked_exit',
             data: { status: 'BLOCKED', isBanned: true, orderId: state?.orderId }
           }, '*');
         } catch (e) {}

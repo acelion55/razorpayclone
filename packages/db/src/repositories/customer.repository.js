@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { hashPassword, verifyPassword, normalizeEmail, normalizeMobile, isValidEmail, isValidMobile, isValidPassword } from '@youpi/common';
+import { hashPassword, verifyPassword, normalizeEmail, normalizeMobile, isValidEmail, isValidMobile, isValidPassword } from '@razorpayclone/common';
 
 export class CustomerRepository {
   /**
@@ -37,7 +37,7 @@ export class CustomerRepository {
       throw new Error('Invalid mobile number format (must be a valid 10-digit number).');
     }
     if (!email) {
-      email = `${mobileNumber}@customer.youpi.local`;
+      email = `${mobileNumber}@customer.razorpayclone.local`;
     } else if (!isValidEmail(email)) {
       throw new Error('Invalid email address format.');
     }

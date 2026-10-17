@@ -1,7 +1,7 @@
 {
   "name": "payment-help",
   "version": "1.0.0",
-  "description": "Customer Payment Help Portal, History & Support Chat for YOUPI PG",
+  "description": "Customer Payment Help Portal, History & Support Chat for RAZORPAY CLONE",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@youpi/common": "*",
-    "@youpi/db": "*"
+    "@razorpayclone/common": "*",
+    "@razorpayclone/db": "*"
   }
 }

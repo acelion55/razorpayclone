@@ -41,7 +41,7 @@ export class CheckoutServer {
 
     this.apiBaseUrl = options.apiBaseUrl || process.env.BASE_PAYMENT_API_URL || 'http://localhost:6100';
     this.htmlTemplatePath = path.join(__dirname, 'views', 'checkout.html');
-    this.sdkScriptPath = path.join(__dirname, 'sdk', 'youpi-checkout.js');
+    this.sdkScriptPath = path.join(__dirname, 'sdk', 'razorpayclone-checkout.js');
     this.template = fs.readFileSync(this.htmlTemplatePath, 'utf8');
   }
 
@@ -65,7 +65,7 @@ export class CheckoutServer {
 
     let html = this.template;
 
-    const appName = state?.branding?.appName || '';
+    const appName = state?.branding?.appName || 'Razorpay Clone';
     const primaryColor = state?.branding?.primaryColor || '#0b63e5';
     const merchantName = state?.merchantName || 'Merchant Checkout';
     const orderId = state?.orderId || '';
@@ -175,11 +175,11 @@ export class CheckoutServer {
         return;
       }
 
-      // Official SDK script: GET /youpi.js or /sdk/youpi-checkout.js
-      if (pathname === '/youpi.js' || pathname === '/sdk/youpi.js' || pathname === '/sdk/youpi-checkout.js') {
+      // Official SDK script: GET /razorpayclone.js or /sdk/razorpayclone-checkout.js
+      if (pathname === '/razorpayclone.js' || pathname === '/sdk/razorpayclone.js' || pathname === '/sdk/razorpayclone-checkout.js') {
         try {
-          const resolvedSdkPath = fs.existsSync(path.join(__dirname, 'sdk', 'youpi.js'))
-            ? path.join(__dirname, 'sdk', 'youpi.js')
+          const resolvedSdkPath = fs.existsSync(path.join(__dirname, 'sdk', 'razorpayclone.js'))
+            ? path.join(__dirname, 'sdk', 'razorpayclone.js')
             : this.sdkScriptPath;
           const sdkContent = fs.readFileSync(resolvedSdkPath, 'utf8');
           res.writeHead(200, {

@@ -1,22 +1,22 @@
 # AGENTS.md — Integration Guide for AI Coding Agents
 
-> **Audience**: AI Coding Agents & Pair Programmers integrating YOUPI PG V2 into developer applications.  
-> **Purpose**: Authoritative reference on the YOUPI payment lifecycle, one-script frontend integration, browser events, and server-to-server webhook verification.
+> **Audience**: AI Coding Agents & Pair Programmers integrating RAZORPAY CLONE V2 into developer applications.  
+> **Purpose**: Authoritative reference on the Razorpay Clone payment lifecycle, one-script frontend integration, browser events, and server-to-server webhook verification.
 
 ---
 
 ## 1. High-Level Architecture
 
-YOUPI PG V2 is a self-hosted, sovereign payment gateway designed for zero-fee UPI and counter payments with automated banking observation (SMS & Gmail parsing).
+RAZORPAY CLONE V2 is a self-hosted, sovereign payment gateway designed for zero-fee UPI and counter payments with automated banking observation (SMS & Gmail parsing).
 
 ```
   [ Merchant Website / App ]
               │
-    (1) Adds one script: <script src=".../youpi.js" data-youpi-key="...">
+    (1) Adds one script: <script src=".../razorpayclone.js" data-razorpayclone-key="...">
               │
-    (2) Maps payment button: <button data-youpi-pay data-order-id="..." data-amount="...">
+    (2) Maps payment button: <button data-razorpayclone-pay data-order-id="..." data-amount="...">
               │
-    (3) YOUPI JS dims/blurs background & renders centered responsive modal (or mobile sheet)
+    (3) Razorpay Clone JS dims/blurs background & renders centered responsive modal (or mobile sheet)
               │
     (4) Existing iframe loads /checkout/:id with dynamic single-use QR and UPI intent
               │
@@ -31,7 +31,7 @@ YOUPI PG V2 is a self-hosted, sovereign payment gateway designed for zero-fee UP
      ┌────────┴──────────────────────────┐
      ▼                                   ▼
  [ Browser CustomEvents ]      [ Signed Webhook Delivery ]
- youpi:payment:success          POST /api/webhook (HMAC-SHA256)
+ razorpayclone:payment:success          POST /api/webhook (HMAC-SHA256)
  (For instant UI feedback)      (AUTHORITATIVE PROOF OF PAYMENT)
 ```
 
@@ -44,20 +44,20 @@ Place the script tag in the page's HTML `<head>` or `<body>`:
 
 ```html
 <script 
-  src="https://<youpi-checkout-host>/youpi.js" 
-  data-youpi-key="YOUR_MERCHANT_KEY">
+  src="https://<razorpayclone-checkout-host>/razorpayclone.js" 
+  data-razorpayclone-key="YOUR_MERCHANT_KEY">
 </script>
 ```
 
-- When running locally, `<youpi-checkout-host>` is `http://localhost:7000`.
+- When running locally, `<razorpayclone-checkout-host>` is `http://localhost:7000`.
 - In production, it is your canonical checkout portal domain (e.g., `https://pay.yourdomain.com`).
 
 ### Step 2: One-Button Zero-JS Configuration
-Tag any clickable button with `data-youpi-pay`:
+Tag any clickable button with `data-razorpayclone-pay`:
 
 ```html
 <button 
-  data-youpi-pay 
+  data-razorpayclone-pay 
   data-order-id="ORDER-1001" 
   data-amount="499"
   data-currency="INR"
@@ -69,13 +69,13 @@ Tag any clickable button with `data-youpi-pay`:
 </button>
 ```
 
-The script automatically binds click events to elements with `[data-youpi-pay]`, including elements created dynamically at runtime.
+The script automatically binds click events to elements with `[data-razorpayclone-pay]`, including elements created dynamically at runtime.
 
-### Step 3: Programmatic API (`Youpi.pay`)
+### Step 3: Programmatic API (`RazorpayClone.pay`)
 For single-page apps (React, Next.js, Vue, Nuxt, Svelte), use the programmatic interface:
 
 ```javascript
-Youpi.pay({
+RazorpayClone.pay({
   order_id: "ORDER-1001",
   amount: 499.00,
   currency: "INR",
@@ -106,12 +106,12 @@ The frontend script emits normalized DOM `CustomEvent`s on `window`:
 
 | Event Name | Trigger Condition |
 | :--- | :--- |
-| `youpi:payment:success` | Payment verified by banking observers |
-| `youpi:payment:failed` | Payment declined, wrong amount, or verification timeout |
-| `youpi:payment:suspicious` | Payment flagged by security/risk engine |
-| `youpi:payment:expired` | 5-minute active payment window expired |
-| `youpi:payment:cancelled` | Customer cancelled or dismissed the checkout |
-| `youpi:payment:result` | Unified event dispatched on any outcome |
+| `razorpayclone:payment:success` | Payment verified by banking observers |
+| `razorpayclone:payment:failed` | Payment declined, wrong amount, or verification timeout |
+| `razorpayclone:payment:suspicious` | Payment flagged by security/risk engine |
+| `razorpayclone:payment:expired` | 5-minute active payment window expired |
+| `razorpayclone:payment:cancelled` | Customer cancelled or dismissed the checkout |
+| `razorpayclone:payment:result` | Unified event dispatched on any outcome |
 
 ### Payload Contract (`event.detail`):
 ```javascript
@@ -167,7 +167,7 @@ import crypto from 'node:crypto';
 
 app.post('/api/webhook', express.raw({ type: 'application/json' }), (req, res) => {
   const signature = req.headers['x-gateway-signature'] || '';
-  const secret = process.env.YOUPI_WEBHOOK_SECRET;
+  const secret = process.env.RAZORPAYCLONE_WEBHOOK_SECRET;
   const expected = 'sha256=' + crypto.createHmac('sha256', secret).update(req.body).digest('hex');
 
   if (signature.length !== expected.length ||
@@ -197,7 +197,7 @@ from fastapi import FastAPI, Request, HTTPException
 app = FastAPI()
 
 @app.post("/api/webhook")
-async def youpi_webhook(request: Request):
+async def razorpayclone_webhook(request: Request):
     raw_body = await request.body()
     signature = request.headers.get("X-Gateway-Signature", "")
     secret = request.app.state.webhook_secret.encode("utf-8")
@@ -218,7 +218,7 @@ async def youpi_webhook(request: Request):
 <?php
 $rawPayload = file_get_contents('php://input');
 $signature = $_SERVER['HTTP_X_GATEWAY_SIGNATURE'] ?? '';
-$secret = getenv('YOUPI_WEBHOOK_SECRET');
+$secret = getenv('RAZORPAYCLONE_WEBHOOK_SECRET');
 
 $expected = 'sha256=' . hash_hmac('sha256', $rawPayload, $secret);
 
@@ -251,7 +251,7 @@ import (
 	"os"
 )
 
-func youpiWebhookHandler(w http.ResponseWriter, r *http.Request) {
+func razorpaycloneWebhookHandler(w http.ResponseWriter, r *http.Request) {
 	rawBody, err := io.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Cannot read body", http.StatusBadRequest)
@@ -260,7 +260,7 @@ func youpiWebhookHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	signature := r.Header.Get("X-Gateway-Signature")
-	secret := []byte(os.Getenv("YOUPI_WEBHOOK_SECRET"))
+	secret := []byte(os.Getenv("RAZORPAYCLONE_WEBHOOK_SECRET"))
 
 	mac := hmac.New(sha256.New, secret)
 	mac.Write(rawBody)
@@ -295,7 +295,7 @@ func youpiWebhookHandler(w http.ResponseWriter, r *http.Request) {
    - There is no endpoint that allows a client or developer to arbitrarily declare `SUCCESS`.
    - `SUCCESS` is generated solely by the internal verification engine after matching a genuine bank SMS/Gmail observation.
 2. **Never Expose Secret API Keys in Frontend**:
-   - Only publishable public keys (e.g., `data-youpi-key`) may appear in HTML/JS.
+   - Only publishable public keys (e.g., `data-razorpayclone-key`) may appear in HTML/JS.
    - `webhookSecret`, database credentials, and observer tokens must remain strictly on the backend.
 3. **Idempotency & Deduplication**:
    - Webhook deliveries include unique `X-Gateway-Delivery-Id` and `orderId`. Merchants must ensure their webhook processing is idempotent.
@@ -310,7 +310,7 @@ func youpiWebhookHandler(w http.ResponseWriter, r *http.Request) {
 | :--- | :--- | :--- |
 | **Coin Wallet Demo Store** | `5000` | Reference merchant implementation & store |
 | **Payment Core REST API** | `6100` | Core gateway engine, state machine, queue |
-| **Checkout Portal** | `7000` | Serves `youpi.js`, iframe `/checkout/:id`, API proxy |
+| **Checkout Portal** | `7000` | Serves `razorpayclone.js`, iframe `/checkout/:id`, API proxy |
 | **Merchant Admin** | `6001` | Dashboard for slots, receiving VPAs, observers |
 | **SMS Observer** | `6002` | Android SMS banking webhook ingester |
 | **Gmail Observer** | `6003` | Push notification / Gmail observation ingester |

@@ -9,15 +9,15 @@ import {
   SupportTicketRepository,
   AuditLogRepository,
   CustomerRepository
-} from '@youpi/db';
+} from '@razorpayclone/db';
 import {
   QueueEngine,
   TimingEngine,
   AttributionEngine,
   RecoveryEngine,
   ObservationNormalizer
-} from '@youpi/core';
-import { PaymentStatus, ObserverSource, ObservationAttributionStatus } from '@youpi/common';
+} from '@razorpayclone/core';
+import { PaymentStatus, ObserverSource, ObservationAttributionStatus } from '@razorpayclone/common';
 
 describe('Phase 16: Comprehensive Chaos & Concurrency Verification', () => {
   let db;

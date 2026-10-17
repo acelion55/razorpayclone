@@ -67,7 +67,7 @@ export class GmailObserverServer {
         if (!clientId) {
           clientId = (this.poller.credentials?.clientId)
             ? this.poller.credentials.clientId
-            : (process.env.GMAIL_CLIENT_ID || 'mock-youpi-client-id.apps.googleusercontent.com');
+            : (process.env.GMAIL_CLIENT_ID || 'mock-razorpayclone-client-id.apps.googleusercontent.com');
         }
 
         const finalRedirectUri = 'https://pay-gmail.gauravtesting.online/oauth/callback';
@@ -215,7 +215,7 @@ export class GmailObserverServer {
             <html>
             <head>
               <meta charset="utf-8">
-              <title>YOUPI PG — Google Connected</title>
+              <title>RAZORPAY CLONE — Google Connected</title>
               <meta name="viewport" content="width=device-width, initial-scale=1">
               <style>
                 * { box-sizing: border-box; }
@@ -319,7 +319,7 @@ export class GmailObserverServer {
                   messagesTotal: ${JSON.stringify(messagesTotal)},
                   timestamp: Date.now()
                 };
-                try { localStorage.setItem('youpi_gmail_oauth_result', JSON.stringify(payload)); } catch(e) {}
+                try { localStorage.setItem('razorpayclone_gmail_oauth_result', JSON.stringify(payload)); } catch(e) {}
                 try { if (window.opener) window.opener.postMessage(payload, '*'); } catch(e) {}
                 function finishAndClose() {
                   try { if (window.opener && window.opener.fetchGmailCredentials) window.opener.fetchGmailCredentials(); } catch(e) {}

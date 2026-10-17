@@ -1,9 +1,9 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database, runMigrations, MerchantRepository, PaymentSessionRepository } from '@youpi/db';
+import { Database, runMigrations, MerchantRepository, PaymentSessionRepository } from '@razorpayclone/db';
 import { WebhookEngine } from '../webhook-engine.js';
-import { verifyHmac } from '@youpi/common';
+import { verifyHmac } from '@razorpayclone/common';
 
 describe('Webhook Engine Integration Tests', () => {
   let db;

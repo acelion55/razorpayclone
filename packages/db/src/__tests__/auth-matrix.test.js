@@ -9,10 +9,10 @@ import { CustomerSessionRepository } from '../repositories/customer-session.repo
 import { PaymentSessionRepository } from '../repositories/payment-session.repository.js';
 import { ObservationRepository } from '../repositories/observation.repository.js';
 import { AuditLogRepository } from '../repositories/audit-log.repository.js';
-import { QueueEngine } from '@youpi/core';
-import { TimingEngine } from '@youpi/core';
-import { AttributionEngine } from '@youpi/core';
-import { WebhookEngine } from '@youpi/core';
+import { QueueEngine } from '@razorpayclone/core';
+import { TimingEngine } from '@razorpayclone/core';
+import { AttributionEngine } from '@razorpayclone/core';
+import { WebhookEngine } from '@razorpayclone/core';
 import { generateQrSvg } from '../../../../apps/checkout-portal/src/qr.js';
 import {
   buildUpiUri,
@@ -26,10 +26,10 @@ import {
   isValidEmail,
   isValidMobile,
   isValidPassword
-} from '@youpi/common';
+} from '@razorpayclone/common';
 import { startServer as startPaymentApi } from '../../../../apps/payment-api/src/index.js';
 import { CoinWalletStoreServer } from '../../../../apps/coin-wallet-store/src/server.js';
-import { YoupiPaymentClient } from '@youpi/merchant-sdk';
+import { RazorpayClonePaymentClient } from '@razorpayclone/merchant-sdk';
 
 test('Full 53-Point Customer Identity, Authentication & Payment Invariant Matrix', async () => {
   const testDb = new Database({ inMemory: true });
@@ -220,7 +220,7 @@ test('Full 53-Point Customer Identity, Authentication & Payment Invariant Matrix
     assert.equal(autoVerify.customer.name, 'Gaurav Sharma');
 
     // 13. Payment session does NOT need recreation on page refresh
-    const paymentClient = new YoupiPaymentClient({
+    const paymentClient = new RazorpayClonePaymentClient({
       apiUrl: apiBase,
       merchantId: merchant.id,
       webhookSecret: merchant.webhookSecret

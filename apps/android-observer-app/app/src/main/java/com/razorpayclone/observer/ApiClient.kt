@@ -1,4 +1,4 @@
-package com.youpi.observer
+package com.razorpayclone.observer
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -21,7 +21,7 @@ class ApiClient(private val context: Context) {
 
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
     private val prefs = EncryptedSharedPreferences.create(
-        "youpi_observer_secure_prefs",
+        "razorpayclone_observer_secure_prefs",
         masterKeyAlias,
         context,
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,

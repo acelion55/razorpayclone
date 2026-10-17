@@ -1,4 +1,4 @@
-import { PaymentObserverClient } from '@youpi/observer-sdk';
+import { PaymentObserverClient } from '@razorpayclone/observer-sdk';
 import { BankEmailParser } from './parser.js';
 
 function extractBodyFromGmailPayload(payload) {

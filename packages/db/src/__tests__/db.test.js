@@ -11,9 +11,9 @@ import {
   SupportTicketRepository,
   AuditLogRepository
 } from '../index.js';
-import { PaymentStatus, ObserverSource, SenderType, TicketStatus } from '@youpi/common';
+import { PaymentStatus, ObserverSource, SenderType, TicketStatus } from '@razorpayclone/common';
 
-describe('@youpi/db Unit & Integration Tests', () => {
+describe('@razorpayclone/db Unit & Integration Tests', () => {
   let db;
   let merchantRepo;
   let accountRepo;

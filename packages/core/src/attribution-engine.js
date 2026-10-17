@@ -1,12 +1,12 @@
-import { PaymentStatus, ObservationAttributionStatus, TicketStatus, SenderType } from '@youpi/common';
+import { PaymentStatus, ObservationAttributionStatus, TicketStatus, SenderType } from '@razorpayclone/common';
 
 export class AttributionEngine {
   /**
    * @param {{
-   *   sessionRepo: import('@youpi/db').PaymentSessionRepository,
-   *   obsRepo: import('@youpi/db').ObservationRepository,
-   *   ticketRepo?: import('@youpi/db').SupportTicketRepository,
-   *   auditRepo?: import('@youpi/db').AuditLogRepository,
+   *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
+   *   obsRepo: import('@razorpayclone/db').ObservationRepository,
+   *   ticketRepo?: import('@razorpayclone/db').SupportTicketRepository,
+   *   auditRepo?: import('@razorpayclone/db').AuditLogRepository,
    *   eventEmitter?: { emit: (event: string, payload: any) => void }
    * }} options
    */

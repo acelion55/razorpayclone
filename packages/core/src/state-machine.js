@@ -1,4 +1,4 @@
-import { PaymentStatus, PublicPaymentOutcome } from '@youpi/common';
+import { PaymentStatus, PublicPaymentOutcome } from '@razorpayclone/common';
 
 /**
  * Valid transitions graph for Payment Sessions:
