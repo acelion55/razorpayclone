@@ -15,6 +15,7 @@
     "sync:package": "node scripts/sync-package.cjs",
     "start": "node scripts/start.js",
     "start:prod": "node scripts/start.js",
+    "start:render": "node scripts/start-render.js",
     "start:prod:api": "node apps/payment-api/src/index.js",
     "dev": "node scripts/dev.js",
     "test": "node scripts/test-all.js",

@@ -98,6 +98,37 @@ export function deriveCloudflareRoutes(config = {}) {
  * }} options
  */
 export function resolveRuntimeUrls(options = {}) {
+  // Path-based single-URL mode: one public origin serving both the checkout portal
+  // and the Payment API (the portal transparently proxies /api/* to the API).
+  // Used for platforms like Render/Fly/Heroku that expose a single URL and cannot
+  // route Cloudflare subdomains. Takes precedence when explicitly configured.
+  const singleUrl = String(options.publicUrl || process.env.RAZORPAYCLONE_PUBLIC_URL || '').trim().replace(/\/+$/, '');
+  if (singleUrl && /^https?:\/\//i.test(singleUrl)) {
+    const publicHost = singleUrl.replace(/^https?:\/\//i, '');
+    const singlePrefix = (options.prefix || options.domainPrefix || process.env.DEPLOYMENT_PREFIX || 'pay').trim().toLowerCase().replace(/[^a-z0-9-_]/g, '') || 'pay';
+    return {
+      mode: 'production',
+      isProduction: true,
+      singleUrl: true,
+      domain: publicHost,
+      prefix: singlePrefix,
+      routes: [
+        { role: 'checkout', name: 'Checkout', publicHostname: publicHost, publicUrl: singleUrl, serviceUrl: 'http://localhost:7000', port: 7000, purpose: 'Customer checkout / checkout portal (path-based)', optional: false },
+        { role: 'api', name: 'Payment API', publicHostname: publicHost, publicUrl: singleUrl, serviceUrl: 'http://localhost:6100', port: 6100, purpose: 'Payment API (served through the /api transparent proxy)', optional: false }
+      ],
+      checkoutUrl: singleUrl,
+      checkoutHostname: publicHost,
+      apiUrl: singleUrl,
+      apiHostname: publicHost,
+      adminUrl: `${singleUrl}/admin`,
+      adminHostname: publicHost,
+      gmailUrl: `${singleUrl}/gmail`,
+      gmailHostname: publicHost,
+      storeUrl: `${singleUrl}/store`,
+      storeHostname: publicHost
+    };
+  }
+
   let mode = options.envMode;
   if (!mode) {
     if (process.env.RAZORPAYCLONE_MODE) {
