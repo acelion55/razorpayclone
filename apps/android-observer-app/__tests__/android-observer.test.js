@@ -1,9 +1,9 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { Database } from '@razorpayclone/db';
+import { Database } from '@razorpay/db';
 import { startServer as startPaymentApi } from '../../../apps/payment-api/src/index.js';
 import { AndroidObserverDriver } from '../driver.js';
-import { PaymentStatus } from '@razorpayclone/common';
+import { PaymentStatus } from '@razorpay/common';
 
 describe('Android Payment Observer Integration Tests', () => {
   let apiInstance;

@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { HttpServer } from '../server.js';
-import { PaymentStatus, PaymentMethod, SellingMode, AuditActorType, isValidVpa, toRupeesString, deriveCloudflareRoutes, resolveRuntimeUrls } from '@razorpayclone/common';
-import { PaymentVerificationPipeline } from '@razorpayclone/core';
+import { PaymentStatus, PaymentMethod, SellingMode, AuditActorType, isValidVpa, toRupeesString, deriveCloudflareRoutes, resolveRuntimeUrls } from '@razorpay/common';
+import { PaymentVerificationPipeline } from '@razorpay/core';
 import { globalTunnelManager } from '../services/tunnel-manager.js';
 import { formatQrDataUrl } from '../services/whatsapp-berry.service.js';
 
@@ -85,12 +85,12 @@ function resolveSellingModeAndMethods(body, currentBranding = {}) {
  * Registers merchant admin dashboard routes.
  * @param {HttpServer} server
  * @param {{
- *   db: import('@razorpayclone/db').Database,
- *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
- *   accountRepo: import('@razorpayclone/db').ReceivingAccountRepository,
- *   merchantRepo: import('@razorpayclone/db').MerchantRepository,
- *   auditRepo: import('@razorpayclone/db').AuditLogRepository,
- *   queueEngine: import('@razorpayclone/core').QueueEngine
+ *   db: import('@razorpay/db').Database,
+ *   sessionRepo: import('@razorpay/db').PaymentSessionRepository,
+ *   accountRepo: import('@razorpay/db').ReceivingAccountRepository,
+ *   merchantRepo: import('@razorpay/db').MerchantRepository,
+ *   auditRepo: import('@razorpay/db').AuditLogRepository,
+ *   queueEngine: import('@razorpay/core').QueueEngine
  * }} ctx
  */
 export function registerAdminRoutes(server, ctx) {
@@ -651,7 +651,7 @@ export function registerAdminRoutes(server, ctx) {
       privacyPolicyUrl,
       sellingMode,
       branding: {
-        appName: branding.appName || 'Razorpay Clone',
+        appName: branding.appName || 'Razorpay',
         primaryColor: branding.primaryColor || '#2563eb',
         headerTheme: branding.headerTheme || 'gradient',
         logoUrl: branding.logoUrl || null,
@@ -662,7 +662,7 @@ export function registerAdminRoutes(server, ctx) {
         hideSubbanner: Boolean(branding.hideSubbanner),
         hidePoweredBy: Boolean(branding.hidePoweredBy),
         hideTimeSavingBanner: Boolean(branding.hideTimeSavingBanner),
-        footerGuarantee: branding.footerGuarantee || 'Secured by Razorpay Clone 256-Bit Encryption',
+        footerGuarantee: branding.footerGuarantee || 'Secured by Razorpay 256-Bit Encryption',
         counterInstructions: branding.counterInstructions || 'Please visit the store billing counter and present this screen to the cashier.',
         cardCounterInstructions: branding.cardCounterInstructions || 'Please swipe, insert, or tap your credit or debit card on the store POS terminal at the billing desk.',
         termsUrl: branding.termsUrl || null,
@@ -711,7 +711,7 @@ export function registerAdminRoutes(server, ctx) {
     const inputBranding = body.branding || {};
     const mergedBranding = { ...currentBranding };
 
-    if (inputBranding.appName !== undefined) mergedBranding.appName = inputBranding.appName.trim() || currentBranding.appName || 'Razorpay Clone';
+    if (inputBranding.appName !== undefined) mergedBranding.appName = inputBranding.appName.trim() || currentBranding.appName || 'Razorpay';
     if (inputBranding.logoUrl !== undefined) mergedBranding.logoUrl = inputBranding.logoUrl ? inputBranding.logoUrl.trim() : null;
     if (inputBranding.primaryColor !== undefined) mergedBranding.primaryColor = inputBranding.primaryColor.trim() || currentBranding.primaryColor || '#2563eb';
     if (inputBranding.sidebarNotice !== undefined) mergedBranding.sidebarNotice = inputBranding.sidebarNotice ? inputBranding.sidebarNotice.trim() : null;
@@ -922,7 +922,7 @@ export function registerAdminRoutes(server, ctx) {
       const currentBranding = merchant.branding || {};
       const mergedBranding = { ...currentBranding };
 
-      if (inputBranding.appName !== undefined) mergedBranding.appName = inputBranding.appName.trim() || currentBranding.appName || 'Razorpay Clone';
+      if (inputBranding.appName !== undefined) mergedBranding.appName = inputBranding.appName.trim() || currentBranding.appName || 'Razorpay';
       if (inputBranding.logoUrl !== undefined) mergedBranding.logoUrl = inputBranding.logoUrl ? inputBranding.logoUrl.trim() : null;
       if (inputBranding.primaryColor !== undefined) mergedBranding.primaryColor = inputBranding.primaryColor.trim() || currentBranding.primaryColor || '#2563eb';
       if (inputBranding.headerTheme !== undefined) mergedBranding.headerTheme = inputBranding.headerTheme || 'gradient';

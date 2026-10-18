@@ -1,7 +1,7 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database, CustomerRepository, SupportTicketRepository, runMigrations } from '@razorpayclone/db';
+import { Database, CustomerRepository, SupportTicketRepository, runMigrations } from '@razorpay/db';
 import { startHelpServer } from '../index.js';
 
 describe('Customer Payment Help Portal Integration Tests', () => {

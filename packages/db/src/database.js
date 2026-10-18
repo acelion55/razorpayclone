@@ -24,7 +24,7 @@ export function ensureDatabaseInitialized(db) {
 }
 
 /**
- * Universal Database Client for RAZORPAY CLONE.
+ * Universal Database Client for RAZORPAY.
  * Uses native node:sqlite for high-performance, embedded zero-dependency local operation
  * with full transactional ACID guarantees.
  */
@@ -46,7 +46,7 @@ export class Database {
           ? process.env.SQLITE_DB_PATH
           : path.resolve(repoRoot, process.env.SQLITE_DB_PATH);
       } else {
-        dbPath = path.resolve(repoRoot, 'data/razorpayclone.sqlite');
+        dbPath = path.resolve(repoRoot, 'data/razorpay.sqlite');
       }
       const dir = path.dirname(dbPath);
       if (!fs.existsSync(dir)) {

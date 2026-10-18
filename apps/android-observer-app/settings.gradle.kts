@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "RazorpayCloneObserver"
+rootProject.name = "RazorpayObserver"
 include(":app")

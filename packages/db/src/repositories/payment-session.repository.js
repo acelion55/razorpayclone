@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { PaymentStatus, PaymentMethod } from '@razorpayclone/common';
+import { PaymentStatus, PaymentMethod } from '@razorpay/common';
 
 export class PaymentSessionRepository {
   /**

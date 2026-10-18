@@ -1,6 +1,6 @@
 # ARCHITECTURE.md — Canonical System Architecture & Engineering Blueprint
 
-> **RAZORPAY CLONE V2**  
+> **RAZORPAY V2**  
 > *Sovereign • Self-Hosted • Zero-Fee • Deterministic UPI Payment Gateway Suite*  
 > **Architecture Reference:** Production Specification V2  
 > **Runtime Target:** Node.js `>= 20.0.0` (ESM Native) • SQLite WAL • Android Kotlin
@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary & Mission Statement
 
-**RAZORPAY CLONE** is a sovereign, self-hosted, white-label UPI and multi-modal payment gateway engineered for small-scale merchants, digital creators, and independent businesses in India.
+**RAZORPAY** is a sovereign, self-hosted, white-label UPI and multi-modal payment gateway engineered for small-scale merchants, digital creators, and independent businesses in India.
 
 ### The Problem It Solves
 Traditional Indian payment aggregators (Razorpay, Cashfree, PayU, Paytm) impose:
@@ -18,8 +18,8 @@ Traditional Indian payment aggregators (Razorpay, Cashfree, PayU, Paytm) impose:
 3. **Arbitrary Account Freezes:** Unilateral merchant fund withholding and sudden KYC lockdowns.
 4. **Phone Spoofing & Fraud:** Fraudulent orders placed using arbitrary fake phone numbers.
 
-### The RAZORPAY CLONE Solution
-RAZORPAY CLONE eliminates the aggregator intermediary completely:
+### The RAZORPAY Solution
+RAZORPAY eliminates the aggregator intermediary completely:
 - **0% Transaction Fees Forever:** Payments are settled directly into the merchant's bank account via peer-to-peer (P2P) UPI rails.
 - **Sub-Second Direct Settlement:** Zero holdbacks. Funds land in the merchant's account instantly.
 - **Deterministic Bank Observation:** Uses incoming cellular Bank SMS and Gmail notifications to verify payment credits cryptographically without official banking API licenses.
@@ -30,7 +30,7 @@ RAZORPAY CLONE eliminates the aggregator intermediary completely:
 
 ## 2. Core Architectural Invariants
 
-Every subsystem in RAZORPAY CLONE adheres to eight strict mathematical and operational invariants:
+Every subsystem in RAZORPAY adheres to eight strict mathematical and operational invariants:
 
 ### Invariant 1 — Deterministic Amount-Only Attribution
 Payment attribution enforces a strict equality invariant:
@@ -69,8 +69,8 @@ The active production persistence layer uses Node.js native `node:sqlite` (`Data
 - Zero Docker container overhead.
 
 ### Invariant 8 — Zero-Config Database Auto-Provisioning
-On first system boot or after cloning, RAZORPAY CLONE guarantees zero-config database provisioning:
-- Automatically detects if `data/razorpayclone.sqlite` and core tables exist (`SELECT count(*) FROM sqlite_master WHERE type='table' AND name='merchants'`).
+On first system boot or after cloning, RAZORPAY guarantees zero-config database provisioning:
+- Automatically detects if `data/razorpay.sqlite` and core tables exist (`SELECT count(*) FROM sqlite_master WHERE type='table' AND name='merchants'`).
 - If missing, creates the parent directory `data/` and runs all schema DDL and baseline seeds idempotently before accepting HTTP traffic.
 - Eliminates manual database creation scripts and avoids runtime `SqliteError: no such table` crashes entirely.
 
@@ -89,7 +89,7 @@ flowchart TB
     subgraph GatewayFrontend["Gateway Frontend Services"]
         CheckoutPortal["Checkout Portal (Port 7000)<br/>• Dynamic Vector UPI QR<br/>• WhatsApp OTP Modal<br/>• Decoupled Dual Timers<br/>• Mobile Bottom Sheet"]
         AdminDashboard["Merchant Admin Panel (Port 6001)<br/>• White-Label Customizer<br/>• Cashier Till Dock<br/>• Live VPA Slot Hub<br/>• WhatsApp Pairing"]
-        DemoStore["Razorpay Clone Showcase Store (Port 5000)<br/>• Enterprise Gateway PDP<br/>• 5 Outcome Demos<br/>• Developer Guide"]
+        DemoStore["Razorpay Showcase Store (Port 5000)<br/>• Enterprise Gateway PDP<br/>• 5 Outcome Demos<br/>• Developer Guide"]
     end
 
     subgraph CoreBackend["Payment Core REST Engine (Port 6100)"]
@@ -109,12 +109,12 @@ flowchart TB
     end
 
     subgraph PersistenceLayer["Storage & Supervision"]
-        SQLiteDB[("SQLite WAL Database<br/>• data/razorpayclone.sqlite<br/>• Strict Foreign Keys<br/>• Atomic BEGIN/COMMIT")]
+        SQLiteDB[("SQLite WAL Database<br/>• data/razorpay.sqlite<br/>• Strict Foreign Keys<br/>• Atomic BEGIN/COMMIT")]
         ControlCenter["Control Center (Port 8090)<br/>• Host Process Supervisor<br/>• Health & Log Aggregator"]
     end
 
     BuyerBrowser -->|Interacts with| CheckoutPortal
-    MerchantStore -->|SDK Embed / razorpayclone.js| CheckoutPortal
+    MerchantStore -->|SDK Embed / razorpay.js| CheckoutPortal
     CashierPOS -->|Approves Till Cash/Card| AdminDashboard
 
     CheckoutPortal -->|REST & SSE Stream| APIEndpoints
@@ -212,12 +212,12 @@ To prevent phone spoofing, bots, and unauthenticated slot exhaustion, customer i
 ---
 
 ### 4.3 Tri-Channel Banking Observation Engine
-RAZORPAY CLONE captures bank credit alerts across three redundant layers:
+RAZORPAY captures bank credit alerts across three redundant layers:
 
 | Layer | Component | Mechanism | Security & Integrity |
 | :--- | :--- | :--- | :--- |
-| **Layer 1** | **Native Android APK** (`com.razorpayclone.observer`) | Intercepts cellular SMS (`android.provider.Telephony.SMS_RECEIVED`) and bank push notifications via `NotificationListenerService`. | Paired via ephemeral QR enrollment token. Dispatches payloads to `/api/v1/observers/sms` signed with **HMAC-SHA256(deviceSecret)** and anti-replay timestamp drift protection ($<60$s). |
-| **Layer 2** | **Gmail Observer** (Port 6003) | Google Cloud OAuth2 API polling (`users.messages.list`) or headless CDP Chrome inbox scraper (`@razorpayclone/observer-sdk`). | Scans incoming bank transaction emails matching regex patterns (HDFC, ICICI, SBI, Axis, Kotak, PNB). |
+| **Layer 1** | **Native Android APK** (`com.razorpay.observer`) | Intercepts cellular SMS (`android.provider.Telephony.SMS_RECEIVED`) and bank push notifications via `NotificationListenerService`. | Paired via ephemeral QR enrollment token. Dispatches payloads to `/api/v1/observers/sms` signed with **HMAC-SHA256(deviceSecret)** and anti-replay timestamp drift protection ($<60$s). |
+| **Layer 2** | **Gmail Observer** (Port 6003) | Google Cloud OAuth2 API polling (`users.messages.list`) or headless CDP Chrome inbox scraper (`@razorpay/observer-sdk`). | Scans incoming bank transaction emails matching regex patterns (HDFC, ICICI, SBI, Axis, Kotak, PNB). |
 | **Layer 3** | **SMS Observer** (Port 6002) | Headless Chrome CDP automation pairing with Google Messages for Web (`messages.google.com/web`). | Real-time DOM text parsing extracting incoming SMS banking alerts without physical phone cables. |
 
 #### Unified Normalization & Deduplication
@@ -258,27 +258,27 @@ graph TD
 
 ---
 
-### 4.5 Universal Merchant Integration (`razorpayclone.js`)
+### 4.5 Universal Merchant Integration (`razorpay.js`)
 
-RAZORPAY CLONE distributes a single, framework-independent universal browser bundle: [`/razorpayclone.js`](apps/checkout-portal/src/sdk/razorpayclone.js).
+RAZORPAY distributes a single, framework-independent universal browser bundle: [`/razorpay.js`](apps/checkout-portal/src/sdk/razorpay.js).
 
 #### 1. Zero-JS Declarative Button Embedding
 Merchants add the script and declarative attributes to any HTML button:
 ```html
-<script src="https://pay.yourdomain.com/razorpayclone.js" data-razorpayclone-key="MERCHANT_PUBLIC_KEY"></script>
+<script src="https://pay.yourdomain.com/razorpay.js" data-razorpay-key="MERCHANT_PUBLIC_KEY"></script>
 
-<button data-razorpayclone-pay
+<button data-razorpay-pay
         data-order-id="ORD-1001"
         data-amount="499.00"
         data-currency="INR">
-  Buy Now with RAZORPAY CLONE
+  Buy Now with RAZORPAY
 </button>
 ```
 
-#### 2. Programmatic Invocation (`RazorpayClone.pay`)
+#### 2. Programmatic Invocation (`Razorpay.pay`)
 For SPAs (React, Next.js, Vue, Nuxt, Angular):
 ```javascript
-window.RazorpayClone.pay({
+window.Razorpay.pay({
   checkoutUrl: session.checkoutUrl,
   order_id: 'ORD-1001',
   amount: 499.00,
@@ -297,11 +297,11 @@ window.RazorpayClone.pay({
 
 #### 3. Standardized Browser DOM CustomEvents
 Driven directly on `window` for reactive UI animations:
-- `razorpayclone:payment:success` (`e.detail: { order_id, amount_received, utr }`)
-- `razorpayclone:payment:failed` (`e.detail: { order_id, reason }`)
-- `razorpayclone:payment:suspicious` (`e.detail: { order_id }`)
-- `razorpayclone:payment:expired` (`e.detail: { order_id }`)
-- `razorpayclone:payment:cancelled` (`e.detail: { order_id }`)
+- `razorpay:payment:success` (`e.detail: { order_id, amount_received, utr }`)
+- `razorpay:payment:failed` (`e.detail: { order_id, reason }`)
+- `razorpay:payment:suspicious` (`e.detail: { order_id }`)
+- `razorpay:payment:expired` (`e.detail: { order_id }`)
+- `razorpay:payment:cancelled` (`e.detail: { order_id }`)
 
 #### 4. Authoritative Webhook Security Contract
 Frontend browser events are never trusted for order fulfillment or provisioning digital goods. Order completion requires verifying the authoritative server-to-server webhook:
@@ -314,9 +314,9 @@ Frontend browser events are never trusted for order fulfillment or provisioning 
 ```javascript
 import crypto from 'node:crypto';
 
-app.post('/api/razorpayclone-webhook', express.raw({ type: 'application/json' }), (req, res) => {
+app.post('/api/razorpay-webhook', express.raw({ type: 'application/json' }), (req, res) => {
   const signature = req.headers['x-gateway-signature'] || '';
-  const secret = process.env.RAZORPAYCLONE_WEBHOOK_SECRET;
+  const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
   const expected = 'sha256=' + crypto.createHmac('sha256', secret).update(req.body).digest('hex');
 
   if (signature.length !== expected.length ||
@@ -335,7 +335,7 @@ app.post('/api/razorpayclone-webhook', express.raw({ type: 'application/json' })
 ---
 
 ### 4.6 5 Standardized Merchant Outcome Pages
-To prevent broken 404 links and inconsistent customer experiences, RAZORPAY CLONE provides 5 canonical outcome pages served from Port 5000:
+To prevent broken 404 links and inconsistent customer experiences, RAZORPAY provides 5 canonical outcome pages served from Port 5000:
 1. **`/order-success`:** Confirmed bank credit, displays verified UTR, provisions license/digital product.
 2. **`/order-failed`:** Informs buyer that verification timed out and confirms zero funds were deducted.
 3. **`/order-suspicious`:** Flagged by fraud heuristics; order held for manual merchant audit.
@@ -351,7 +351,7 @@ Configured via Tab 5 of the Merchant Admin dashboard and persisted in `merchants
 - **Custom Accent Color (`--primary`) & Header Gradients**
 - **Trust Badges & Security Sub-banners**
 - **Cloudflare Tunnel Custom Domain Binding (`pay.yourdomain.com`)**
-- **Complete Removal of "Powered by Razorpay Clone" Attribution**
+- **Complete Removal of "Powered by Razorpay" Attribution**
 
 ---
 
@@ -372,10 +372,10 @@ Configured via Tab 5 of the Merchant Admin dashboard and persisted in `merchants
 
 ## 6. Persistence & Schema Architecture
 
-All runtime state is stored in `data/razorpayclone.sqlite` with strict foreign keys and Write-Ahead Logging:
+All runtime state is stored in `data/razorpay.sqlite` with strict foreign keys and Write-Ahead Logging:
 
 ```text
-data/razorpayclone.sqlite
+data/razorpay.sqlite
 ├── merchants (id, business_name, api_key, webhook_secret, branding [JSON])
 ├── payment_receiving_accounts (id, merchant_id, vpa, account_name, is_slot_busy, daily_limit_paise)
 ├── customers (id, mobile_number, name, email, risk_tier, is_banned, created_at)
@@ -390,7 +390,7 @@ data/razorpayclone.sqlite
 
 ## 7. Verification & Quality Assurance Suite
 
-RAZORPAY CLONE enforces zero regression via a unified test runner:
+RAZORPAY enforces zero regression via a unified test runner:
 ```bash
 node scripts/test-all.js
 ```

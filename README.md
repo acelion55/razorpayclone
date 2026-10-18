@@ -1,15 +1,14 @@
 <div align="center">
 
-# ⚡ Razorpay Clone
+# ⚡ Razorpay
 
-### The 0% Commission, Self-Hosted UPI Payment Gateway
+### Self-Hosted UPI Payment Gateway
 
-**0% Commission • Direct-to-Bank Settlement • WhatsApp Pre-Checkout OTP • Bank SMS & Gmail Observers**
+**Direct-to-Bank Settlement • WhatsApp Pre-Checkout OTP • Bank SMS & Gmail Observers**
 
 <br/>
 
 [![Node.js](https://img.shields.io/badge/Node.js-v20%2B%20LTS-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
-[![0% Commission](https://img.shields.io/badge/Commission-0%25%20Forever-10b981?style=for-the-badge&logo=cashapp&logoColor=white)](#)
 [![Direct Settlement](https://img.shields.io/badge/Settlement-Instant%20P2P%20Bank-3b82f6?style=for-the-badge&logo=buffer&logoColor=white)](#)
 [![WhatsApp OTP](https://img.shields.io/badge/Auth-WhatsApp%20OTP-25d366?style=for-the-badge&logo=whatsapp&logoColor=white)](#)
 [![SQLite WAL](https://img.shields.io/badge/Database-SQLite%20Native%20WAL-003b57?style=for-the-badge&logo=sqlite&logoColor=white)](#)
@@ -20,7 +19,7 @@
 
 <p align="center">
   <a href="#-live-product-demos">Live Demos</a> •
-  <a href="#-why-razorpay-clone">Why Razorpay Clone?</a> •
+  <a href="#-why-razorpay">Why Razorpay?</a> •
   <a href="#-architecture-at-a-glance">Architecture</a> •
   <a href="#-key-features--superpowers">Features</a> •
   <a href="#-quickstart-in-60-seconds">Quickstart</a> •
@@ -36,21 +35,21 @@
 
 <br/>
 
-## ⚡ What is Razorpay Clone?
+## ⚡ What is Razorpay?
 
-**Razorpay Clone** is a sovereign, self-hosted UPI payment gateway that lets any Indian business accept UPI payments **at 0% commission**. Every rupee goes straight from your customer's bank account into your own bank account over standard NPCI UPI rails — no aggregator in the middle, no per-transaction cut, no settlement holdbacks.
+**Razorpay** is a sovereign, self-hosted UPI payment gateway that lets any Indian business accept UPI payments directly into their own bank account. Every rupee goes straight from your customer's bank account into your own bank account over standard NPCI UPI rails — no aggregator in the middle, no per-transaction cut, no settlement holdbacks.
 
 It works by pairing **pure vector SVG QR codes** with an **automated multi-channel banking observation mesh** (Android SMS/notification APK, Gmail, and Google Messages) so payments are confirmed directly from your bank's own SMS and email alerts.
 
 <br/>
 
-## 💡 Why Razorpay Clone?
+## 💡 Why Razorpay?
 
-Traditional payment gateways (Razorpay, Cashfree, PayU, Stripe) lock your revenue into high fees, multi-day settlement delays, and compliance freezes. Razorpay Clone removes the middleman entirely.
+Traditional payment gateways (Razorpay, Cashfree, PayU, Stripe) lock your revenue into high fees, multi-day settlement delays, and compliance freezes. Razorpay removes the middleman entirely.
 
-| Comparison Metric | Traditional Aggregators (Razorpay / Cashfree) | ⚡ Razorpay Clone (Self-Hosted) |
+| Comparison Metric | Traditional Aggregators (Razorpay / Cashfree) | ⚡ Razorpay (Self-Hosted) |
 | :--- | :--- | :--- |
-| **Commission / Transaction Fee** | **2.0% – 3.0% + 18% GST** per transaction | **0.0% (Zero Commission Forever)** |
+| **Commission / Transaction Fee** | **2.0% – 3.0% + 18% GST** per transaction | **Direct UPI (No Aggregator Fees)** |
 | **Settlement Speed** | **T+2 to T+3 Business Days** (Holdbacks) | **Instant (Direct into your Bank Account)** |
 | **Account Freeze Risk** | **High** (Unilateral freezes at aggregator discretion) | **ZERO** (You control your own VPA & infrastructure) |
 | **Customer Authentication** | SMS OTP (Costly SMS bills, phone spoofing) | **WhatsApp OTP** (Zero spoofing, verified mobile) |
@@ -66,7 +65,7 @@ Traditional payment gateways (Razorpay, Cashfree, PayU, Stripe) lock your revenu
 
 ## 🏗️ Architecture at a Glance
 
-Razorpay Clone converts a standard Indian personal or business UPI receiving account into an automated, zero-commission payment gateway.
+Razorpay converts a standard Indian personal or business UPI receiving account into an automated, self-hosted payment gateway.
 
 ```mermaid
 flowchart LR
@@ -75,7 +74,7 @@ flowchart LR
         Cart[Checkout Button]
     end
 
-    subgraph Gateway["Razorpay Clone Gateway Instance"]
+    subgraph Gateway["Razorpay Gateway Instance"]
         AuthGate[WhatsApp Auth<br/>6-Digit OTP]
         Queue[Single-Slot FIFO Queue<br/>Deterministic Arbiter]
         VectorQR[ISO Vector QR Engine<br/>UPI URI]
@@ -93,7 +92,7 @@ flowchart LR
     end
 
     Buyer -->|Clicks Checkout| Cart
-    Cart -->|razorpayclone.js Embed| AuthGate
+    Cart -->|razorpay.js Embed| AuthGate
     AuthGate -->|Verified| Queue
     Queue -->|Active Slot| VectorQR
     VectorQR -->|Displays Dynamic QR| Buyer
@@ -115,14 +114,14 @@ flowchart LR
 
 ## 🚀 Key Features & Superpowers
 
-### 1. ⚡ 0% Commission Forever
-Every rupee paid goes straight from your customer's bank account to your bank account via standard NPCI UPI rails. No intermediaries, no commission, no GST on fees — because there are no fees.
+### 1. ⚡ Direct-to-Bank Settlement
+Every rupee paid goes straight from your customer's bank account to your own bank account via standard NPCI UPI rails. No aggregator in the middle, no settlement holdbacks.
 
 ### 2. 💬 WhatsApp Pre-Checkout Authentication
 No more fake orders, bot spam, or fraudulent phone numbers. Before a customer can enter the checkout queue, the gateway delivers a cryptographically random 6-digit OTP directly to their WhatsApp using an embedded Baileys/Berry Protocol socket. Verified customer profiles are remembered in browser `localStorage`.
 
 ### 3. 🔒 Deterministic Single-Slot FIFO Queue Engine
-Because standard UPI alerts don't carry arbitrary merchant metadata, concurrent transactions with identical amounts could cause attribution confusion. Razorpay Clone solves this with a mathematical invariant:
+Because standard UPI alerts don't carry arbitrary merchant metadata, concurrent transactions with identical amounts could cause attribution confusion. Razorpay solves this with a mathematical invariant:
 - **Only ONE customer can pay on a VPA at a time.**
 - Other buyers wait in a database-backed FIFO queue with live position streaming.
 - Guarantees **100% exact payment matching** with zero payment mismatch errors.
@@ -147,7 +146,7 @@ Rebrand the checkout portal completely through the Merchant Admin Panel:
 - Custom app name, logo URL, and browser favicon.
 - Tailored color palettes, custom gradients, and trust badges.
 - Custom domain binding via Cloudflare Tunnels (`pay.yourbrand.com`).
-- Complete removal of any "Powered by Razorpay Clone" attribution.
+- Complete removal of any "Powered by Razorpay" attribution.
 
 ### 8. 🚦 5 Standardized Merchant Outcome Pages
 - `/order-success` — Payment verified by observers, order marked paid.
@@ -169,8 +168,8 @@ Rebrand the checkout portal completely through the Merchant Admin Panel:
 
 ### 1. Clone & Install Dependencies
 ```bash
-git clone https://github.com/acelion55/razorpayclone.git
-cd razorpayclone
+git clone https://github.com/acelion55/razorpay.git
+cd razorpay
 npm install
 ```
 
@@ -181,7 +180,7 @@ cp .env.example .env
 *(The default `.env` is pre-configured for localhost out of the box).*
 
 ### 3. Zero-Config Launch (Auto-Initialized SQLite)
-On first launch, Razorpay Clone automatically provisions `data/razorpayclone.sqlite`, creates the directory if missing, and executes idempotent migrations and baseline seeds. No manual database setup required:
+On first launch, Razorpay automatically provisions `data/razorpay.sqlite`, creates the directory if missing, and executes idempotent migrations and baseline seeds. No manual database setup required:
 ```bash
 npm run dev
 # or
@@ -206,31 +205,31 @@ npm test
 
 ## 📦 Universal Merchant Integration
 
-Integrating Razorpay Clone into your website, web app, or e-commerce store takes less than 5 minutes.
+Integrating Razorpay into your website, web app, or e-commerce store takes less than 5 minutes.
 
 ### Step 1: Add the Universal Script to your `<head>`
 ```html
-<!-- Official Razorpay Clone Universal Integration Script -->
-<script src="https://pay.yourdomain.com/razorpayclone.js"
-        data-razorpayclone-key="YOUR_MERCHANT_PUBLIC_KEY"
+<!-- Official Razorpay Universal Integration Script -->
+<script src="https://pay.yourdomain.com/razorpay.js"
+        data-razorpay-key="YOUR_MERCHANT_PUBLIC_KEY"
         data-currency="INR">
 </script>
 ```
 
 ### Step 2: Declarative Button (Zero JavaScript Required!)
-Add `data-razorpayclone-pay` attributes to any existing HTML button:
+Add `data-razorpay-pay` attributes to any existing HTML button:
 ```html
-<button data-razorpayclone-pay
+<button data-razorpay-pay
         data-order-id="ORDER-1001"
         data-amount="499.00"
         data-currency="INR">
-  ⚡ Buy Now — 0% Commission
+  ⚡ Buy Now
 </button>
 ```
 
 ### Step 3: Programmatic API (For React, Vue, Next.js, Nuxt)
 ```javascript
-RazorpayClone.pay({
+Razorpay.pay({
   order_id: 'ORDER-1001',
   amount: 499.00,
   currency: 'INR',
@@ -265,9 +264,9 @@ RazorpayClone.pay({
 ```javascript
 import crypto from 'node:crypto';
 
-app.post('/api/razorpayclone-webhook', express.raw({ type: 'application/json' }), (req, res) => {
+app.post('/api/razorpay-webhook', express.raw({ type: 'application/json' }), (req, res) => {
   const signature = req.headers['x-gateway-signature'] || '';
-  const secret = process.env.RAZORPAYCLONE_WEBHOOK_SECRET;
+  const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
   const expected = 'sha256=' + crypto.createHmac('sha256', secret).update(req.body).digest('hex');
 
   if (signature.length !== expected.length ||
@@ -290,7 +289,7 @@ Verification examples for Python, PHP and Go live in [`AGENTS.md`](AGENTS.md) an
 
 ## 🔭 Tri-Channel Observation Mesh
 
-Razorpay Clone confirms payments without expensive commercial banking APIs using a triple-layer observation pipeline:
+Razorpay confirms payments without expensive commercial banking APIs using a triple-layer observation pipeline:
 
 ```text
               CUSTOMER SCANS & PAYS VIA UPI
@@ -325,7 +324,7 @@ Razorpay Clone confirms payments without expensive commercial banking APIs using
                        SUCCESS CONFIRMED
 ```
 
-1. **Android Observer App:** Install [`apps/android-observer-app/razorpayclone-sms-gateway.apk`](apps/android-observer-app/razorpayclone-sms-gateway.apk) on any secondary Android smartphone with the receiving bank SIM. Scan the pairing QR code in Merchant Admin to establish an encrypted HMAC link.
+1. **Android Observer App:** Install [`apps/android-observer-app/razorpay-sms-gateway.apk`](apps/android-observer-app/razorpay-sms-gateway.apk) on any secondary Android smartphone with the receiving bank SIM. Scan the pairing QR code in Merchant Admin to establish an encrypted HMAC link.
 2. **Gmail Observer:** Connect your bank-registered Google account using standard OAuth2 credentials.
 3. **Google Messages Web Observer:** Pairs via headless Chrome DevTools Protocol to observe cellular SMS through Google Messages Web.
 
@@ -391,8 +390,8 @@ Distributed under commercial and sovereign licensing for independent merchant de
 <div align="center">
 
 ### Built for Financial Sovereignty in India 🇮🇳
-**Take back control of your payments. 0% commission. Direct settlement.**
+**Take back control of your payments. Direct settlement.**
 
-⭐ **Star this repository if you believe in open, zero-commission payment infrastructure!**
+⭐ **Star this repository if you believe in open, self-hosted payment infrastructure!**
 
 </div>

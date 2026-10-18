@@ -2,7 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getDatabase, MerchantRepository, SupportTicketRepository } from '@razorpayclone/db';
+import { getDatabase, MerchantRepository, SupportTicketRepository } from '@razorpay/db';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +20,7 @@ if (!process.env.BASE_PAYMENT_API_URL && typeof process.loadEnvFile === 'functio
 export class AdminServer {
   /**
    * @param {{
-   *   db?: import('@razorpayclone/db').Database,
+   *   db?: import('@razorpay/db').Database,
    *   apiBaseUrl?: string
    * }} options
    */
@@ -146,11 +146,11 @@ export class AdminServer {
       }
 
       // Download Android Companion APK
-      if (pathname === '/razorpayclone-sms-gateway.apk' || pathname === '/api/v1/admin/sms-gateway/download-apk') {
+      if (pathname === '/razorpay-sms-gateway.apk' || pathname === '/api/v1/admin/sms-gateway/download-apk') {
         const apkCandidates = [
-          path.resolve(__dirname, '../public/razorpayclone-sms-gateway.apk'),
-          path.resolve(__dirname, '../../payment-api/public/razorpayclone-sms-gateway.apk'),
-          path.resolve(__dirname, '../../android-observer-app/razorpayclone-sms-gateway.apk')
+          path.resolve(__dirname, '../public/razorpay-sms-gateway.apk'),
+          path.resolve(__dirname, '../../payment-api/public/razorpay-sms-gateway.apk'),
+          path.resolve(__dirname, '../../android-observer-app/razorpay-sms-gateway.apk')
         ];
         let apkPath = null;
         for (const p of apkCandidates) {
@@ -163,7 +163,7 @@ export class AdminServer {
           const stat = fs.statSync(apkPath);
           res.writeHead(200, {
             'Content-Type': 'application/vnd.android.package-archive',
-            'Content-Disposition': 'attachment; filename="razorpayclone-sms-gateway.apk"',
+            'Content-Disposition': 'attachment; filename="razorpay-sms-gateway.apk"',
             'Content-Length': stat.size,
             'Access-Control-Allow-Origin': '*'
           });

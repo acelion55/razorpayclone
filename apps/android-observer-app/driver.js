@@ -1,4 +1,4 @@
-import { generateHmac } from '@razorpayclone/common';
+import { generateHmac } from '@razorpay/common';
 
 /**
  * Android Observer Simulator / Driver.

@@ -1,10 +1,10 @@
 {
-  "name": "@razorpayclone/observer-sdk",
+  "name": "@razorpay/observer-sdk",
   "version": "1.0.0",
-  "description": "SDK for submitting observations to RAZORPAY CLONE Payment Detection Core",
+  "description": "SDK for submitting observations to RAZORPAY Payment Detection Core",
   "type": "module",
   "main": "./src/index.js",
   "dependencies": {
-    "@razorpayclone/common": "*"
+    "@razorpay/common": "*"
   }
 }

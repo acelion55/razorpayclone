@@ -2,7 +2,7 @@ import { EventEmitter } from 'node:events';
 import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { generateQrSvg } from '@razorpayclone/core';
+import { generateQrSvg } from '@razorpay/core';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,7 +19,7 @@ async function loadDependencies() {
       pathToFileURL(path.resolve(rootDir, 'apps/payment-api/node_modules/berryprotocol/dist/index.js')).href,
       'file:///D:/WA-USERAUTH DEV/node_modules/berryprotocol/dist/index.js',
       'file:///D:/E-Commerce PKG/services/whatsapp-worker/node_modules/berryprotocol/dist/index.js',
-      'file:///D:/ECOM AND RAZORPAY CLONE INTEGRATION/E-Commerce PACKAGE/services/whatsapp-worker/node_modules/berryprotocol/dist/index.js',
+      'file:///D:/ECOM AND RAZORPAY INTEGRATION/E-Commerce PACKAGE/services/whatsapp-worker/node_modules/berryprotocol/dist/index.js',
       'file:///D:/distribution/services/whatsapp-worker/node_modules/berryprotocol/dist/index.js'
     ];
     for (const p of candidates) {
@@ -40,7 +40,7 @@ async function loadDependencies() {
       pathToFileURL(path.resolve(rootDir, 'apps/payment-api/node_modules/qrcode/lib/index.js')).href,
       'file:///D:/WA-USERAUTH DEV/node_modules/qrcode/lib/index.js',
       'file:///D:/E-Commerce PKG/services/whatsapp-worker/node_modules/qrcode/lib/index.js',
-      'file:///D:/ECOM AND RAZORPAY CLONE INTEGRATION/E-Commerce PACKAGE/services/whatsapp-worker/node_modules/qrcode/lib/index.js',
+      'file:///D:/ECOM AND RAZORPAY INTEGRATION/E-Commerce PACKAGE/services/whatsapp-worker/node_modules/qrcode/lib/index.js',
       'file:///D:/distribution/services/whatsapp-worker/node_modules/qrcode/lib/index.js'
     ];
     for (const p of qrCandidates) {
@@ -102,7 +102,7 @@ export async function formatQrDataUrl(rawText, qrcodeModule = null) {
 export class WhatsAppBerryService extends EventEmitter {
   constructor(options = {}) {
     super();
-    this.sessionId = options.sessionId || 'razorpayclone_berry_session';
+    this.sessionId = options.sessionId || 'razorpay_berry_session';
     this.sessionPath = options.sessionPath || path.resolve(rootDir, 'data/berry_auth');
     this.databasePath = options.databasePath || path.resolve(rootDir, 'data/berry_store.db');
     this.metaFile = options.metaFile || path.resolve(rootDir, 'data/whatsapp_session.json');
@@ -229,7 +229,7 @@ export class WhatsAppBerryService extends EventEmitter {
     this.qrCode = null;
     this.pairingCode = null;
     this.pairingPhone = null;
-    this.sessionId = `razorpayclone_berry_${Date.now()}`;
+    this.sessionId = `razorpay_berry_${Date.now()}`;
     this.isSimulatedMode = false;
     this.isInitializing = false;
   }
@@ -571,7 +571,7 @@ export class WhatsAppBerryService extends EventEmitter {
     this.pairingPhone = clean;
 
     // Fresh session ID prevents device identity collisions on WhatsApp server
-    this.sessionId = `razorpayclone_berry_${Date.now()}`;
+    this.sessionId = `razorpay_berry_${Date.now()}`;
     try {
       fs.writeFileSync(this.metaFile, JSON.stringify({
         status: 'CONNECTING',
@@ -626,10 +626,10 @@ export class WhatsAppBerryService extends EventEmitter {
   async sendOtp(to, otpCode, customerName = '') {
     const greeting = customerName ? `Hello *${customerName}*!` : 'Hello!';
     const message =
-      `🔐 *RAZORPAY CLONE Verification Code*\n\n` +
+      `🔐 *RAZORPAY Verification Code*\n\n` +
       `${greeting} Your one-time login OTP is: *${otpCode}*\n\n` +
       `⏱ _Valid for 5 minutes. Do not share this code with anyone._\n\n` +
-      `— *RAZORPAY CLONE Secure Payments*`;
+      `— *RAZORPAY Secure Payments*`;
 
     return this.sendMessage(to, message);
   }

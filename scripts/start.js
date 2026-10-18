@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
 // Authoritative runtime mode enforcement (Part B1 & B4)
-process.env.RAZORPAYCLONE_MODE = 'production';
+process.env.RAZORPAY_MODE = 'production';
 process.env.NODE_ENV = 'production';
 
 // In production, reliably ensure environment variables from .env are loaded
@@ -23,7 +23,7 @@ try {
 } catch {}
 
 console.log('====================================================');
-console.log('🚀 Starting RAZORPAY CLONE V2 — Production Gateway');
+console.log('🚀 Starting RAZORPAY V2 — Production Gateway');
 console.log('====================================================');
 
 // 1. Run database migrations & load persisted configuration (Part B3: never overwrite settings)
@@ -44,7 +44,7 @@ if (!domain) {
   console.error('Please configure your Cloudflare Domain in the Merchant Admin panel,');
   console.error('or set CLOUDFLARE_DOMAIN in .env before running `npm start`.');
   console.error('');
-  console.error('RAZORPAY CLONE V2 adheres to authoritative production mode and will NOT');
+  console.error('RAZORPAY V2 adheres to authoritative production mode and will NOT');
   console.error('silently rewrite or fall back to localhost in production.');
   console.error('================================================================\n');
   process.exit(1);
@@ -88,7 +88,7 @@ console.log('[3/3] Starting core production gateway services (Pure API & Android
 await cc.processManager.startAll();
 
 console.log('====================================================');
-console.log('🟢 RAZORPAY CLONE V2 PRODUCTION GATEWAY ONLINE & ACTIVE');
+console.log('🟢 RAZORPAY V2 PRODUCTION GATEWAY ONLINE & ACTIVE');
 console.log('====================================================');
 console.log('AUTHORITATIVE PUBLIC CLOUDFLARE ROUTES:');
 console.log(`• Checkout Portal:      ${runtimeUrls.checkoutUrl}  (-> :7000)`);

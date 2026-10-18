@@ -1,7 +1,7 @@
 {
-  "name": "@razorpayclone/common",
+  "name": "@razorpay/common",
   "version": "1.0.0",
-  "description": "Shared protocols, types, currency utilities, and cryptographic helpers for RAZORPAY CLONE",
+  "description": "Shared protocols, types, currency utilities, and cryptographic helpers for RAZORPAY",
   "type": "module",
   "main": "./src/index.js",
   "exports": {

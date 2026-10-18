@@ -1,13 +1,13 @@
 {
   "name": "android-observer-app",
   "version": "1.0.0",
-  "description": "Native Android Payment Notification Observer App & Companion Driver for RAZORPAY CLONE",
+  "description": "Native Android Payment Notification Observer App & Companion Driver for RAZORPAY",
   "type": "module",
   "main": "./driver.js",
   "scripts": {
     "test": "node --test __tests__/**/*.test.js"
   },
   "dependencies": {
-    "@razorpayclone/common": "*"
+    "@razorpay/common": "*"
   }
 }

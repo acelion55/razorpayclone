@@ -12,7 +12,7 @@ import {
   PublicPaymentOutcome,
   ObserverSource,
   ObservationAttributionStatus
-} from '@razorpayclone/common';
+} from '@razorpay/common';
 import {
   Database,
   runMigrations,
@@ -21,9 +21,9 @@ import {
   SupportTicketRepository,
   AuditLogRepository,
   CustomerRepository
-} from '@razorpayclone/db';
+} from '@razorpay/db';
 
-describe('@razorpayclone/core Unit & Integration Tests', () => {
+describe('@razorpay/core Unit & Integration Tests', () => {
   describe('Payment State Machine', () => {
     test('permits valid transitions and denies illegal transitions', () => {
       assert.equal(isValidTransition(PaymentStatus.INITIATED, PaymentStatus.ACTIVE), true);

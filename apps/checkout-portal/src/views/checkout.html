@@ -74,7 +74,7 @@
       overflow: hidden;
     }
 
-    /* --- RAZORPAY CLONE CARD / DRAWER CONTAINER --- */
+    /* --- RAZORPAY CARD / DRAWER CONTAINER --- */
     .ypg-wrapper {
       width: 100%;
       max-width: 440px;
@@ -130,7 +130,7 @@
       }
     }
 
-    /* --- 1. INITIAL LOADING SPLASH SCREEN (RAZORPAY CLONE EMBLEM) --- */
+    /* --- 1. INITIAL LOADING SPLASH SCREEN (RAZORPAY EMBLEM) --- */
     .ypg-splash-screen {
       position: absolute;
       top: 0;
@@ -223,7 +223,7 @@
       color: #64748b;
     }
 
-    /* --- 2. AUTHENTIC RAZORPAY CLONE HEADER --- */
+    /* --- 2. AUTHENTIC RAZORPAY HEADER --- */
     .ypg-header {
       background: var(--ypg-header-gradient);
       color: #ffffff;
@@ -311,7 +311,7 @@
       line-height: 1.25;
     }
 
-    /* Razorpay Clone Verified Business Badge */
+    /* Razorpay Verified Business Badge */
     .ypg-trusted-badge {
       display: flex;
       align-items: center;
@@ -3049,16 +3049,16 @@
   <!-- TOAST NOTIFICATION -->
   <div id="ypgToast" class="ypg-toast"><img src="/icons/upi.svg" alt="UPI" style="height:12px; vertical-align:middle; filter:brightness(0) invert(1); margin-right:4px;" /> Direct UPI QR is active for instant banking verification</div>
 
-  <!-- RAZORPAY CLONE CHECKOUT CARD / DRAWER WRAPPER -->
+  <!-- RAZORPAY CHECKOUT CARD / DRAWER WRAPPER -->
   <div class="ypg-wrapper">
 
-    <!-- 1. INITIAL RAZORPAY CLONE LOADING SPLASH -->
+    <!-- 1. INITIAL RAZORPAY LOADING SPLASH -->
     <div id="ypgSplashScreen" class="ypg-splash-screen">
       <div class="ypg-splash-center">
         <div class="ypg-shield-orbit-box">
           <img id="splashBrandLogo" alt="Logo"
             style="display:none; max-width:82px; max-height:82px; border-radius:16px; object-fit:contain; box-shadow:0 8px 24px rgba(0,0,0,0.12);" />
-          <!-- Authentic Razorpay Clone Shield with 'Y' Monogram -->
+          <!-- Authentic Razorpay Shield with 'Y' Monogram -->
           <svg class="ypg-shield-icon-svg" id="splashDefaultShield" viewBox="0 0 100 120" fill="none">
             <defs>
               <linearGradient id="ypgShieldGrad" x1="0" y1="0" x2="1" y2="1">
@@ -3074,9 +3074,7 @@
       </div>
       <div class="ypg-splash-footer" id="splashFooterWrap">
         <span>Powered by</span>
-        <strong id="splashSecuredByText" style="color:var(--ypg-blue); font-size:15px; letter-spacing:-0.2px;">Razorpay Clone</strong>
-        <span style="color:#64748b; font-size:13px;">&bull;</span>
-        <span style="color:#10b981; font-size:13px; font-weight:700;">0% Commission</span>
+        <strong id="splashSecuredByText" style="color:var(--ypg-blue); font-size:15px; letter-spacing:-0.2px;">Razorpay</strong>
       </div>
     </div>
 
@@ -3183,7 +3181,7 @@
         </div>
       </div>
 
-      <!-- 2. AUTHENTIC RAZORPAY CLONE HEADER -->
+      <!-- 2. AUTHENTIC RAZORPAY HEADER -->
       <header class="ypg-header">
         <!-- Mobile Top Drag Handle -->
         <div class="ypg-drag-handle-bar"></div>
@@ -3205,7 +3203,7 @@
               <img id="merchantAvatarImg" alt="Logo" style="display:none;" />
             </div>
 
-            <!-- Merchant Name & Razorpay Clone Verified Business Badge -->
+            <!-- Merchant Name & Razorpay Verified Business Badge -->
             <div class="ypg-merchant-text-group">
               <div class="ypg-merchant-name" id="headerMerchantName">{{MERCHANT_NAME}}</div>
               <div class="ypg-trusted-badge" id="headerTrustBadge">
@@ -4146,9 +4144,9 @@
     let activeCustomer = null;
     let activeToken = null;
 
-    const STORAGE_KEY_IDENTITY = 'razorpayclone.customer.identity';
-    const STORAGE_KEY_ACCOUNTS = 'razorpayclone.customer.accounts';
-    const STORAGE_KEY_ACTIVE = 'razorpayclone.customer.activeId';
+    const STORAGE_KEY_IDENTITY = 'razorpay.customer.identity';
+    const STORAGE_KEY_ACCOUNTS = 'razorpay.customer.accounts';
+    const STORAGE_KEY_ACTIVE = 'razorpay.customer.activeId';
     const MAX_IDENTITY_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days (maximum 1 week)
 
     function getPreservedIdentity() {
@@ -4222,7 +4220,7 @@
     if (window.parent !== window || location.search.includes('embedded=1')) {
       document.body.classList.add('is-embedded');
       try {
-        window.parent.postMessage({ event: 'razorpayclone.modal_ready', paymentId: PAYMENT_ID }, '*');
+        window.parent.postMessage({ event: 'razorpay.modal_ready', paymentId: PAYMENT_ID }, '*');
       } catch (e) { }
     }
 
@@ -4335,7 +4333,7 @@
       if (isEmbedded) {
         try {
           window.parent.postMessage({
-            event: 'razorpayclone.payment_failed',
+            event: 'razorpay.payment_failed',
             data: {
               orderId,
               reason,
@@ -4354,7 +4352,7 @@
         // Fallback postMessage in case parent container only listens for modal_close
         try {
           window.parent.postMessage({
-            event: 'razorpayclone.modal_close',
+            event: 'razorpay.modal_close',
             action: 'payment_failed',
             redirectUrl: failRedirectUrl
           }, '*');
@@ -4369,7 +4367,7 @@
     function emitTriggerHook(action, details = {}) {
       try {
         window.parent.postMessage({
-          type: 'RAZORPAYCLONE_PAYMENT_HOOK',
+          type: 'RAZORPAY_PAYMENT_HOOK',
           action,
           paymentId: PAYMENT_ID,
           orderId: state?.orderId,
@@ -5312,7 +5310,7 @@
 
     // --- DEVICE IDENTITY & HARDWARE CONTEXT BINDING LAYER ---
     const DeviceIdentity = {
-      dbName: 'razorpayclone_device_keystore_v1',
+      dbName: 'razorpay_device_keystore_v1',
       storeName: 'keys',
       currentDeviceId: null,
       currentDeviceToken: null,
@@ -5374,7 +5372,7 @@
           const ctx = canvas.getContext('2d');
           ctx.textBaseline = 'top';
           ctx.font = "14px 'Arial'";
-          ctx.fillText('RazorpayClone-Device-Binding-2026', 2, 2);
+          ctx.fillText('Razorpay-Device-Binding-2026', 2, 2);
           canvasSig = canvas.toDataURL().slice(-32);
         } catch {}
 
@@ -5450,7 +5448,7 @@
           publicKeyBase64 = btoa(`fallback-device-key-${Math.random()}-${Date.now()}`);
         }
 
-        // 4. Register with Razorpay Clone backend
+        // 4. Register with Razorpay backend
         const signals = this.collectSignals();
         try {
           const resp = await fetch(`${API_BASE}/api/v1/devices/register`, {
@@ -5809,7 +5807,7 @@
       }
       const splashFooterWrap = document.getElementById('splashFooterWrap');
       if (splashFooterWrap) splashFooterWrap.style.display = 'flex';
-      if (splashSecuredText) splashSecuredText.textContent = 'Razorpay Clone';
+      if (splashSecuredText) splashSecuredText.textContent = 'Razorpay';
 
       // 12. Legal Disclaimer Strip
       const legalDisclaimerEl = document.getElementById('footerLegalDisclaimer');
@@ -5879,10 +5877,10 @@
               const isEmbedded = (window.parent && window.parent !== window) || location.search.includes('embedded=1');
               if (isEmbedded) {
                 try {
-                  window.parent.postMessage({ event: 'razorpayclone.modal_close', redirectUrl: storeUrl }, '*');
-                  window.parent.postMessage({ event: 'razorpayclone.close', redirectUrl: storeUrl }, '*');
-                  window.parent.postMessage({ event: 'razorpayclone.cancel', redirectUrl: storeUrl }, '*');
-                  window.parent.postMessage({ event: 'razorpayclone.payment_cancelled', redirectUrl: storeUrl }, '*');
+                  window.parent.postMessage({ event: 'razorpay.modal_close', redirectUrl: storeUrl }, '*');
+                  window.parent.postMessage({ event: 'razorpay.close', redirectUrl: storeUrl }, '*');
+                  window.parent.postMessage({ event: 'razorpay.cancel', redirectUrl: storeUrl }, '*');
+                  window.parent.postMessage({ event: 'razorpay.payment_cancelled', redirectUrl: storeUrl }, '*');
                 } catch (e) {}
               } else if (storeUrl && storeUrl !== '#' && !storeUrl.startsWith('javascript:')) {
                 window.location.href = storeUrl;
@@ -5961,7 +5959,7 @@
 
           try {
             window.parent.postMessage({
-              event: 'razorpayclone.payment_success',
+              event: 'razorpay.payment_success',
               data: data
             }, '*');
           } catch (e) { }
@@ -6379,10 +6377,10 @@
 
         if (isEmbedded) {
           try {
-            window.parent.postMessage({ event: 'razorpayclone.modal_close', redirectUrl: storeUrl }, '*');
-            window.parent.postMessage({ event: 'razorpayclone.close', redirectUrl: storeUrl }, '*');
-            window.parent.postMessage({ event: 'razorpayclone.cancel', redirectUrl: storeUrl }, '*');
-            window.parent.postMessage({ event: 'razorpayclone.payment_cancelled', redirectUrl: storeUrl }, '*');
+            window.parent.postMessage({ event: 'razorpay.modal_close', redirectUrl: storeUrl }, '*');
+            window.parent.postMessage({ event: 'razorpay.close', redirectUrl: storeUrl }, '*');
+            window.parent.postMessage({ event: 'razorpay.cancel', redirectUrl: storeUrl }, '*');
+            window.parent.postMessage({ event: 'razorpay.payment_cancelled', redirectUrl: storeUrl }, '*');
           } catch (e) { }
         }
 
@@ -6397,7 +6395,7 @@
 
     // Listen for cancel requests from parent iframe cross button
     window.addEventListener('message', (e) => {
-      if (e.data && e.data.event === 'razorpayclone.request_cancel') {
+      if (e.data && e.data.event === 'razorpay.request_cancel') {
         openCancelPaymentModal();
       }
     });
@@ -6528,7 +6526,7 @@
 
       try {
         window.parent.postMessage({
-          event: 'razorpayclone.payment_blocked',
+          event: 'razorpay.payment_blocked',
           data: {
             status: 'BLOCKED',
             isBanned: true,
@@ -6544,7 +6542,7 @@
       if (window.parent && window.parent !== window) {
         try {
           window.parent.postMessage({
-            event: 'razorpayclone.payment_blocked_exit',
+            event: 'razorpay.payment_blocked_exit',
             data: { status: 'BLOCKED', isBanned: true, orderId: state?.orderId }
           }, '*');
         } catch (e) {}

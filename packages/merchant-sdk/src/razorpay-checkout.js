@@ -1,8 +1,8 @@
 /**
- * RAZORPAY CLONE V2 — Universal One-Script Integration SDK
+ * RAZORPAY V2 — Universal One-Script Integration SDK
  *
- * Official Distributable Browser Script (razorpayclone.js / razorpayclone-checkout.js)
- * Provides zero-JavaScript button configuration [data-razorpayclone-pay] and programmatic RazorpayClone.pay({...})
+ * Official Distributable Browser Script (razorpay.js / razorpay-checkout.js)
+ * Provides zero-JavaScript button configuration [data-razorpay-pay] and programmatic Razorpay.pay({...})
  * Launches the responsive iframe checkout modal with background blur.
  * Emits normalized browser payment events and manages checkout modal lifecycle.
  *
@@ -15,10 +15,10 @@
   'use strict';
 
   // Prevent multiple initializations
-  if (globalScope.__RAZORPAYCLONE_SDK_INITIALIZED__) {
+  if (globalScope.__RAZORPAY_SDK_INITIALIZED__) {
     return;
   }
-  globalScope.__RAZORPAYCLONE_SDK_INITIALIZED__ = true;
+  globalScope.__RAZORPAY_SDK_INITIALIZED__ = true;
 
   const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 
@@ -29,7 +29,7 @@
     if (!isBrowser) return {};
 
     const script = document.currentScript ||
-      document.querySelector('script[src*="razorpayclone.js"], script[src*="razorpayclone-checkout.js"]');
+      document.querySelector('script[src*="razorpay.js"], script[src*="razorpay-checkout.js"]');
 
     if (!script) return {};
 
@@ -41,7 +41,7 @@
     const origin = scriptUrl ? scriptUrl.origin : (window.location.protocol + '//' + window.location.hostname + ':7000');
 
     return {
-      key: script.getAttribute('data-razorpayclone-key') || script.getAttribute('data-key') || script.getAttribute('data-merchant-id') || '',
+      key: script.getAttribute('data-razorpay-key') || script.getAttribute('data-key') || script.getAttribute('data-merchant-id') || '',
       apiUrl: script.getAttribute('data-api-url') || origin,
       portalUrl: script.getAttribute('data-portal-url') || script.getAttribute('data-checkout-url') || origin,
       currency: script.getAttribute('data-currency') || 'INR',
@@ -58,9 +58,9 @@
   const scriptConfig = getScriptConfig();
 
   /**
-   * RazorpayCloneCheckout class
+   * RazorpayCheckout class
    */
-  class RazorpayCloneCheckout {
+  class RazorpayCheckout {
     /**
      * @param {{
      *   key?: string,
@@ -148,10 +148,10 @@
     }
 
     /**
-     * Primary static programmatic entry point: RazorpayClone.pay(options)
+     * Primary static programmatic entry point: Razorpay.pay(options)
      */
     static async pay(options = {}) {
-      const instance = new RazorpayCloneCheckout(options);
+      const instance = new RazorpayCheckout(options);
 
       // If checkoutUrl is already provided, open modal directly
       if (instance.options.checkoutUrl) {
@@ -166,7 +166,7 @@
         return instance;
       }
 
-      // Otherwise, call RAZORPAY CLONE to create the payment session
+      // Otherwise, call RAZORPAY to create the payment session
       try {
         const orderId = instance.options.orderId || `ORDER-${Date.now()}`;
         instance.options.orderId = orderId;
@@ -205,8 +205,8 @@
             reason: errMsg,
             error: errMsg
           };
-          RazorpayCloneCheckout._emitEvent('razorpayclone:payment:failed', failResult);
-          RazorpayCloneCheckout._emitEvent('razorpayclone:payment:result', failResult);
+          RazorpayCheckout._emitEvent('razorpay:payment:failed', failResult);
+          RazorpayCheckout._emitEvent('razorpay:payment:result', failResult);
           if (typeof instance.options.onFailed === 'function') instance.options.onFailed(failResult);
           if (typeof instance.options.onPaymentFailed === 'function') instance.options.onPaymentFailed(failResult);
           throw new Error(errMsg);
@@ -217,16 +217,16 @@
         instance.open();
         return instance;
       } catch (err) {
-        console.error('[Razorpay Clone JS] Payment initialization error:', err.message);
+        console.error('[Razorpay JS] Payment initialization error:', err.message);
         throw err;
       }
     }
 
     /**
-     * Backward-compatible static entry point: RazorpayCloneCheckout.open(options)
+     * Backward-compatible static entry point: RazorpayCheckout.open(options)
      */
     static open(options) {
-      const instance = new RazorpayCloneCheckout(options);
+      const instance = new RazorpayCheckout(options);
       instance.open();
       return instance;
     }
@@ -236,13 +236,13 @@
      */
     open() {
       if (!isBrowser) {
-        console.warn('RazorpayCloneCheckout.open() can only be invoked in a browser DOM environment.');
+        console.warn('RazorpayCheckout.open() can only be invoked in a browser DOM environment.');
         return;
       }
       if (this.isOpen) return;
       this.isOpen = true;
 
-      RazorpayCloneCheckout._ensureStyles();
+      RazorpayCheckout._ensureStyles();
 
       let targetUrl = '';
       if (this.options.checkoutUrl) {
@@ -251,16 +251,6 @@
         targetUrl = `${this.options.portalUrl}/checkout/${this.options.paymentId}`;
       } else {
         targetUrl = `${this.options.portalUrl}/checkout/demo`;
-      }
-
-      // If running on localhost / 127.0.0.1 and targetUrl points to remote domain, normalize to localhost host
-      if (isBrowser && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-        if (targetUrl.includes('gauravtesting.online')) {
-          try {
-            const parsed = new URL(targetUrl);
-            targetUrl = `${window.location.protocol}//${window.location.host}${parsed.pathname}${parsed.search}`;
-          } catch {}
-        }
       }
 
       // Add embedded flag and custom params
@@ -314,20 +304,20 @@
 
     _injectModal(targetUrl) {
       const backdrop = document.createElement('div');
-      backdrop.className = 'razorpayclone-checkout-backdrop';
+      backdrop.className = 'razorpay-checkout-backdrop';
 
       const container = document.createElement('div');
-      container.className = 'razorpayclone-checkout-container';
+      container.className = 'razorpay-checkout-container';
 
       const closeBtn = document.createElement('button');
-      closeBtn.className = 'razorpayclone-checkout-close-btn';
+      closeBtn.className = 'razorpay-checkout-close-btn';
       closeBtn.innerHTML = '✕';
       closeBtn.title = 'Close Checkout';
       closeBtn.type = 'button';
       closeBtn.onclick = () => {
         try {
           if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.postMessage({ event: 'razorpayclone.request_cancel' }, '*');
+            iframe.contentWindow.postMessage({ event: 'razorpay.request_cancel' }, '*');
             return;
           }
         } catch (err) { }
@@ -336,7 +326,7 @@
       };
 
       const iframe = document.createElement('iframe');
-      iframe.className = 'razorpayclone-checkout-iframe';
+      iframe.className = 'razorpay-checkout-iframe';
       iframe.src = targetUrl;
       iframe.allow = 'payment';
 
@@ -380,7 +370,7 @@
       const event = e.data.event;
       const rawData = e.data.data || e.data;
 
-      if (event === 'razorpayclone.payment_success') {
+      if (event === 'razorpay.payment_success') {
         const payload = e.data.data || {};
         const result = {
           status: 'SUCCESS',
@@ -393,8 +383,8 @@
           raw: payload
         };
 
-        RazorpayCloneCheckout._emitEvent('razorpayclone:payment:success', result);
-        RazorpayCloneCheckout._emitEvent('razorpayclone:payment:result', result);
+        RazorpayCheckout._emitEvent('razorpay:payment:success', result);
+        RazorpayCheckout._emitEvent('razorpay:payment:result', result);
 
         if (typeof this.options.handler === 'function') {
           this.options.handler(result);
@@ -411,7 +401,7 @@
             }
           });
         }, 1500);
-      } else if (event === 'razorpayclone.payment_failed') {
+      } else if (event === 'razorpay.payment_failed') {
         const payload = e.data.data || e.data || {};
         const result = {
           status: 'FAILED',
@@ -425,8 +415,8 @@
           raw: payload
         };
 
-        RazorpayCloneCheckout._emitEvent('razorpayclone:payment:failed', result);
-        RazorpayCloneCheckout._emitEvent('razorpayclone:payment:result', result);
+        RazorpayCheckout._emitEvent('razorpay:payment:failed', result);
+        RazorpayCheckout._emitEvent('razorpay:payment:result', result);
 
         if (typeof this.options.onFailed === 'function') {
           try { this.options.onFailed(result); } catch (err) { }
@@ -443,7 +433,7 @@
             window.location.href = payload.redirectUrl;
           }
         });
-      } else if (event === 'razorpayclone.payment_blocked' || event === 'razorpayclone.payment_blocked_exit') {
+      } else if (event === 'razorpay.payment_blocked' || event === 'razorpay.payment_blocked_exit') {
         const payload = e.data.data || e.data || {};
         const result = {
           status: 'SUSPICIOUS',
@@ -457,8 +447,8 @@
           raw: payload
         };
 
-        RazorpayCloneCheckout._emitEvent('razorpayclone:payment:suspicious', result);
-        RazorpayCloneCheckout._emitEvent('razorpayclone:payment:result', result);
+        RazorpayCheckout._emitEvent('razorpay:payment:suspicious', result);
+        RazorpayCheckout._emitEvent('razorpay:payment:result', result);
 
         if (typeof this.options.onSuspicious === 'function') {
           try { this.options.onSuspicious(result); } catch (err) { }
@@ -470,7 +460,7 @@
             window.location.href = `${this.options.suspiciousUrl}${delim}order_id=${encodeURIComponent(result.order_id)}&reason=SUSPICIOUS`;
           }
         });
-      } else if (event === 'razorpayclone.payment_expired') {
+      } else if (event === 'razorpay.payment_expired') {
         const payload = e.data.data || e.data || {};
         const result = {
           status: 'EXPIRED',
@@ -478,8 +468,8 @@
           timestamp: new Date().toISOString()
         };
 
-        RazorpayCloneCheckout._emitEvent('razorpayclone:payment:expired', result);
-        RazorpayCloneCheckout._emitEvent('razorpayclone:payment:result', result);
+        RazorpayCheckout._emitEvent('razorpay:payment:expired', result);
+        RazorpayCheckout._emitEvent('razorpay:payment:result', result);
 
         if (typeof this.options.onExpired === 'function') {
           try { this.options.onExpired(result); } catch (err) { }
@@ -491,7 +481,7 @@
             window.location.href = `${this.options.expiredUrl}${delim}order_id=${encodeURIComponent(result.order_id)}`;
           }
         });
-      } else if (event === 'razorpayclone.modal_close' || event === 'razorpayclone.close' || event === 'razorpayclone.cancel' || event === 'razorpayclone.payment_cancelled') {
+      } else if (event === 'razorpay.modal_close' || event === 'razorpay.close' || event === 'razorpay.cancel' || event === 'razorpay.payment_cancelled') {
         this._dispatchCancelled();
         const redirectUrl = e.data.redirectUrl;
         this.close(() => {
@@ -511,8 +501,8 @@
         order_id: this.options.orderId || this.options.order_id || '',
         timestamp: new Date().toISOString()
       };
-      RazorpayCloneCheckout._emitEvent('razorpayclone:payment:cancelled', result);
-      RazorpayCloneCheckout._emitEvent('razorpayclone:payment:result', result);
+      RazorpayCheckout._emitEvent('razorpay:payment:cancelled', result);
+      RazorpayCheckout._emitEvent('razorpay:payment:result', result);
 
       if (typeof this.options.onCancelled === 'function') {
         try { this.options.onCancelled(result); } catch (e) { }
@@ -529,7 +519,7 @@
     }
 
     /**
-     * Handles clicks on elements with [data-razorpayclone-pay] attribute
+     * Handles clicks on elements with [data-razorpay-pay] attribute
      */
     static handleButtonClick(btn) {
       if (!btn) return;
@@ -573,7 +563,7 @@
       const expiredUrl = btn.getAttribute('data-expired-url') || scriptConfig.expiredUrl || '';
       const cancelledUrl = btn.getAttribute('data-cancelled-url') || scriptConfig.cancelledUrl || '';
 
-      RazorpayCloneCheckout.pay({
+      RazorpayCheckout.pay({
         order_id: orderId,
         orderId: orderId,
         amount: amount,
@@ -590,20 +580,20 @@
         expiredUrl: expiredUrl,
         cancelledUrl: cancelledUrl
       }).catch(err => {
-        console.error('[Razorpay Clone JS] Pay error:', err);
+        console.error('[Razorpay JS] Pay error:', err);
       });
     }
 
     static _ensureStyles() {
       if (!isBrowser) return;
-      let styleEl = document.getElementById('razorpayclone-checkout-styles');
+      let styleEl = document.getElementById('razorpay-checkout-styles');
       if (!styleEl) {
         styleEl = document.createElement('style');
-        styleEl.id = 'razorpayclone-checkout-styles';
+        styleEl.id = 'razorpay-checkout-styles';
         document.head.appendChild(styleEl);
       }
       styleEl.textContent = `
-        .razorpayclone-checkout-backdrop {
+        .razorpay-checkout-backdrop {
           position: fixed;
           top: 0;
           left: 0;
@@ -627,10 +617,10 @@
           -webkit-user-select: none;
           -webkit-tap-highlight-color: transparent;
         }
-        .razorpayclone-checkout-backdrop.active {
+        .razorpay-checkout-backdrop.active {
           opacity: 1;
         }
-        .razorpayclone-checkout-container {
+        .razorpay-checkout-container {
           position: relative;
           width: 440px;
           max-width: 95vw;
@@ -648,13 +638,13 @@
           user-select: auto !important;
           -webkit-user-select: auto !important;
         }
-        .razorpayclone-checkout-container.active {
+        .razorpay-checkout-container.active {
           transform: translateY(0) scale(1);
         }
-        .razorpayclone-checkout-container.closing {
+        .razorpay-checkout-container.closing {
           transform: translateY(20px) scale(0.96);
         }
-        .razorpayclone-checkout-iframe {
+        .razorpay-checkout-iframe {
           width: 100%;
           height: 100%;
           border: none;
@@ -662,7 +652,7 @@
           background: #ffffff;
           touch-action: auto !important;
         }
-        .razorpayclone-checkout-close-btn {
+        .razorpay-checkout-close-btn {
           position: absolute;
           top: 14px;
           right: 14px;
@@ -680,13 +670,13 @@
           justify-content: center;
           transition: background 0.15s;
         }
-        .razorpayclone-checkout-close-btn:hover {
+        .razorpay-checkout-close-btn:hover {
           background: rgba(255, 255, 255, 0.4);
         }
 
         /* DESKTOP / PC MODAL STYLES (Razorpay 2-Column Exact Layout) */
         @media (min-width: 768px) {
-          .razorpayclone-checkout-container {
+          .razorpay-checkout-container {
             width: 900px;
             max-width: 95vw;
             height: 600px;
@@ -694,17 +684,17 @@
             border-radius: 16px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
           }
-          .razorpayclone-checkout-close-btn {
+          .razorpay-checkout-close-btn {
             display: none; /* Native in-modal close button inside the checkout header bar */
           }
         }
 
         /* MOBILE BOTTOM DRAWER / BOTTOM SHEET STYLES */
         @media (max-width: 767px) {
-          .razorpayclone-checkout-backdrop {
+          .razorpay-checkout-backdrop {
             align-items: flex-end;
           }
-          .razorpayclone-checkout-container {
+          .razorpay-checkout-container {
             width: 100vw;
             max-width: 100vw;
             height: 100dvh;
@@ -719,10 +709,10 @@
             touch-action: auto !important;
             overflow: hidden;
           }
-          .razorpayclone-checkout-container.active {
+          .razorpay-checkout-container.active {
             transform: translateY(0);
           }
-          .razorpayclone-checkout-container.closing {
+          .razorpay-checkout-container.closing {
             transform: translateY(100%);
           }
         }
@@ -730,23 +720,23 @@
     }
   }
 
-  // Auto-bind click listener for all [data-razorpayclone-pay] buttons on page
+  // Auto-bind click listener for all [data-razorpay-pay] buttons on page
   if (isBrowser) {
     document.addEventListener('click', function (e) {
-      const btn = e.target && e.target.closest && e.target.closest('[data-razorpayclone-pay]');
+      const btn = e.target && e.target.closest && e.target.closest('[data-razorpay-pay]');
       if (btn) {
         e.preventDefault();
-        RazorpayCloneCheckout.handleButtonClick(btn);
+        RazorpayCheckout.handleButtonClick(btn);
       }
     });
   }
 
   // Export globals
-  globalScope.RazorpayCloneCheckout = RazorpayCloneCheckout;
-  globalScope.RazorpayClone = RazorpayCloneCheckout;
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = RazorpayCloneCheckout;
-    module.exports.RazorpayCloneCheckout = RazorpayCloneCheckout;
-    module.exports.RazorpayClone = RazorpayCloneCheckout;
-  }
+  globalScope.RazorpayCheckout = RazorpayCheckout;
+  globalScope.Razorpay = RazorpayCheckout;
 })(typeof window !== 'undefined' ? window : globalThis);
+
+const _exportedCheckout = (typeof window !== 'undefined' ? window : globalThis).RazorpayCheckout;
+export const RazorpayCheckout = _exportedCheckout;
+export const Razorpay = _exportedCheckout;
+export default _exportedCheckout;

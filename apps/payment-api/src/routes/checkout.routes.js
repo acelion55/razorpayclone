@@ -1,6 +1,6 @@
 import { HttpServer } from '../server.js';
-import { toRupeesString, buildUpiUri, PaymentStatus, PaymentMethod, UPI_PROVIDERS } from '@razorpayclone/common';
-import { validateSessionDeviceAccess } from '@razorpayclone/core';
+import { toRupeesString, buildUpiUri, PaymentStatus, PaymentMethod, UPI_PROVIDERS } from '@razorpay/common';
+import { validateSessionDeviceAccess } from '@razorpay/core';
 
 /**
  * Validates device access to an active payment session.
@@ -82,11 +82,11 @@ function checkSessionDeviceAccess(session, req, body = null, ctx = null) {
  * Registers customer checkout portal routes.
  * @param {HttpServer} server
  * @param {{
- *   merchantRepo: import('@razorpayclone/db').MerchantRepository,
- *   accountRepo: import('@razorpayclone/db').ReceivingAccountRepository,
- *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
- *   queueEngine: import('@razorpayclone/core').QueueEngine,
- *   timingEngine: import('@razorpayclone/core').TimingEngine
+ *   merchantRepo: import('@razorpay/db').MerchantRepository,
+ *   accountRepo: import('@razorpay/db').ReceivingAccountRepository,
+ *   sessionRepo: import('@razorpay/db').PaymentSessionRepository,
+ *   queueEngine: import('@razorpay/core').QueueEngine,
+ *   timingEngine: import('@razorpay/core').TimingEngine
  * }} ctx
  */
 /**
@@ -367,7 +367,7 @@ export function registerCheckoutRoutes(server, ctx) {
     if ([PaymentStatus.SUCCESS, PaymentStatus.FAILED, PaymentStatus.EXPIRED, PaymentStatus.CANCELLED].includes(session.status)) {
       const merchant = ctx.merchantRepo.findById(session.merchantId);
       const branding = {
-        appName: 'Razorpay Clone',
+        appName: 'Razorpay',
         primaryColor: '#2563eb',
         ...(merchant?.branding || {})
       };
@@ -441,7 +441,7 @@ export function registerCheckoutRoutes(server, ctx) {
     }
 
     const branding = {
-      appName: 'Razorpay Clone',
+      appName: 'Razorpay',
       primaryColor: '#2563eb',
       headerTheme: 'gradient',
       logoUrl: null,

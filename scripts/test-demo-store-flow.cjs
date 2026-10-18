@@ -88,8 +88,8 @@ async function testFlow() {
     const modalCheck = await sendCommand('Runtime.evaluate', {
       expression: `
         (function() {
-          const backdrop = document.querySelector('.razorpayclone-checkout-backdrop');
-          const iframe = document.querySelector('.razorpayclone-checkout-iframe');
+          const backdrop = document.querySelector('.razorpay-checkout-backdrop');
+          const iframe = document.querySelector('.razorpay-checkout-iframe');
           return {
             backdropActive: backdrop ? backdrop.classList.contains('active') : false,
             iframeSrc: iframe ? iframe.src : null

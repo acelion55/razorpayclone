@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { TicketStatus, SenderType } from '@razorpayclone/common';
+import { TicketStatus, SenderType } from '@razorpay/common';
 
 export class SupportTicketRepository {
   /**

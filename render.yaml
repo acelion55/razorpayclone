@@ -1,14 +1,14 @@
-# Render Blueprint — Razorpay Clone V2 (single-URL, path-based deploy)
+# Render Blueprint — Razorpay V2 (single-URL, path-based deploy)
 #
 # One web service exposes the Checkout Portal on $PORT. The Payment API runs
 # internally on 127.0.0.1:6100 and is reached through the portal's transparent
 # /api/* proxy, so everything lives on a single public URL.
 #
 # The public URL is auto-detected from Render's RENDER_EXTERNAL_URL. Override it
-# by setting RAZORPAYCLONE_PUBLIC_URL if you use a custom domain.
+# by setting RAZORPAY_PUBLIC_URL if you use a custom domain.
 services:
   - type: web
-    name: razorpayclone
+    name: razorpay
     runtime: node
     plan: starter
     # node:sqlite (used by packages/db) requires Node >= 23.4 (unflagged in 24).
@@ -20,12 +20,12 @@ services:
         value: "24"
       - key: NODE_ENV
         value: production
-      - key: RAZORPAYCLONE_WEBHOOK_SECRET
+      - key: RAZORPAY_WEBHOOK_SECRET
         generateValue: true
       # Persistent SQLite on a mounted disk (disks require a paid instance type).
       - key: SQLITE_DB_PATH
-        value: /var/data/razorpayclone.sqlite
+        value: /var/data/razorpay.sqlite
     disk:
-      name: razorpayclone-data
+      name: razorpay-data
       mountPath: /var/data
       sizeGB: 1

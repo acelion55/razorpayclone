@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { AuditActorType } from '@razorpayclone/common';
+import { AuditActorType } from '@razorpay/common';
 
 export class AuditLogRepository {
   /**

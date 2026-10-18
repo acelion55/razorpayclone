@@ -1,6 +1,6 @@
 import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { Database } from '@razorpayclone/db';
+import { Database } from '@razorpay/db';
 import { startServer as startPaymentApi } from '../index.js';
 
 describe('White-Label Branding & Visual Gateway Customizer Test Suite', () => {

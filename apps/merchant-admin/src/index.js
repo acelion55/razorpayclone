@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { AdminServer } from './server.js';
-import { getDatabase, runMigrations, ensureDatabaseInitialized } from '@razorpayclone/db';
+import { getDatabase, runMigrations, ensureDatabaseInitialized } from '@razorpay/db';
 
 export function startAdminServer(port = null, options = {}) {
   const finalPort = port || Number(process.env.MERCHANT_ADMIN_PORT || 6001);

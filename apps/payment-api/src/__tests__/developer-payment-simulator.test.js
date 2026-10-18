@@ -1,7 +1,7 @@
 import { test, describe, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database, CustomerRepository, CustomerSessionRepository, PaymentSessionRepository, MerchantRepository } from '@razorpayclone/db';
+import { Database, CustomerRepository, CustomerSessionRepository, PaymentSessionRepository, MerchantRepository } from '@razorpay/db';
 import { startServer as startPaymentApi } from '../index.js';
 
 describe('Feature 65: Developer Payment Simulator Integration & Acceptance Suite', () => {

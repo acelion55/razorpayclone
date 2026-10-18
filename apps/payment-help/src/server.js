@@ -2,7 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getDatabase, SupportTicketRepository } from '@razorpayclone/db';
+import { getDatabase, SupportTicketRepository } from '@razorpay/db';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +20,7 @@ if (!process.env.BASE_PAYMENT_API_URL && typeof process.loadEnvFile === 'functio
 export class HelpServer {
   /**
    * @param {{
-   *   db?: import('@razorpayclone/db').Database,
+   *   db?: import('@razorpay/db').Database,
    *   apiBaseUrl?: string
    * }} options
    */

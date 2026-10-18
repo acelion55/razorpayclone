@@ -1,12 +1,12 @@
-import { PaymentStatus } from '@razorpayclone/common';
+import { PaymentStatus } from '@razorpay/common';
 
 export class TimingEngine {
   /**
    * @param {{
-   *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
+   *   sessionRepo: import('@razorpay/db').PaymentSessionRepository,
    *   queueEngine: import('./queue-engine.js').QueueEngine,
    *   eventEmitter?: { emit: (event: string, payload: any) => void },
-   *   auditRepo?: import('@razorpayclone/db').AuditLogRepository,
+   *   auditRepo?: import('@razorpay/db').AuditLogRepository,
    *   activeDurationMs?: number,
    *   processingDurationMs?: number
    * }} options

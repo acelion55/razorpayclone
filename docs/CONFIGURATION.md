@@ -14,7 +14,7 @@
 | `SMS_OBSERVER_PORT` | `6002` | Host port for the Google Messages / SMS Web Automator |
 | `DATABASE_URL` | `postgresql://...` | PostgreSQL connection URL |
 | `USE_SQLITE_FALLBACK` | `true` | When true, uses embedded SQLite if PostgreSQL is unreachable |
-| `SQLITE_DB_PATH` | `./data/razorpayclone.sqlite`| Path to local SQLite database file |
+| `SQLITE_DB_PATH` | `./data/razorpay.sqlite`| Path to local SQLite database file |
 | `ENCRYPTION_MASTER_KEY` | `64-hex chars` | 256-bit key for encrypting OAuth credentials and device keys |
 | `JWT_SECRET` | `32+ chars` | Secret key for customer and admin session tokens |
 | `PAYMENT_ACTIVE_WINDOW_MS` | `300000` | Duration of active payment slot (5 minutes = 300,000ms) |

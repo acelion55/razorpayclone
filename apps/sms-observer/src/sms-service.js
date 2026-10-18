@@ -1,4 +1,4 @@
-import { PaymentObserverClient } from '@razorpayclone/observer-sdk';
+import { PaymentObserverClient } from '@razorpay/observer-sdk';
 import { BankSmsParser } from './sms-parser.js';
 
 export class SmsObserverService {

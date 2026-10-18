@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import { EventEmitter } from 'node:events';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PaymentStatus } from '@razorpayclone/common';
+import { PaymentStatus } from '@razorpay/common';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,7 +30,7 @@ import {
   SupportTicketRepository,
   AuditLogRepository,
   DeviceRepository
-} from '@razorpayclone/db';
+} from '@razorpay/db';
 import {
   QueueEngine,
   TimingEngine,
@@ -38,7 +38,7 @@ import {
   RecoveryEngine,
   WebhookEngine,
   PaymentVerificationPipeline
-} from '@razorpayclone/core';
+} from '@razorpay/core';
 import { HttpServer } from './server.js';
 import { registerPaymentRoutes } from './routes/payments.routes.js';
 import { registerCheckoutRoutes } from './routes/checkout.routes.js';

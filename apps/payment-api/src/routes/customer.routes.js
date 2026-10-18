@@ -1,14 +1,14 @@
 import { HttpServer } from '../server.js';
-import { normalizeEmail, normalizeMobile, isValidEmail, isValidMobile, isValidPassword } from '@razorpayclone/common';
+import { normalizeEmail, normalizeMobile, isValidEmail, isValidMobile, isValidPassword } from '@razorpay/common';
 
 /**
  * Registers gateway-owned customer identity and session routes.
  * @param {HttpServer} server
  * @param {{
- *   customerRepo: import('@razorpayclone/db').CustomerRepository,
- *   customerSessionRepo: import('@razorpayclone/db').CustomerSessionRepository,
- *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
- *   auditRepo: import('@razorpayclone/db').AuditLogRepository
+ *   customerRepo: import('@razorpay/db').CustomerRepository,
+ *   customerSessionRepo: import('@razorpay/db').CustomerSessionRepository,
+ *   sessionRepo: import('@razorpay/db').PaymentSessionRepository,
+ *   auditRepo: import('@razorpay/db').AuditLogRepository
  * }} ctx
  */
 export function registerCustomerRoutes(server, ctx) {
@@ -19,7 +19,7 @@ export function registerCustomerRoutes(server, ctx) {
       return authHeader.slice(7).trim();
     }
     const cookieHeader = req.headers['cookie'] || '';
-    const match = cookieHeader.match(/razorpayclone_session=([^;]+)/);
+    const match = cookieHeader.match(/razorpay_session=([^;]+)/);
     if (match) {
       return match[1].trim();
     }
@@ -28,7 +28,7 @@ export function registerCustomerRoutes(server, ctx) {
 
   // Helper to set session cookie header
   function buildSessionCookie(token, maxAgeSeconds = 30 * 24 * 3600) {
-    return `razorpayclone_session=${token}; Path=/; Max-Age=${maxAgeSeconds}; HttpOnly; SameSite=Lax`;
+    return `razorpay_session=${token}; Path=/; Max-Age=${maxAgeSeconds}; HttpOnly; SameSite=Lax`;
   }
 
   // Pending signup challenges cache: mobileNumber -> { otpCode, expiresAt, name, email }
@@ -122,7 +122,7 @@ export function registerCustomerRoutes(server, ctx) {
         otpCode,
         expiresAt,
         name: name || `Customer ${cleanMobile.slice(-4)}`,
-        email: email || `${cleanMobile}@customer.razorpayclone.local`
+        email: email || `${cleanMobile}@customer.razorpay.local`
       });
     }
 
@@ -200,7 +200,7 @@ export function registerCustomerRoutes(server, ctx) {
 
       // Create new customer account in DB
       const resolvedName = (body.name || body.fullName || pending.name || `Customer ${cleanMobile.slice(-4)}`).trim();
-      const resolvedEmail = normalizeEmail(body.email || pending.email) || `${cleanMobile}@customer.razorpayclone.local`;
+      const resolvedEmail = normalizeEmail(body.email || pending.email) || `${cleanMobile}@customer.razorpay.local`;
 
       try {
         customer = ctx.customerRepo.create({
@@ -277,7 +277,7 @@ export function registerCustomerRoutes(server, ctx) {
     const resolvedMobile = normalizeMobile(mobileNumber || body.phoneNumber);
     let resolvedEmail = normalizeEmail(email);
     if (!resolvedEmail && resolvedMobile) {
-      resolvedEmail = `${resolvedMobile}@customer.razorpayclone.local`;
+      resolvedEmail = `${resolvedMobile}@customer.razorpay.local`;
     }
     const resolvedPassword = password;
 
@@ -472,7 +472,7 @@ export function registerCustomerRoutes(server, ctx) {
       ctx.customerSessionRepo.revokeToken(token);
     }
 
-    res.setHeader('Set-Cookie', 'razorpayclone_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax');
+    res.setHeader('Set-Cookie', 'razorpay_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax');
     HttpServer.json(res, 200, { success: true, message: 'Logged out successfully.' });
   });
 

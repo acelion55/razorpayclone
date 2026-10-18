@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createPaymentApp } from '../index.js';
-import { Database } from '@razorpayclone/db';
+import { Database } from '@razorpay/db';
 
 test('WhatsApp Berry Protocol OTP Customer Auth & Merchant Configuration Suite', async (t) => {
   const customDb = new Database({ inMemory: true });

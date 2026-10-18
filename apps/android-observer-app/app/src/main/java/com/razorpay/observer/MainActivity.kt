@@ -1,4 +1,4 @@
-package com.razorpayclone.observer
+package com.razorpay.observer
 
 import android.content.Intent
 import android.os.Bundle
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val title = TextView(this).apply {
-            text = "Razorpay Clone Payment Observer"
+            text = "Razorpay Payment Observer"
             textSize = 22f
             setTypeface(null, android.graphics.Typeface.BOLD)
         }

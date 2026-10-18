@@ -2,7 +2,7 @@
 
 ## 1. Crash Recovery Mechanics
 
-RAZORPAY CLONE's `RecoveryEngine` executes automatically whenever the Payment API process boots:
+RAZORPAY's `RecoveryEngine` executes automatically whenever the Payment API process boots:
 
 ### Automatic Reconciliation Actions
 1. **Overdue `PROCESSING` Sessions:**
@@ -38,17 +38,17 @@ A customer pays via their UPI app near the end of their 5-minute payment window,
 ### PostgreSQL Production Backup
 ```bash
 # Automated Daily Backup Script
-pg_dump -U razorpayclone -d razorpayclone -F c -b -v -f "/var/backups/razorpayclone_$(date +\%Y\%m\%d).dump"
+pg_dump -U razorpay -d razorpay -F c -b -v -f "/var/backups/razorpay_$(date +\%Y\%m\%d).dump"
 
 # Restore from Backup
-pg_restore -U razorpayclone -d razorpayclone -v "/var/backups/razorpayclone_20260908.dump"
+pg_restore -U razorpay -d razorpay -v "/var/backups/razorpay_20260908.dump"
 ```
 
 ### SQLite Local Backup
 For embedded/small deployments using SQLite:
 ```bash
 # Atomic SQLite Online Backup
-sqlite3 ./data/razorpayclone.sqlite ".backup './data/razorpayclone_backup.sqlite'"
+sqlite3 ./data/razorpay.sqlite ".backup './data/razorpay_backup.sqlite'"
 ```
 
 ---

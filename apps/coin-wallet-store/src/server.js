@@ -2,7 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { RazorpayClonePaymentClient } from '@razorpayclone/merchant-sdk';
+import { RazorpayPaymentClient } from '@razorpay/merchant-sdk';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,7 +31,7 @@ export class CoinWalletStoreServer {
     this.merchantId = options.merchantId || '00000000-0000-0000-0000-000000000001';
     this.webhookSecret = options.webhookSecret || 'merchant_webhook_secret_for_wallet_store';
 
-    this.paymentClient = new RazorpayClonePaymentClient({
+    this.paymentClient = new RazorpayPaymentClient({
       apiUrl: this.gatewayApiUrl,
       merchantId: this.merchantId,
       webhookSecret: this.webhookSecret
@@ -102,9 +102,9 @@ export class CoinWalletStoreServer {
         return;
       }
 
-      // GET /razorpayclone.js or /sdk/razorpayclone-checkout.js (Universal Frontend Integration Script)
-      if (pathname === '/razorpayclone.js' || pathname === '/sdk/razorpayclone-checkout.js' || pathname === '/sdk/razorpayclone.js') {
-        const sdkPath = path.resolve(__dirname, '../../checkout-portal/src/sdk/razorpayclone.js');
+      // GET /razorpay.js or /sdk/razorpay-checkout.js (Universal Frontend Integration Script)
+      if (pathname === '/razorpay.js' || pathname === '/sdk/razorpay-checkout.js' || pathname === '/sdk/razorpay.js') {
+        const sdkPath = path.resolve(__dirname, '../../checkout-portal/src/sdk/razorpay.js');
         if (fs.existsSync(sdkPath)) {
           res.writeHead(200, {
             'Content-Type': 'application/javascript; charset=utf-8',
@@ -345,7 +345,7 @@ export class CoinWalletStoreServer {
             const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost:5000';
             const returnUrl = `${proto}://${host}/wallet?orderId=${orderId}`;
 
-            // Call Razorpay Clone Payment Gateway via SDK
+            // Call Razorpay Payment Gateway via SDK
             const payment = await this.paymentClient.createPayment({
               orderId,
               amount: amountStr,
@@ -443,7 +443,7 @@ export class CoinWalletStoreServer {
         return;
       }
 
-      // POST /api/webhook or /webhook (Signed webhook listener from RAZORPAY CLONE)
+      // POST /api/webhook or /webhook (Signed webhook listener from RAZORPAY)
       if ((pathname === '/api/webhook' || pathname === '/webhook') && method === 'POST') {
         let rawBody = '';
         req.on('data', chunk => { rawBody += chunk; });

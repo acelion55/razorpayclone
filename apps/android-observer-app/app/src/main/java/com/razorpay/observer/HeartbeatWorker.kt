@@ -1,4 +1,4 @@
-package com.razorpayclone.observer
+package com.razorpay.observer
 
 import android.content.Context
 import android.os.Handler

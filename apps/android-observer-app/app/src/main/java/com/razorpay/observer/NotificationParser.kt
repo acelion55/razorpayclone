@@ -1,4 +1,4 @@
-package com.razorpayclone.observer
+package com.razorpay.observer
 
 import java.util.regex.Pattern
 

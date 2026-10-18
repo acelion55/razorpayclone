@@ -1,4 +1,4 @@
-package com.razorpayclone.observer;
+package com.razorpay.observer;
 
 import android.app.Notification;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PaymentNotificationListenerService extends NotificationListenerService {
-    private static final String TAG = "RazorpayCloneNotifListener";
+    private static final String TAG = "RazorpayNotifListener";
     private ApiClient apiClient;
 
     private static final Pattern AMOUNT_PATTERN = Pattern.compile("(?:Rs\\.?|INR|₹)\\s*([0-9,]+(?:\\.[0-9]{1,2})?)", Pattern.CASE_INSENSITIVE);

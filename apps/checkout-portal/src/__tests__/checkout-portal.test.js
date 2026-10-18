@@ -104,20 +104,20 @@ describe('Checkout Portal Integration Tests', () => {
       assert.ok(resPhonePe.headers['content-type'].includes('image/png'));
     });
 
-    test('GET /razorpayclone.js and /sdk/razorpayclone-checkout.js return official integration SDK with CORS', async () => {
-      const resRazorpayClone = await get('/razorpayclone.js');
-      assert.equal(resRazorpayClone.status, 200);
-      assert.ok(resRazorpayClone.headers['content-type'].includes('application/javascript'));
-      assert.equal(resRazorpayClone.headers['access-control-allow-origin'], '*');
-      assert.ok(resRazorpayClone.text.includes('RazorpayCloneCheckout'));
-      assert.ok(resRazorpayClone.text.includes('data-razorpayclone-pay'));
-      assert.ok(resRazorpayClone.text.includes('razorpayclone:payment:success'));
+    test('GET /razorpay.js and /sdk/razorpay-checkout.js return official integration SDK with CORS', async () => {
+      const resRazorpay = await get('/razorpay.js');
+      assert.equal(resRazorpay.status, 200);
+      assert.ok(resRazorpay.headers['content-type'].includes('application/javascript'));
+      assert.equal(resRazorpay.headers['access-control-allow-origin'], '*');
+      assert.ok(resRazorpay.text.includes('RazorpayCheckout'));
+      assert.ok(resRazorpay.text.includes('data-razorpay-pay'));
+      assert.ok(resRazorpay.text.includes('razorpay:payment:success'));
 
-      const resLegacy = await get('/sdk/razorpayclone-checkout.js');
+      const resLegacy = await get('/sdk/razorpay-checkout.js');
       assert.equal(resLegacy.status, 200);
       assert.ok(resLegacy.headers['content-type'].includes('application/javascript'));
       assert.equal(resLegacy.headers['access-control-allow-origin'], '*');
-      assert.ok(resLegacy.text.includes('RazorpayCloneCheckout'));
+      assert.ok(resLegacy.text.includes('RazorpayCheckout'));
     });
 
     test('GET /checkout/:id includes PC 2-column sidebar, UPI Server indicator, and NO visual UPI ID in summary', async () => {

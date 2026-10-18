@@ -1,4 +1,4 @@
-package com.razorpayclone.observer;
+package com.razorpay.observer;
 
 import android.Manifest;
 import android.app.Activity;
@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
 
         // Header Title
         TextView tvTitle = new TextView(this);
-        tvTitle.setText("Razorpay Clone SMS Gateway");
+        tvTitle.setText("Razorpay SMS Gateway");
         tvTitle.setTextColor(Color.WHITE);
         tvTitle.setTextSize(22f);
         tvTitle.setTypeface(null, Typeface.BOLD);
@@ -379,7 +379,7 @@ public class MainActivity extends Activity {
 
     private void handleScannedQrPayload(String rawPayload) {
         if (rawPayload == null || rawPayload.trim().isEmpty()) {
-            Toast.makeText(this, "INVALID Razorpay Clone PAIRING QR", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "INVALID Razorpay PAIRING QR", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -387,14 +387,14 @@ public class MainActivity extends Activity {
             org.json.JSONObject json = new org.json.JSONObject(rawPayload.trim());
 
             String type = json.optString("type", "");
-            if (!"RAZORPAYCLONE_SMS_GATEWAY_PAIR".equals(type)) {
-                Toast.makeText(this, "INVALID Razorpay Clone PAIRING QR", Toast.LENGTH_LONG).show();
+            if (!"RAZORPAY_SMS_GATEWAY_PAIR".equals(type)) {
+                Toast.makeText(this, "INVALID Razorpay PAIRING QR", Toast.LENGTH_LONG).show();
                 return;
             }
 
             String version = json.optString("version", "v1");
             if (!"v1".equals(version)) {
-                Toast.makeText(this, "INVALID Razorpay Clone PAIRING QR", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "INVALID Razorpay PAIRING QR", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -406,13 +406,13 @@ public class MainActivity extends Activity {
 
             final String serverUrl = json.optString("serverUrl", json.optString("gatewayUrl", json.optString("apiBaseUrl", "")));
             if (!serverUrl.startsWith("http://") && !serverUrl.startsWith("https://")) {
-                Toast.makeText(this, "INVALID Razorpay Clone PAIRING QR", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "INVALID Razorpay PAIRING QR", Toast.LENGTH_LONG).show();
                 return;
             }
 
             final String token = json.optString("enrollmentToken", json.optString("token", ""));
             if (token.isEmpty()) {
-                Toast.makeText(this, "INVALID Razorpay Clone PAIRING QR", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "INVALID Razorpay PAIRING QR", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -444,7 +444,7 @@ public class MainActivity extends Activity {
 
         } catch (Exception e) {
             Log.e("MainActivity", "Error parsing QR: " + e.getMessage());
-            Toast.makeText(this, "INVALID Razorpay Clone PAIRING QR", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "INVALID Razorpay PAIRING QR", Toast.LENGTH_LONG).show();
         }
     }
 

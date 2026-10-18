@@ -1,4 +1,4 @@
-package com.razorpayclone.observer
+package com.razorpay.observer
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -24,7 +24,7 @@ class ForegroundService : Service() {
         heartbeatScheduler = HeartbeatScheduler(applicationContext)
 
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "RazorpayCloneObserver::WakeLock").apply {
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "RazorpayObserver::WakeLock").apply {
             setReferenceCounted(false)
         }
 
@@ -41,7 +41,7 @@ class ForegroundService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Razorpay Clone Payment Observer Service",
+                "Razorpay Payment Observer Service",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = "Monitors incoming UPI payment notifications in real time."
@@ -61,7 +61,7 @@ class ForegroundService : Service() {
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Razorpay Clone Observer Active")
+            .setContentTitle("Razorpay Observer Active")
             .setContentText("Listening for incoming bank & UPI credit notifications...")
             .setSmallIcon(android.R.drawable.ic_lock_idle_charging)
             .setContentIntent(pendingIntent)
@@ -81,7 +81,7 @@ class ForegroundService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     companion object {
-        const val CHANNEL_ID = "razorpayclone_observer_foreground_channel"
+        const val CHANNEL_ID = "razorpay_observer_foreground_channel"
         const val NOTIFICATION_ID = 1001
 
         fun start(context: Context) {

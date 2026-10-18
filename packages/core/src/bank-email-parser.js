@@ -1,4 +1,4 @@
-import { toPaise } from '@razorpayclone/common';
+import { toPaise } from '@razorpay/common';
 import { extractIntelligentAmount } from './bank-sms-parser.js';
 
 export { extractIntelligentAmount };

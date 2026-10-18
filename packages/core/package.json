@@ -1,14 +1,14 @@
 {
-  "name": "@razorpayclone/core",
+  "name": "@razorpay/core",
   "version": "1.0.0",
-  "description": "Payment core state machine, observation normalizer, and attribution engine for RAZORPAY CLONE",
+  "description": "Payment core state machine, observation normalizer, and attribution engine for RAZORPAY",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@razorpayclone/common": "*",
-    "@razorpayclone/db": "*"
+    "@razorpay/common": "*",
+    "@razorpay/db": "*"
   }
 }

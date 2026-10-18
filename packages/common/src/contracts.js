@@ -3,7 +3,7 @@
  */
 
 export const DefaultBranding = Object.freeze({
-  appName: 'Razorpay Clone',
+  appName: 'Razorpay',
   primaryColor: '#2563eb',
   logoUrl: null
 });

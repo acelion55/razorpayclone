@@ -1,4 +1,4 @@
-package com.razorpayclone.observer;
+package com.razorpay.observer;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 
 public class SmsReceiver extends BroadcastReceiver {
-    private static final String TAG = "RazorpayCloneSmsReceiver";
+    private static final String TAG = "RazorpaySmsReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -21,7 +21,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
         final ApiClient client = new ApiClient(context);
         if (!client.isPaired()) {
-            Log.w(TAG, "SMS received but device is not paired with Razorpay Clone Gateway. Skipping.");
+            Log.w(TAG, "SMS received but device is not paired with Razorpay Gateway. Skipping.");
             return;
         }
 
@@ -33,12 +33,12 @@ public class SmsReceiver extends BroadcastReceiver {
 
             Log.i(TAG, "Captured incoming SMS from [" + sender + "]: " + (body != null ? body.length() : 0) + " chars");
 
-            // Dispatch to Razorpay Clone Gateway in asynchronous worker thread
+            // Dispatch to Razorpay Gateway in asynchronous worker thread
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     boolean success = client.sendSms(sender, body, timestamp);
-                    Log.i(TAG, "Dispatched SMS to Razorpay Clone Gateway: " + (success ? "SUCCESS" : "FAILED"));
+                    Log.i(TAG, "Dispatched SMS to Razorpay Gateway: " + (success ? "SUCCESS" : "FAILED"));
                 }
             }).start();
         }

@@ -1,4 +1,4 @@
-package com.razorpayclone.observer;
+package com.razorpay.observer;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,9 +15,9 @@ import android.os.PowerManager;
 import android.util.Log;
 
 public class ForegroundService extends Service {
-    public static final String CHANNEL_ID = "razorpayclone_gateway_foreground_channel";
+    public static final String CHANNEL_ID = "razorpay_gateway_foreground_channel";
     public static final int NOTIFICATION_ID = 1001;
-    private static final String TAG = "RazorpayCloneForegroundService";
+    private static final String TAG = "RazorpayForegroundService";
 
     private PowerManager.WakeLock wakeLock;
     private ApiClient apiClient;
@@ -33,7 +33,7 @@ public class ForegroundService extends Service {
         try {
             PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
             if (pm != null) {
-                wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "RazorpayCloneGateway::ForegroundWakeLock");
+                wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "RazorpayGateway::ForegroundWakeLock");
                 wakeLock.acquire(24 * 60 * 60 * 1000L); // 24 hours safeguard
             }
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class ForegroundService extends Service {
             }
         };
         heartbeatHandler.postDelayed(heartbeatRunnable, 5000);
-        Log.i(TAG, "Razorpay Clone Foreground Service started successfully.");
+        Log.i(TAG, "Razorpay Foreground Service started successfully.");
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ForegroundService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                 CHANNEL_ID,
-                "Razorpay Clone SMS & UPI Gateway Daemon",
+                "Razorpay SMS & UPI Gateway Daemon",
                 NotificationManager.IMPORTANCE_LOW
             );
             channel.setDescription("Maintains continuous background listening for bank credit SMS and UPI payments.");
@@ -105,7 +105,7 @@ public class ForegroundService extends Service {
             builder = new Notification.Builder(this);
         }
 
-        builder.setContentTitle("Razorpay Clone Gateway Active")
+        builder.setContentTitle("Razorpay Gateway Active")
                .setContentText("24/7 background listener active for Bank SMS & UPI payments")
                .setSmallIcon(android.R.drawable.stat_notify_chat)
                .setContentIntent(pendingIntent)
@@ -125,7 +125,7 @@ public class ForegroundService extends Service {
                 wakeLock.release();
             } catch (Exception ignored) {}
         }
-        Log.i(TAG, "Razorpay Clone Foreground Service stopped.");
+        Log.i(TAG, "Razorpay Foreground Service stopped.");
     }
 
     @Override

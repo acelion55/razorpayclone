@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { ObservationAttributionStatus } from '@razorpayclone/common';
+import { ObservationAttributionStatus } from '@razorpay/common';
 
 export class ObservationRepository {
   /**

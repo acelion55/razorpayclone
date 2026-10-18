@@ -1,10 +1,10 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { Database } from '@razorpayclone/db';
+import { Database } from '@razorpay/db';
 import { startServer as startPaymentApi } from '../../../../apps/payment-api/src/index.js';
-import { RazorpayClonePaymentClient, RazorpayCloneCheckout, RazorpayClone } from '../index.js';
+import { RazorpayPaymentClient, RazorpayCheckout, Razorpay } from '../index.js';
 
-describe('Universal RAZORPAY CLONE One-Script Integration Tests', () => {
+describe('Universal RAZORPAY One-Script Integration Tests', () => {
   let apiInstance;
   let testDb;
 
@@ -18,19 +18,19 @@ describe('Universal RAZORPAY CLONE One-Script Integration Tests', () => {
     testDb.close();
   });
 
-  test('SDK exports both RazorpayCloneCheckout and RazorpayClone aliases', () => {
-    assert.ok(RazorpayCloneCheckout);
-    assert.ok(RazorpayClone);
-    assert.equal(RazorpayCloneCheckout, RazorpayClone);
-    assert.equal(typeof RazorpayClone.pay, 'function');
-    assert.equal(typeof RazorpayClone.open, 'function');
-    assert.equal(typeof RazorpayClone.handleButtonClick, 'function');
+  test('SDK exports both RazorpayCheckout and Razorpay aliases', () => {
+    assert.ok(RazorpayCheckout);
+    assert.ok(Razorpay);
+    assert.equal(RazorpayCheckout, Razorpay);
+    assert.equal(typeof Razorpay.pay, 'function');
+    assert.equal(typeof Razorpay.open, 'function');
+    assert.equal(typeof Razorpay.handleButtonClick, 'function');
   });
 
-  test('RazorpayClone.pay creates payment session and resolves checkoutUrl on backend', async () => {
+  test('Razorpay.pay creates payment session and resolves checkoutUrl on backend', async () => {
     // Mock fetch for headless Node environment
     const orderId = `PAY-TEST-${Date.now()}`;
-    const instance = new RazorpayCloneCheckout({
+    const instance = new RazorpayCheckout({
       apiUrl: `http://localhost:${apiInstance.port}`,
       orderId,
       amount: '499.00',
@@ -45,7 +45,7 @@ describe('Universal RAZORPAY CLONE One-Script Integration Tests', () => {
   test('Button attribute extractor correctly parses customer and metadata attributes', () => {
     // Mock DOM button element
     const mockAttrs = {
-      'data-razorpayclone-pay': '',
+      'data-razorpay-pay': '',
       'data-order-id': 'ORD-BTN-101',
       'data-amount': '750',
       'data-currency': 'INR',

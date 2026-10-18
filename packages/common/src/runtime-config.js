@@ -102,7 +102,7 @@ export function resolveRuntimeUrls(options = {}) {
   // and the Payment API (the portal transparently proxies /api/* to the API).
   // Used for platforms like Render/Fly/Heroku that expose a single URL and cannot
   // route Cloudflare subdomains. Takes precedence when explicitly configured.
-  const singleUrl = String(options.publicUrl || process.env.RAZORPAYCLONE_PUBLIC_URL || '').trim().replace(/\/+$/, '');
+  const singleUrl = String(options.publicUrl || process.env.RAZORPAY_PUBLIC_URL || '').trim().replace(/\/+$/, '');
   if (singleUrl && /^https?:\/\//i.test(singleUrl)) {
     const publicHost = singleUrl.replace(/^https?:\/\//i, '');
     const singlePrefix = (options.prefix || options.domainPrefix || process.env.DEPLOYMENT_PREFIX || 'pay').trim().toLowerCase().replace(/[^a-z0-9-_]/g, '') || 'pay';
@@ -131,8 +131,8 @@ export function resolveRuntimeUrls(options = {}) {
 
   let mode = options.envMode;
   if (!mode) {
-    if (process.env.RAZORPAYCLONE_MODE) {
-      mode = process.env.RAZORPAYCLONE_MODE;
+    if (process.env.RAZORPAY_MODE) {
+      mode = process.env.RAZORPAY_MODE;
     } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
       mode = 'localhost';
     } else if (process.env.CLOUDFLARE_DOMAIN) {
@@ -147,7 +147,7 @@ export function resolveRuntimeUrls(options = {}) {
 
   if (mode === 'production') {
     if (!domain) {
-      if ((process.env.NODE_ENV === 'test' || process.env.RAZORPAYCLONE_MODE === 'localhost') && options.envMode !== 'production') {
+      if ((process.env.NODE_ENV === 'test' || process.env.RAZORPAY_MODE === 'localhost') && options.envMode !== 'production') {
         mode = 'localhost';
       } else {
         throw new Error('Production Configuration Incomplete: Cloudflare Domain is required when running in PRODUCTION mode.');
@@ -219,7 +219,7 @@ export function createPairingPayload(options = {}) {
 
   return {
     version: 'v1',
-    type: 'RAZORPAYCLONE_SMS_GATEWAY_PAIR',
+    type: 'RAZORPAY_SMS_GATEWAY_PAIR',
     serverUrl: serverUrl || 'http://localhost:6100',
     sessionId,
     token,
@@ -234,16 +234,16 @@ export function createPairingPayload(options = {}) {
  */
 export function validatePairingPayload(payload) {
   if (!payload || typeof payload !== 'object') {
-    return { valid: false, error: 'INVALID Razorpay Clone PAIRING QR' };
+    return { valid: false, error: 'INVALID Razorpay PAIRING QR' };
   }
-  if (payload.type !== 'RAZORPAYCLONE_SMS_GATEWAY_PAIR') {
-    return { valid: false, error: 'INVALID Razorpay Clone PAIRING QR' };
+  if (payload.type !== 'RAZORPAY_SMS_GATEWAY_PAIR') {
+    return { valid: false, error: 'INVALID Razorpay PAIRING QR' };
   }
   if (payload.version !== 'v1') {
-    return { valid: false, error: 'INVALID Razorpay Clone PAIRING QR VERSION' };
+    return { valid: false, error: 'INVALID Razorpay PAIRING QR VERSION' };
   }
   if (!payload.serverUrl || !payload.token || !payload.sessionId) {
-    return { valid: false, error: 'MALFORMED Razorpay Clone PAIRING QR: Missing required fields' };
+    return { valid: false, error: 'MALFORMED Razorpay PAIRING QR: Missing required fields' };
   }
   if (!payload.serverUrl.startsWith('http://') && !payload.serverUrl.startsWith('https://')) {
     return { valid: false, error: 'INVALID SERVER URL PROTOCOL' };

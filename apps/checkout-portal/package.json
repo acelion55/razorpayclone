@@ -1,7 +1,7 @@
 {
   "name": "checkout-portal",
   "version": "1.0.0",
-  "description": "White-label responsive customer checkout portal for RAZORPAY CLONE",
+  "description": "White-label responsive customer checkout portal for RAZORPAY",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
@@ -9,6 +9,6 @@
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@razorpayclone/common": "*"
+    "@razorpay/common": "*"
   }
 }

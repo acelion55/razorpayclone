@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { HelpServer } from './server.js';
-import { getDatabase, runMigrations } from '@razorpayclone/db';
+import { getDatabase, runMigrations } from '@razorpay/db';
 
 export function startHelpServer(port = null, options = {}) {
   const finalPort = port || Number(process.env.HELP_PORTAL_PORT || 3000);

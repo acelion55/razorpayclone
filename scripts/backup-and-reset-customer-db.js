@@ -8,7 +8,7 @@ async function backupAndResetProduction() {
   console.log('🛡️ PRODUCTION DATABASE BACKUP & SAFE IDENTITY RESET');
   console.log('====================================================');
 
-  const dbPath = path.resolve('data/razorpayclone.sqlite');
+  const dbPath = path.resolve('data/razorpay.sqlite');
   console.log('Database type: SQLite3 (better-sqlite3)');
   console.log('Database path:', dbPath);
 
@@ -23,7 +23,7 @@ async function backupAndResetProduction() {
   }
 
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const backupPath = path.join(backupDir, `razorpayclone_pre_auth_rebuild_${timestamp}.sqlite`);
+  const backupPath = path.join(backupDir, `razorpay_pre_auth_rebuild_${timestamp}.sqlite`);
   fs.copyFileSync(dbPath, backupPath);
 
   const backupStat = fs.statSync(backupPath);

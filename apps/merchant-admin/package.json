@@ -1,7 +1,7 @@
 {
   "name": "merchant-admin",
   "version": "1.0.0",
-  "description": "Merchant Administration Portal and Operational Control for RAZORPAY CLONE",
+  "description": "Merchant Administration Portal and Operational Control for RAZORPAY",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@razorpayclone/common": "*",
-    "@razorpayclone/db": "*"
+    "@razorpay/common": "*",
+    "@razorpay/db": "*"
   }
 }

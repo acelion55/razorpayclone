@@ -1,9 +1,9 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database } from '@razorpayclone/db';
+import { Database } from '@razorpay/db';
 import { startServer as startPaymentApi } from '../index.js';
-import { PaymentStatus, PaymentMethod, SellingMode } from '@razorpayclone/common';
+import { PaymentStatus, PaymentMethod, SellingMode } from '@razorpay/common';
 
 describe('Architectural Update: Selling Modes (Online vs Offline), COD Flow, & Clean VPA Config', () => {
   let apiInstance;
@@ -80,7 +80,7 @@ describe('Architectural Update: Selling Modes (Online vs Offline), COD Flow, & C
         sellingMode: 'ONLINE',
         codEnabled: true,
         branding: {
-          appName: 'Razorpay Clone Online Store',
+          appName: 'Razorpay Online Store',
           sellingMode: 'ONLINE'
         }
       }

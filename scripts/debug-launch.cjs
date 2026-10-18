@@ -72,13 +72,13 @@ async function test() {
     await new Promise(r => setTimeout(r, 2500));
 
     const check = await send('Runtime.evaluate', {
-      expression: 'document.querySelector(".razorpayclone-checkout-backdrop")?.className',
+      expression: 'document.querySelector(".razorpay-checkout-backdrop")?.className',
       returnByValue: true
     });
     console.log('[Runner] Backdrop className:', check?.value);
 
     const iframeCheck = await send('Runtime.evaluate', {
-      expression: 'document.querySelector(".razorpayclone-checkout-iframe")?.src',
+      expression: 'document.querySelector(".razorpay-checkout-iframe")?.src',
       returnByValue: true
     });
     console.log('[Runner] Iframe src:', iframeCheck?.value);

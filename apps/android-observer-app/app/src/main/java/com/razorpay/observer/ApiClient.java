@@ -1,4 +1,4 @@
-package com.razorpayclone.observer;
+package com.razorpay.observer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,8 +18,8 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 public class ApiClient {
-    private static final String TAG = "RazorpayCloneApiClient";
-    private static final String PREFS_NAME = "razorpayclone_gateway_prefs";
+    private static final String TAG = "RazorpayApiClient";
+    private static final String PREFS_NAME = "razorpay_gateway_prefs";
     private final SharedPreferences prefs;
     private final Context context;
 
@@ -102,7 +102,7 @@ public class ApiClient {
             String signature = calculateHmacSha256(sigPayload, signingKey);
 
             String response = postJson(endpoint, bodyString, deviceId, tsStr, signature);
-            Log.i(TAG, "SMS dispatched to Razorpay Clone Gateway: " + (response != null ? "OK" : "FAILED"));
+            Log.i(TAG, "SMS dispatched to Razorpay Gateway: " + (response != null ? "OK" : "FAILED"));
             return response != null;
         } catch (Exception e) {
             Log.e(TAG, "sendSms error: " + e.getMessage(), e);

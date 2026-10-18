@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { BrowserLauncher } from '@razorpayclone/observer-sdk';
+import { BrowserLauncher } from '@razorpay/observer-sdk';
 import { BankSmsParser } from './sms-parser.js';
 
 const __filename = fileURLToPath(import.meta.url);

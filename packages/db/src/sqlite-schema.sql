@@ -1,4 +1,4 @@
--- SQLite Schema for Razorpay Clone
+-- SQLite Schema for Razorpay
 -- Native Local / Zero-Dependency Execution
 
 -- 1. Merchants Table
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS merchants (
     contact_phone TEXT NOT NULL,
     webhook_url TEXT,
     webhook_secret TEXT NOT NULL,
-    branding TEXT NOT NULL DEFAULT '{"primaryColor":"#2563eb","appName":"Razorpay Clone","logoUrl":null}',
+    branding TEXT NOT NULL DEFAULT '{"primaryColor":"#2563eb","appName":"Razorpay","logoUrl":null}',
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );

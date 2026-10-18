@@ -1,13 +1,13 @@
 import { HttpServer } from '../server.js';
-import { generateFingerprintHash, normalizeDeviceSignals, verifyDeviceSignature } from '@razorpayclone/core';
+import { generateFingerprintHash, normalizeDeviceSignals, verifyDeviceSignature } from '@razorpay/core';
 
 /**
  * Registers device identity and cryptographic binding routes.
  * @param {HttpServer} server
  * @param {{
- *   deviceRepo: import('@razorpayclone/db').DeviceRepository,
- *   customerRepo: import('@razorpayclone/db').CustomerRepository,
- *   auditRepo?: import('@razorpayclone/db').AuditLogRepository
+ *   deviceRepo: import('@razorpay/db').DeviceRepository,
+ *   customerRepo: import('@razorpay/db').CustomerRepository,
+ *   auditRepo?: import('@razorpay/db').AuditLogRepository
  * }} ctx
  */
 export function registerDeviceRoutes(server, ctx) {

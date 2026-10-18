@@ -1,10 +1,10 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database, CustomerRepository, PaymentSessionRepository, MerchantRepository } from '@razorpayclone/db';
+import { Database, CustomerRepository, PaymentSessionRepository, MerchantRepository } from '@razorpay/db';
 import { startServer as startPaymentApi } from '../index.js';
 
-describe('RAZORPAY CLONE: Device Binding & Duplicate Session Detection', () => {
+describe('RAZORPAY: Device Binding & Duplicate Session Detection', () => {
   let apiInstance;
   let baseUrl;
   let testDb;

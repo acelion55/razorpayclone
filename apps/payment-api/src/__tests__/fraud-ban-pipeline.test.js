@@ -1,12 +1,12 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database, CustomerRepository, PaymentSessionRepository, MerchantRepository, AuditLogRepository, ObservationRepository } from '@razorpayclone/db';
-import { extractIntelligentAmount, BankSmsParser, PaymentVerificationPipeline } from '@razorpayclone/core';
+import { Database, CustomerRepository, PaymentSessionRepository, MerchantRepository, AuditLogRepository, ObservationRepository } from '@razorpay/db';
+import { extractIntelligentAmount, BankSmsParser, PaymentVerificationPipeline } from '@razorpay/core';
 import { startServer as startPaymentApi } from '../index.js';
-import { PaymentStatus, PaymentMethod } from '@razorpayclone/common';
+import { PaymentStatus, PaymentMethod } from '@razorpay/common';
 
-describe('RAZORPAY CLONE: Parser Rule Correction & Exact Fraud/Ban System (All 29 Acceptance Tests)', () => {
+describe('RAZORPAY: Parser Rule Correction & Exact Fraud/Ban System (All 29 Acceptance Tests)', () => {
   let apiInstance;
   let baseUrl;
   let testDb;
@@ -359,7 +359,7 @@ describe('RAZORPAY CLONE: Parser Rule Correction & Exact Fraud/Ban System (All 2
       mobileNumber: '+919876543210'
     });
     const session = createActiveSession('ORD-FRAUD-14', 49900n, cust.id);
-    const rawFakeMessage = 'A/C credited with Rs 499.00 UPI Ref 112233445566 to Razorpay Clone STORE';
+    const rawFakeMessage = 'A/C credited with Rs 499.00 UPI Ref 112233445566 to Razorpay STORE';
 
     const result = pipeline.process({
       source: 'SMS',
@@ -732,7 +732,7 @@ describe('RAZORPAY CLONE: Parser Rule Correction & Exact Fraud/Ban System (All 2
       body: {
         source: 'SMS',
         sender: '+919876543230',
-        rawText: 'A/C credited with Rs 499.00 UPI Ref 112233445566 to Razorpay Clone STORE'
+        rawText: 'A/C credited with Rs 499.00 UPI Ref 112233445566 to Razorpay STORE'
       }
     });
 
@@ -778,7 +778,7 @@ describe('RAZORPAY CLONE: Parser Rule Correction & Exact Fraud/Ban System (All 2
       body: {
         source: 'GMAIL',
         sender: 'fakeemail31@test.com',
-        rawText: 'Your account has been credited with ₹999.00 ref 998877665544 to Razorpay Clone STORE'
+        rawText: 'Your account has been credited with ₹999.00 ref 998877665544 to Razorpay STORE'
       }
     });
 

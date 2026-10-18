@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Customer Account · Razorpay Clone Store</title>
+  <title>Customer Account · Razorpay Store</title>
   <style>
     :root {
       --bg: #090d16;
@@ -154,7 +154,7 @@
 <header>
   <a href="/" class="brand">
     <span class="brand-icon">⚡</span>
-    <span>Razorpay Clone Store</span>
+    <span>Razorpay Store</span>
   </a>
   <a href="/" class="btn btn-buy" style="padding:0.45rem 1rem; font-size:0.85rem; text-decoration:none;">
     ← Back to Store
@@ -208,7 +208,7 @@
   </div>
 </main>
 
-<!-- Quick Pack Chooser Modal (Directly opens Razorpay Clone Drawer) -->
+<!-- Quick Pack Chooser Modal (Directly opens Razorpay Drawer) -->
 <div class="quick-modal" id="quickModal">
   <div class="quick-modal-card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
@@ -250,8 +250,8 @@
   </div>
 </div>
 
-<!-- Universal RAZORPAY CLONE Integration SDK -->
-<script src="/razorpayclone.js"></script>
+<!-- Universal RAZORPAY Integration SDK -->
+<script src="/razorpay.js"></script>
 
 <script>
   const urlParams = new URLSearchParams(window.location.search);
@@ -307,12 +307,12 @@
       const data = await res.json();
 
       if (res.ok && data.checkoutUrl) {
-        if (window.RazorpayClone) {
-          RazorpayClone.pay({
+        if (window.Razorpay) {
+          Razorpay.pay({
             checkoutUrl: data.checkoutUrl,
             order_id: data.orderId,
             amount: price,
-            name: 'Razorpay Clone Store',
+            name: 'Razorpay Store',
             description: `${packName}`,
             handler: async function(paymentResponse) {
               // Direct instant credit

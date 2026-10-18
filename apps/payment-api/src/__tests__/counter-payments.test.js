@@ -1,9 +1,9 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { Database } from '@razorpayclone/db';
+import { Database } from '@razorpay/db';
 import { startServer as startPaymentApi } from '../index.js';
-import { PaymentStatus, PaymentMethod } from '@razorpayclone/common';
+import { PaymentStatus, PaymentMethod } from '@razorpay/common';
 
 describe('Phase 15: Counter Payments (Cash & Card at Counter)', () => {
   let apiInstance;

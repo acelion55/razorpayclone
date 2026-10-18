@@ -1,9 +1,9 @@
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { Database } from '@razorpayclone/db';
+import { Database } from '@razorpay/db';
 import { startServer as startPaymentApi } from '../../../../apps/payment-api/src/index.js';
-import { RazorpayClonePaymentClient } from '../index.js';
-import { generateHmac } from '@razorpayclone/common';
+import { RazorpayPaymentClient } from '../index.js';
+import { generateHmac } from '@razorpay/common';
 
 describe('Merchant SDK Integration Tests', () => {
   let apiInstance;
@@ -21,7 +21,7 @@ describe('Merchant SDK Integration Tests', () => {
       '00000000-0000-0000-0000-000000000001'
     ]);
 
-    client = new RazorpayClonePaymentClient({
+    client = new RazorpayPaymentClient({
       apiUrl: `http://localhost:${apiInstance.port}`,
       merchantId: '00000000-0000-0000-0000-000000000001',
       webhookSecret: merchantSecret

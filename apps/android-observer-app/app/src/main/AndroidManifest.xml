@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.razorpayclone.observer"
+    package="com.razorpay.observer"
     android:versionCode="1"
     android:versionName="1.0.0">
 
@@ -31,13 +31,13 @@
 
     <application
         android:allowBackup="false"
-        android:label="Razorpay Clone SMS Gateway"
+        android:label="Razorpay SMS Gateway"
         android:icon="@android:drawable/stat_notify_chat"
         android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar"
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.razorpayclone.observer.MainActivity"
+            android:name="com.razorpay.observer.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
@@ -48,21 +48,21 @@
         </activity>
 
         <activity
-            android:name="com.razorpayclone.observer.QrScannerActivity"
+            android:name="com.razorpay.observer.QrScannerActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <!-- Ongoing Sticky Background Daemon Service -->
         <service
-            android:name="com.razorpayclone.observer.ForegroundService"
+            android:name="com.razorpay.observer.ForegroundService"
             android:exported="false"
             android:foregroundServiceType="dataSync|specialUse" />
 
         <!-- Notification Listener Service for UPI Apps -->
         <service
-            android:name="com.razorpayclone.observer.PaymentNotificationListenerService"
-            android:label="Razorpay Clone Payment Observer Service"
+            android:name="com.razorpay.observer.PaymentNotificationListenerService"
+            android:label="Razorpay Payment Observer Service"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
             android:exported="true">
             <intent-filter>
@@ -72,7 +72,7 @@
 
         <!-- High-Priority SMS Broadcast Receiver -->
         <receiver
-            android:name="com.razorpayclone.observer.SmsReceiver"
+            android:name="com.razorpay.observer.SmsReceiver"
             android:permission="android.permission.BROADCAST_SMS"
             android:exported="true">
             <intent-filter android:priority="999">
@@ -82,7 +82,7 @@
 
         <!-- Auto-launch on Phone Reboot -->
         <receiver
-            android:name="com.razorpayclone.observer.BootReceiver"
+            android:name="com.razorpay.observer.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

@@ -1,4 +1,4 @@
-import { ObserverSource, ObservationAttributionStatus, toPaise, calculateObservationFingerprint } from '@razorpayclone/common';
+import { ObserverSource, ObservationAttributionStatus, toPaise, calculateObservationFingerprint } from '@razorpay/common';
 
 /**
  * Intelligent Monetary Amount Extractor.

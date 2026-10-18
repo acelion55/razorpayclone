@@ -1,4 +1,4 @@
-import { toPaise } from '@razorpayclone/common';
+import { toPaise } from '@razorpay/common';
 
 /**
  * Intelligent Monetary Amount Extractor for Indian UPI & Bank SMS.

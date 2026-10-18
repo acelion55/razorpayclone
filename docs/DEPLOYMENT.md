@@ -1,6 +1,6 @@
-# RAZORPAY CLONE V2 — Deployment & Installation Guide
+# RAZORPAY V2 — Deployment & Installation Guide
 
-This document describes how to deploy and run the clean distributable **RAZORPAY CLONE V2** package.
+This document describes how to deploy and run the clean distributable **RAZORPAY V2** package.
 
 ---
 
@@ -11,7 +11,7 @@ This document describes how to deploy and run the clean distributable **RAZORPAY
 - **Package Manager**: `npm` (included with Node.js).
 - **Network Ports**:
   - `6100`: Payment Core API
-  - `7000`: Checkout Portal & `razorpayclone.js` SDK host
+  - `7000`: Checkout Portal & `razorpay.js` SDK host
   - `6001`: Merchant Admin Panel
   - `5000`: Demo Coin Wallet Store (Reference Implementation)
   - `6002`: SMS Observer
@@ -25,7 +25,7 @@ This document describes how to deploy and run the clean distributable **RAZORPAY
 ### Step 1: Extract / Clone Package
 Ensure you are in the package root directory:
 ```bash
-cd "RAZORPAY CLONE PACKAGE"
+cd "RAZORPAY PACKAGE"
 ```
 
 ### Step 2: Configure Environment
@@ -49,7 +49,7 @@ Run the automated database setup to initialize schema and seed the default merch
 ```bash
 npm run db:setup
 ```
-*(Creates `data/razorpayclone.sqlite` in clean state with 0 transactions).*
+*(Creates `data/razorpay.sqlite` in clean state with 0 transactions).*
 
 ### Step 5: Start the System
 
@@ -70,9 +70,9 @@ Starts services in background daemon mode.
 ## 3. Verifying Your Installation
 
 1. **Checkout Portal & SDK**:
-   Open `http://localhost:7000/razorpayclone.js` — you should see the official JavaScript SDK.
+   Open `http://localhost:7000/razorpay.js` — you should see the official JavaScript SDK.
 2. **Demo Store**:
-   Open `http://localhost:5000` — you should see the reference Razorpay Clone Store with the interactive buy button and Developer Guide.
+   Open `http://localhost:5000` — you should see the reference Razorpay Store with the interactive buy button and Developer Guide.
 3. **Merchant Admin**:
    Open `http://localhost:6001` and log in with your admin credentials from `.env`.
    Configure your active UPI ID and payee name in the Receiving Accounts tab.

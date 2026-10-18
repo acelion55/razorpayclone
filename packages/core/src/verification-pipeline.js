@@ -6,7 +6,7 @@ import {
   toPaise,
   normalizeEmail,
   normalizeMobile
-} from '@razorpayclone/common';
+} from '@razorpay/common';
 import { extractIntelligentAmount } from './bank-sms-parser.js';
 import { ObservationNormalizer } from './normalizer.js';
 
@@ -81,13 +81,13 @@ const FRAUD_PATTERNS = [
 export class PaymentVerificationPipeline {
   /**
    * @param {{
-   *   db: import('@razorpayclone/db').Database,
-   *   sessionRepo: import('@razorpayclone/db').PaymentSessionRepository,
-   *   obsRepo: import('@razorpayclone/db').ObservationRepository,
-   *   customerRepo?: import('@razorpayclone/db').CustomerRepository,
+   *   db: import('@razorpay/db').Database,
+   *   sessionRepo: import('@razorpay/db').PaymentSessionRepository,
+   *   obsRepo: import('@razorpay/db').ObservationRepository,
+   *   customerRepo?: import('@razorpay/db').CustomerRepository,
    *   attributionEngine: import('./attribution-engine.js').AttributionEngine,
-   *   auditRepo?: import('@razorpayclone/db').AuditLogRepository,
-   *   merchantRepo?: import('@razorpayclone/db').MerchantRepository
+   *   auditRepo?: import('@razorpay/db').AuditLogRepository,
+   *   merchantRepo?: import('@razorpay/db').MerchantRepository
    * }} options
    */
   constructor(options) {
@@ -362,7 +362,7 @@ export class PaymentVerificationPipeline {
       // Universal Bank Identifier: Email domain ends with .bank.in (e.g. alerts@hdfc.bank.in, example@example.bank.in)
       const isBankDomain = emailDomain.endsWith('.bank.in') || emailDomain === 'bank.in';
       // In automated test suite or local dev, allow TEST sender and legacy test fixture domains
-      const isValidDomain = isBankDomain || sender === 'TEST' || cleanEmail === 'TEST' || sender === 'gmail-browser-automator' || emailDomain.endsWith('.razorpayclone.local') || emailDomain === 'hdfcbank.net';
+      const isValidDomain = isBankDomain || sender === 'TEST' || cleanEmail === 'TEST' || sender === 'gmail-browser-automator' || emailDomain.endsWith('.razorpay.local') || emailDomain === 'hdfcbank.net';
 
       if (!isValidDomain) {
         if (!isAttributableToCustomer) {

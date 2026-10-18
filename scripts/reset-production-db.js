@@ -8,7 +8,7 @@ async function resetProductionDatabase() {
   console.log('🚀 TARGETED PRODUCTION DATABASE RESET');
   console.log('============================================================');
 
-  const prodDbPath = path.resolve(process.cwd(), 'data/razorpayclone.sqlite');
+  const prodDbPath = path.resolve(process.cwd(), 'data/razorpay.sqlite');
   console.log('Target Database Path:', prodDbPath);
 
   if (!fs.existsSync(prodDbPath)) {

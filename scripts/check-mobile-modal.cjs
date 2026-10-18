@@ -57,7 +57,7 @@ async function check() {
 
     const res = await send('Runtime.evaluate', {
       expression: `(() => {
-        const c = document.querySelector(".razorpayclone-checkout-container");
+        const c = document.querySelector(".razorpay-checkout-container");
         if (!c) return { found: false };
         const rect = c.getBoundingClientRect();
         return {

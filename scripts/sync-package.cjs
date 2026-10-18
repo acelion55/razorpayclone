@@ -1,6 +1,6 @@
 /**
- * RAZORPAY CLONE V2 — Safe Package Synchronization Script
- * Synchronizes from the master repo (repo_clone) to the clean distributable package (RAZORPAY CLONE PACKAGE).
+ * RAZORPAY V2 — Safe Package Synchronization Script
+ * Synchronizes from the master repo (repo_clone) to the clean distributable package (RAZORPAY PACKAGE).
  * 
  * Rules:
  * - repo_clone is the sole Source of Truth.
@@ -15,13 +15,13 @@ const path = require('node:path');
 // Root master directory (repo_clone)
 const SOURCE_DIR = path.resolve(__dirname, '..');
 
-// Default target directory: ../RAZORPAY CLONE PACKAGE
+// Default target directory: ../RAZORPAY PACKAGE
 const TARGET_DIR = process.env.TARGET_PACKAGE_DIR || 
   process.argv[2] || 
-  path.resolve(SOURCE_DIR, '..', 'RAZORPAY CLONE PACKAGE');
+  path.resolve(SOURCE_DIR, '..', 'RAZORPAY PACKAGE');
 
 console.log('============================================================');
-console.log('📦 RAZORPAY CLONE V2 — PACKAGE SYNCHRONIZATION');
+console.log('📦 RAZORPAY V2 — PACKAGE SYNCHRONIZATION');
 console.log('============================================================');
 console.log(`[Source Master] : ${SOURCE_DIR}`);
 console.log(`[Target Package]: ${TARGET_DIR}`);
@@ -208,7 +208,7 @@ console.log('\n[→] Verifying package integrity and sanitation...');
 const forbiddenItems = [
   '.env',
   '.env.production',
-  'data/razorpayclone.sqlite',
+  'data/razorpay.sqlite',
   'berrysdk.db',
   '.berry-sessions',
   '.claude',
@@ -233,8 +233,8 @@ const requiredItems = [
   'README.md',
   'docs/DEVELOPER_INTEGRATION.md',
   'docs/DEPLOYMENT.md',
-  'packages/merchant-sdk/src/razorpayclone.js',
-  'apps/checkout-portal/src/sdk/razorpayclone.js',
+  'packages/merchant-sdk/src/razorpay.js',
+  'apps/checkout-portal/src/sdk/razorpay.js',
   'apps/coin-wallet-store/src/server.js',
   'apps/coin-wallet-store/src/order-success.html',
   'apps/coin-wallet-store/src/order-failed.html',

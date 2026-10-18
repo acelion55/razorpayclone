@@ -11,25 +11,25 @@ const PORT = Number(process.env.PORT || 10000);
 const API_PORT = Number(process.env.PAYMENT_API_PORT || 6100);
 
 const resolvedPublicUrl = (
-  process.env.RAZORPAYCLONE_PUBLIC_URL
+  process.env.RAZORPAY_PUBLIC_URL
   || process.env.RENDER_EXTERNAL_URL
   || (process.env.RENDER_EXTERNAL_HOSTNAME ? `https://${process.env.RENDER_EXTERNAL_HOSTNAME}` : '')
 ).trim().replace(/\/+$/, '');
 
 if (!resolvedPublicUrl) {
   console.error('\n[render] FATAL: Could not determine the public URL.');
-  console.error('[render] Set RAZORPAYCLONE_PUBLIC_URL (e.g. https://razorpayclone.onrender.com).\n');
+  console.error('[render] Set RAZORPAY_PUBLIC_URL (e.g. https://razorpay.onrender.com).\n');
   process.exit(1);
 }
 
-process.env.RAZORPAYCLONE_PUBLIC_URL = resolvedPublicUrl;
+process.env.RAZORPAY_PUBLIC_URL = resolvedPublicUrl;
 process.env.BASE_CHECKOUT_URL = resolvedPublicUrl;
 process.env.BASE_PAYMENT_API_URL = `http://127.0.0.1:${API_PORT}`;
 process.env.PAYMENT_API_PORT = String(API_PORT);
 process.env.CHECKOUT_PORTAL_PORT = String(PORT);
 
 console.log('====================================================');
-console.log('🚀 RAZORPAY CLONE V2 — Single-URL (Render) Gateway');
+console.log('🚀 RAZORPAY V2 — Single-URL (Render) Gateway');
 console.log('====================================================');
 console.log(`[✓] Public URL    : ${resolvedPublicUrl}`);
 console.log(`[✓] Checkout/API  : 0.0.0.0:${PORT}  (checkout portal, /api proxied internally)`);
@@ -86,5 +86,5 @@ console.log('[2/2] Starting services...');
 launch('payment-api', 'apps/payment-api/src/index.js');
 launch('checkout-portal', 'apps/checkout-portal/src/index.js');
 
-console.log('\n🟢 RAZORPAY CLONE V2 ONLINE (single-URL mode).');
+console.log('\n🟢 RAZORPAY V2 ONLINE (single-URL mode).');
 console.log('Press Ctrl+C to stop all services gracefully.');

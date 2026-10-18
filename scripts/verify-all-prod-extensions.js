@@ -12,7 +12,7 @@ import {
 } from '../packages/common/src/index.js';
 
 async function verifyProductionExtensions() {
-  const dbPath = path.resolve(process.cwd(), 'data/razorpayclone.sqlite');
+  const dbPath = path.resolve(process.cwd(), 'data/razorpay.sqlite');
   console.log('============================================================');
   console.log(`🔍 VERIFYING PRODUCTION EXTENSIONS (${dbPath})`);
   console.log('============================================================');

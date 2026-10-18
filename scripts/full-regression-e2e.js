@@ -22,7 +22,7 @@ async function runFullRegression() {
   console.log('🧪 RUNNING FULL REGRESSION & DYNAMIC VERIFICATION SUITE');
   console.log('============================================================');
 
-  const dbPath = path.resolve(process.cwd(), 'data/razorpayclone.sqlite');
+  const dbPath = path.resolve(process.cwd(), 'data/razorpay.sqlite');
   const prodDb = new Database({ dbPath });
   runMigrations(prodDb);
   const accountRepo = new ReceivingAccountRepository(prodDb);

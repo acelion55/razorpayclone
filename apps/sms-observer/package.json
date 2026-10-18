@@ -1,7 +1,7 @@
 {
   "name": "sms-observer",
   "version": "1.0.0",
-  "description": "Google Messages / SMS Payment Observer Service for RAZORPAY CLONE",
+  "description": "Google Messages / SMS Payment Observer Service for RAZORPAY",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@razorpayclone/common": "*",
-    "@razorpayclone/observer-sdk": "*"
+    "@razorpay/common": "*",
+    "@razorpay/observer-sdk": "*"
   }
 }

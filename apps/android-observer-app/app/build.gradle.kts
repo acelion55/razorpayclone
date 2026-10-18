@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.razorpayclone.observer"
+    namespace = "com.razorpay.observer"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.razorpayclone.observer"
+        applicationId = "com.razorpay.observer"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

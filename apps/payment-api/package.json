@@ -1,7 +1,7 @@
 {
   "name": "payment-api",
   "version": "1.0.0",
-  "description": "Central Payment REST API and SSE Engine for RAZORPAY CLONE",
+  "description": "Central Payment REST API and SSE Engine for RAZORPAY",
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
@@ -9,9 +9,9 @@
     "test": "node --test src/__tests__/**/*.test.js"
   },
   "dependencies": {
-    "@razorpayclone/common": "*",
-    "@razorpayclone/core": "*",
-    "@razorpayclone/db": "*",
+    "@razorpay/common": "*",
+    "@razorpay/core": "*",
+    "@razorpay/db": "*",
     "berryprotocol": "^0.1.10",
     "qrcode": "^1.5.4"
   }
